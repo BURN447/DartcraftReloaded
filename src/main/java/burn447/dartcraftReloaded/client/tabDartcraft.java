@@ -1,0 +1,21 @@
+package burn447.dartcraftReloaded.client;
+
+import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.dartcraftReloaded;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+
+/**
+ * Created by BURN447 on 2/4/2018.
+ */
+public class tabDartcraft extends CreativeTabs {
+
+    public tabDartcraft(){
+        super(dartcraftReloaded.modId);
+    }
+
+    @Override
+    public ItemStack getTabIconItem(){
+        return new ItemStack(ModItems.gemForceGem);
+    }
+}
