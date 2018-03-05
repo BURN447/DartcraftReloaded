@@ -1,4 +1,5 @@
 package burn447.dartcraftReloaded.Blocks;
+
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
@@ -17,9 +18,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
-import javax.annotation.Nonnull;
 
 
 public class BlockForceLeaves extends BlockLeaves {

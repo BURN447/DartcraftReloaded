@@ -1,19 +1,9 @@
 package burn447.dartcraftReloaded.Blocks;
 
-import burn447.dartcraftReloaded.Blocks.tileEntity.BlockPedestal;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * Created by BURN447 on 2/4/2018.

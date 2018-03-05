@@ -1,14 +1,8 @@
 package burn447.dartcraftReloaded.Items;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
-import net.minecraft.client.Minecraft;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHandSide;
-import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistry;
 
 /**

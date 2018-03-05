@@ -2,7 +2,6 @@ package burn447.dartcraftReloaded.Items;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 
 /**
  * Created by BURN447 on 3/4/2018.
