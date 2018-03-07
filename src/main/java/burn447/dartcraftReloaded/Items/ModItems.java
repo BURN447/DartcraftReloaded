@@ -21,6 +21,7 @@ public class ModItems {
     public static ItemArmor forceLegs = new ItemArmor(dartcraftReloaded.forceArmorMaterial, EntityEquipmentSlot.LEGS, "force_legs");
     public static ItemArmor forceBoots = new ItemArmor(dartcraftReloaded.forceArmorMaterial, EntityEquipmentSlot.FEET, "force_boots");
     public static ItemForceRod forceRod = new ItemForceRod("force_rod");
+    public static ItemForceWrench forceWrench = new ItemForceWrench("force_wrench");
 
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
@@ -34,7 +35,8 @@ public class ModItems {
                 forceChest,
                 forceLegs,
                 forceBoots,
-                forceRod
+                forceRod,
+                forceWrench
         );
     }
 
@@ -50,5 +52,6 @@ public class ModItems {
         forceLegs.registerItemModel();
         forceBoots.registerItemModel();
         forceRod.registerItemModel();
+        forceWrench.registerItemModel();
     }
 }
