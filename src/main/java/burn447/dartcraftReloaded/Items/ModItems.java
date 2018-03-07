@@ -1,8 +1,10 @@
 package burn447.dartcraftReloaded.Items;
 
+import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBow;
 import net.minecraftforge.registries.IForgeRegistry;
 
 /**
@@ -22,6 +24,12 @@ public class ModItems {
     public static ItemArmor forceBoots = new ItemArmor(dartcraftReloaded.forceArmorMaterial, EntityEquipmentSlot.FEET, "force_boots");
     public static ItemForceRod forceRod = new ItemForceRod("force_rod");
     public static ItemForceWrench forceWrench = new ItemForceWrench("force_wrench");
+    public static ItemSword forceSword = new ItemSword(dartcraftReloaded.forceToolMaterial, "force_sword");
+    public static ItemAxe forceAxe = new ItemAxe(dartcraftReloaded.forceToolMaterial, "force_axe");
+    public static ItemPickaxe forcePickaxe = new ItemPickaxe(dartcraftReloaded.forceToolMaterial, "force_pickaxe");
+    public static ItemShovel forceShovel = new ItemShovel(dartcraftReloaded.forceToolMaterial, "force_shovel");
+    public static ItemBow forceBow = new ItemBow();
+    public static ItemShears forceShears = new ItemShears(dartcraftReloaded.forceToolMaterial, "force_shears");
 
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
@@ -36,7 +44,13 @@ public class ModItems {
                 forceLegs,
                 forceBoots,
                 forceRod,
-                forceWrench
+                forceWrench,
+                forceShears,
+                forceShovel,
+                forceSword,
+                forceAxe,
+                forcePickaxe,
+                forceBow
         );
     }
 
