@@ -4,6 +4,7 @@ import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.client.tabDartcraft;
 import burn447.dartcraftReloaded.proxy.CommonProxy;
+import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.world.DCRWorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
@@ -21,15 +22,15 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import static burn447.dartcraftReloaded.util.References.modId;
+
 /**
  * Created by BURN447 on 2/4/2018.
  */
 
-@Mod(modid = dartcraftReloaded.modId, name = dartcraftReloaded.name, version = dartcraftReloaded.version)
+@Mod(modid = modId, name = References.name, version = References.version)
 public class dartcraftReloaded {
-    public static final String modId = "dartcraftreloaded";
-    public static final String name = "Dartcraft Reloaded";
-    public static final String version = "1.0.0";
+
 
     public static final tabDartcraft creativeTab = new tabDartcraft();
 
