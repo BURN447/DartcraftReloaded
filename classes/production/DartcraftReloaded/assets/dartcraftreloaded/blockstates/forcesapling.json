@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "stage=0": { "model": "dartcraftreloaded:forcesapling" },
+    "stage=1": { "model": "dartcraftreloaded:forcesapling" },
+    "normal": { "model": "dartcraftreloaded:forcesapling" },
+    "inventory": { "model": "dartcraftreloaded:forcesapling" }
+  }
+}
