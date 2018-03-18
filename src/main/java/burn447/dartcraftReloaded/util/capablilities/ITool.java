@@ -1,13 +1,12 @@
 package burn447.dartcraftReloaded.util.capablilities;
 
-import burn447.dartcraftReloaded.util.References;
-import net.minecraft.item.ItemStack;
+import burn447.dartcraftReloaded.util.References.*;
 
 /**
  * Created by BURN447 on 3/18/2018.
  */
 public interface ITool {
 
-    void addModifier(References.MODIFIERS mod, ItemStack tool);
+    void addModifier(MODIFIERS mod, ITEMTYPE tool);
 
 }
