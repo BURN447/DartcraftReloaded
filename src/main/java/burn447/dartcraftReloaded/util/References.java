@@ -5,7 +5,7 @@ package burn447.dartcraftReloaded.util;
  */
 public class References {
 
-    public enum MODIFIERS{
+    public enum MODIFIERS {
         MOD_SPEED,
         MOD_EXP,
         MOD_CHARGE,
@@ -32,6 +32,20 @@ public class References {
         MOD_GRINDING,
         MOD_REPAIR,
         MOD_WING
+    }
+
+    public enum ITEMTYPE {
+        TOOL_PICK,
+        TOOL_SWORD,
+        TOOL_SPADE,
+        TOOL_AXE,
+        TOOL_SHEARS,
+        TOOL_BOW,
+        TOOL_CLAWS,
+        ARMOR_HELM,
+        ARMOR_CHEST,
+        ARMOR_LEGS,
+        ARMOR_BOOTS
     }
 
     public static final String modId = "dartcraftreloaded";
