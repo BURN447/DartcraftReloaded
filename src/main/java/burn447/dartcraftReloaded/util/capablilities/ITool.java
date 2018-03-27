@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.util.capablilities;
 
+import burn447.dartcraftReloaded.Items.Tools.ItemToolBase;
 import burn447.dartcraftReloaded.util.References.*;
 
 /**
@@ -7,6 +8,6 @@ import burn447.dartcraftReloaded.util.References.*;
  */
 public interface ITool {
 
-    void addModifier(MODIFIERS mod, ITEMTYPE tool);
+    void addModifier(MODIFIERS mod, ITEMTYPE tool, ItemToolBase toolItem);
 
 }

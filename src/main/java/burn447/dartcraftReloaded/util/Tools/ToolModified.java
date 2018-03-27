@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.util.Tools;
 
+import burn447.dartcraftReloaded.Items.Tools.ItemToolBase;
 import burn447.dartcraftReloaded.util.References.*;
 import burn447.dartcraftReloaded.util.capablilities.ITool;
 
@@ -8,75 +9,92 @@ import burn447.dartcraftReloaded.util.capablilities.ITool;
  */
 public class ToolModified implements ITool {
 
-    public void addModifier(MODIFIERS mod, ITEMTYPE tool){
+    public void addModifier(MODIFIERS mod, ITEMTYPE tool, ItemToolBase toolItem){
         switch(tool){
             case TOOL_AXE:
-                axeMod(mod);
+                axeMod(mod, toolItem);
                 break;
             case TOOL_BOW:
-                bowMod(mod);
+                bowMod(mod, toolItem);
                 break;
             case TOOL_CLAWS:
-                clawMod(mod);
+                clawMod(mod, toolItem);
                 break;
             case TOOL_PICK:
-                pickMod(mod);
+                pickMod(mod, toolItem);
                 break;
             case TOOL_SHEARS:
-                shearMod(mod);
+                shearMod(mod, toolItem);
                 break;
             case TOOL_SPADE:
-                spadeMod(mod);
+                spadeMod(mod, toolItem);
                 break;
             case ARMOR_HELM:
-                helmMod(mod);
+                helmMod(mod, toolItem);
                 break;
             case ARMOR_LEGS:
-                legMod(mod);
+                legMod(mod, toolItem);
                 break;
             case TOOL_SWORD:
-                swordMod(mod);
+                swordMod(mod, toolItem);
                 break;
             case ARMOR_BOOTS:
-                bootMod(mod);
+                bootMod(mod, toolItem);
                 break;
             case ARMOR_CHEST:
-                chestMod(mod);
+                chestMod(mod, toolItem);
                 break;
         }
     }
 
-    public void axeMod(MODIFIERS mod){
+    public void axeMod(MODIFIERS mod, ItemToolBase toolItem){
+        switch(mod){
+            case MOD_SPEED:
+                break;
+            case MOD_LUMBERJACK:
+                break;
+            case MOD_HEAT:
+                break;
+            case MOD_LUCK:
+                break;
+            case MOD_GRINDING:
+                break;
+            case MOD_TOUCH:
+                break;
+            case MOD_STURDY:
+                break;
+            case MOD_REPAIR:
+                break;
+        }
+    }
+    public void bowMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
-    public void bowMod(MODIFIERS mod){
+    public void clawMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
-    public void clawMod(MODIFIERS mod){
+    public void pickMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
-    public void pickMod(MODIFIERS mod){
+    public void shearMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
-    public void shearMod(MODIFIERS mod){
+    public void spadeMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
-    public void spadeMod(MODIFIERS mod){
+    public void helmMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
-    public void helmMod(MODIFIERS mod){
+    public void legMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
-    public void legMod(MODIFIERS mod){
+    public void swordMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
-    public void swordMod(MODIFIERS mod){
+    public void bootMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
-    public void bootMod(MODIFIERS mod){
-
-    }
-    public void chestMod(MODIFIERS mod){
+    public void chestMod(MODIFIERS mod, ItemToolBase toolItem){
 
     }
 }
