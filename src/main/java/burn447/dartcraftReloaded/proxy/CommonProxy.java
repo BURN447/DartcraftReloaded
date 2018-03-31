@@ -2,6 +2,7 @@ package burn447.dartcraftReloaded.proxy;
 
 import net.minecraft.item.Item;
 import net.minecraft.util.text.translation.I18n;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Created by BURN447 on 2/4/2018.

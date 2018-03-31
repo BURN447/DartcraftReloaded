@@ -75,6 +75,7 @@ public class dartcraftReloaded {
             ModItems.registerModels();
             ModBlocks.registerModels();
         }
+
     }
 
 }
