@@ -1,5 +1,7 @@
 package burn447.dartcraftReloaded.proxy;
 
+import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
+import burn447.dartcraftReloaded.util.References;
 import net.minecraft.item.Item;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -13,5 +15,9 @@ public class CommonProxy {
 
     public String localize(String unlocalized, Object... args) {
         return I18n.translateToLocalFormatted(unlocalized, args);
+    }
+
+    public void registerTileEntities(){
+        GameRegistry.registerTileEntity(TileEntityInfuser.class, References.modId + ":blockInfuser");
     }
 }

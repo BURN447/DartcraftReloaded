@@ -2,8 +2,10 @@ package burn447.dartcraftReloaded;
 
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.client.gui.GUIHandler;
 import burn447.dartcraftReloaded.client.tabDartcraft;
 import burn447.dartcraftReloaded.proxy.CommonProxy;
+import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.world.DCRWorldGen;
 import net.minecraft.block.Block;
@@ -20,6 +22,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import static burn447.dartcraftReloaded.util.References.modId;
@@ -46,11 +49,12 @@ public class dartcraftReloaded {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e){
         GameRegistry.registerWorldGenerator(new DCRWorldGen(), 3);
+        proxy.registerTileEntities();
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e){
-
+        NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new GUIHandler());
     }
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e){
@@ -75,7 +79,6 @@ public class dartcraftReloaded {
             ModItems.registerModels();
             ModBlocks.registerModels();
         }
-
     }
 
 }

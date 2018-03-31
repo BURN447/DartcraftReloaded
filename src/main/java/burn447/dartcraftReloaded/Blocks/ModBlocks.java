@@ -14,13 +14,15 @@ public class ModBlocks {
     public static BlockForceSapling forceSapling = new BlockForceSapling(("forceSapling"));
     public static BlockForceLog forceLog = new BlockForceLog("forceLog").setCreativeTab(dartcraftReloaded.creativeTab);
     public static BlockForceLeaves forceLeaves = new BlockForceLeaves("forceLeaves");
+    public static BlockInfuser infuser = new BlockInfuser("infuser");
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
                 orePower,
                 forceSapling,
                 forceLog,
-                forceLeaves
+                forceLeaves,
+                infuser
         );
 
     }
@@ -30,7 +32,8 @@ public class ModBlocks {
                 orePower.createItemBlock(),
                 forceSapling.createItemBlock(),
                 forceLog.createItemBlock(),
-                forceLeaves.createItemBlock()
+                forceLeaves.createItemBlock(),
+                infuser.createItemBlock()
         );
 
     }
@@ -38,5 +41,6 @@ public class ModBlocks {
     public static void registerModels() {
         orePower.registerItemModel(Item.getItemFromBlock(orePower));
         forceLog.registerItemModel(Item.getItemFromBlock(forceLog));
+        infuser.registerItemModel(Item.getItemFromBlock(infuser));
     }
 }
