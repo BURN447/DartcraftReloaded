@@ -25,18 +25,20 @@ public class ContainerBlockInfuser extends Container {
 
         handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
-        this.addSlotToContainer(new SlotItemHandler(handler, 0,62, 17));
-        this.addSlotToContainer(new SlotItemHandler(handler, 1,80, 17));
-        this.addSlotToContainer(new SlotItemHandler(handler, 2,98, 17));
-        this.addSlotToContainer(new SlotItemHandler(handler, 3,62, 35));
-        this.addSlotToContainer(new SlotItemHandler(handler, 4,80, 35));
-        this.addSlotToContainer(new SlotItemHandler(handler, 5,98, 35));
-        this.addSlotToContainer(new SlotItemHandler(handler, 6,62, 53));
-        this.addSlotToContainer(new SlotItemHandler(handler, 7,80, 53));
-        this.addSlotToContainer(new SlotItemHandler(handler, 8,98, 53));
+        this.addSlotToContainer(new SlotItemHandler(handler, 0,10, 10));
+        this.addSlotToContainer(new SlotItemHandler(handler, 1,10, 35));
+        this.addSlotToContainer(new SlotItemHandler(handler, 2,80, 20));
+        this.addSlotToContainer(new SlotItemHandler(handler, 3,104, 32));
+        this.addSlotToContainer(new SlotItemHandler(handler, 4,116, 57));
+        this.addSlotToContainer(new SlotItemHandler(handler, 5,104, 81));
+        this.addSlotToContainer(new SlotItemHandler(handler, 6,80, 93));
+        this.addSlotToContainer(new SlotItemHandler(handler, 7,56, 81));
+        this.addSlotToContainer(new SlotItemHandler(handler, 8,44, 57));
+        this.addSlotToContainer(new SlotItemHandler(handler, 9,56, 32));
+        this.addSlotToContainer(new SlotItemHandler(handler, 10,80, 57));
 
         int xPos = 8;
-        int yPos = 84;
+        int yPos = 127;
 
         for (int y = 0; y < 3; ++y) {
             for (int x = 0; x < 9; ++x) {

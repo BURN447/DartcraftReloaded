@@ -1,7 +1,5 @@
 package burn447.dartcraftReloaded.tileEntity;
 
-import burn447.dartcraftReloaded.util.Utils;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -34,7 +32,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     @Override
     public void readFromNBT(NBTTagCompound nbt){
         this.power = nbt.getDouble("Power");
-    handler.deserializeNBT(nbt.getCompoundTag("ItemStackHandler"));
+        handler.deserializeNBT(nbt.getCompoundTag("ItemStackHandler"));
         super.readFromNBT(nbt);
     }
 
@@ -47,13 +45,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     @Override
     public void update() {
-//        while(power <100){
-//            power++;
-//        }
-//        if(power == 100){
-//            Utils.getLogger().info("Power has reached" + power);
-//            power = 0;
-//        }
 
     }
 

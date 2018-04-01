@@ -27,7 +27,7 @@ public class GUIInfuser extends GuiContainer {
         super(new ContainerBlockInfuser(playerInv, te));
 
         this.xSize = 176;
-        this.ySize = 166;
+        this.ySize = 208;
 
         this.te = te;
         this.playerInv = playerInv;
@@ -36,7 +36,7 @@ public class GUIInfuser extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0f, 1.0f, 1.0f);
-        this.mc.getTextureManager().bindTexture(new ResourceLocation(References.modId, "textures/gui/container/tempGui.png"));
+        this.mc.getTextureManager().bindTexture(new ResourceLocation(References.modId, "textures/gui/container/forceinfuser.png"));
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0,0,this.xSize, this.ySize);
     }
 
