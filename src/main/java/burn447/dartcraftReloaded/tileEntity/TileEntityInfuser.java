@@ -1,11 +1,14 @@
 package burn447.dartcraftReloaded.tileEntity;
 
+import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -21,6 +24,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private int force;
     private double power;
 
+    private NonNullList<ItemStack> infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
+
 
 
     public TileEntityInfuser(){
@@ -33,6 +38,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public void readFromNBT(NBTTagCompound nbt){
         this.power = nbt.getDouble("Power");
         handler.deserializeNBT(nbt.getCompoundTag("ItemStackHandler"));
+        this.infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
+
+        ItemStackHelper.loadAllItems(nbt, this.infuserContents);
+
         super.readFromNBT(nbt);
     }
 
@@ -40,6 +49,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public NBTTagCompound writeToNBT(NBTTagCompound nbt){
         nbt.setDouble("Power", this.power);
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
+        ItemStackHelper.saveAllItems(nbt, this.infuserContents);
         return super.writeToNBT(nbt);
     }
 
