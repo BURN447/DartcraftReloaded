@@ -23,7 +23,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private ItemStackHandler handler;
     private int force;
     private double power;
-
     private NonNullList<ItemStack> infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
 
 
@@ -50,6 +49,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         nbt.setDouble("Power", this.power);
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
+        super.markDirty();
         return super.writeToNBT(nbt);
     }
 
