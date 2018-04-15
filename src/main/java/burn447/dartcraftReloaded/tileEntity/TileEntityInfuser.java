@@ -30,7 +30,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public TileEntityInfuser(){
         force = 0;
         power = 0;
-        this.handler = new ItemStackHandler(11);
+        this.handler = new ItemStackHandler(11){
+            @Override
+            protected int getStackLimit(int slot, ItemStack stack){
+                return 1;
+            }
+        };
     }
 
     @Override

@@ -5,10 +5,9 @@ import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -56,6 +55,10 @@ public class BlockInfuser extends BlockBase implements ITileEntityProvider {
             playerIn.openGui(dartcraftReloaded.instance, GUIHandler.INFUSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
         return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
+    }
+
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase living, ItemStack stack) {
+        super.onBlockPlacedBy(world, pos, state, living, stack);
     }
 
     @Nullable

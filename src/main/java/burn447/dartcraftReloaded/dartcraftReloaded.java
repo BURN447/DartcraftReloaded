@@ -5,7 +5,6 @@ import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.client.gui.GUIHandler;
 import burn447.dartcraftReloaded.client.tabDartcraft;
 import burn447.dartcraftReloaded.proxy.CommonProxy;
-import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.world.DCRWorldGen;
 import net.minecraft.block.Block;
