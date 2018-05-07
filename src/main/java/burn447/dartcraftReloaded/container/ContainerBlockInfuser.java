@@ -1,15 +1,21 @@
 package burn447.dartcraftReloaded.container;
 
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.items.SlotItemHandler;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by BURN447 on 3/31/2018.
@@ -57,34 +63,60 @@ public class ContainerBlockInfuser extends Container {
         return !playerIn.isSpectator();
     }
 
+
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer playerIn, int fromSlot) {
-        ItemStack previous = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(fromSlot);
+    @Nullable
+    public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 
-        if (slot != null && slot.getHasStack()) {
-            ItemStack current = slot.getStack();
-            previous = current.copy();
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+        boolean hasReturned = false;
 
-            if (fromSlot < this.handler.getSlots()) {
-                if (!this.mergeItemStack(current, handler.getSlots(), handler.getSlots() + 36, true))
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+
+            if (index < 11)
+            {
+                if (!this.mergeItemStack(itemstack1, 11, this.inventorySlots.size(), true))
+                {
                     return ItemStack.EMPTY;
-            } else {
-                //if (!this.mergeItemStack(current, 0, handler.getSlots(), false))
-                //    return ItemStack.EMPTY;
+                }
+            }
+            else {
+                hasReturned = false;
+                for (int i = 0; i < 11; i++) {
+                    if (hasReturned == false) {
+                        if (((Slot) this.inventorySlots.get(i)).getHasStack() || !((Slot) this.inventorySlots.get(i)).isItemValid(itemstack1)) {
+                            //hasReturned = true;
+                            return ItemStack.EMPTY;
+                        }
+                    }
+                    if (hasReturned == false) {
+                        if (itemstack1.hasTagCompound() && itemstack1.getCount() == 1) {
+                            ((Slot) this.inventorySlots.get(i)).putStack(itemstack1.copy());
+                            itemstack1.setCount(0);
+                            hasReturned = true;
+                        } else if (!itemstack1.isEmpty()) {
+                            ((Slot) this.inventorySlots.get(i)).putStack(new ItemStack(itemstack1.getItem(), 1, itemstack1.getMetadata()));
+                            itemstack1.shrink(1);
+                            hasReturned = true;
+                        }
+                    }
+                }
             }
 
-            if (current.getCount() == 0)
+            if (itemstack1.isEmpty())
+            {
                 slot.putStack(ItemStack.EMPTY);
+            }
             else
+            {
                 slot.onSlotChanged();
-
-            if (current.getCount() == previous.getCount())
-                return null;
-            slot.onTake(playerIn, current);
+            }
         }
-        return previous;
+
+        return itemstack;
     }
-
-
 }
