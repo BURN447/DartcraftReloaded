@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.tileEntity;
 
+import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -23,6 +24,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private ItemStackHandler handler;
     private int force;
     private double power;
+    private DCREnergyStorage storage;
     private NonNullList<ItemStack> infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
 
 
@@ -32,17 +34,21 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         power = 0;
         this.handler = new ItemStackHandler(11){
             @Override
-            protected int getStackLimit(int slot, ItemStack stack){
+            protected int getStackLimit(int slot, ItemStack stack) {
                 return 1;
             }
         };
+
+        this.storage = new DCREnergyStorage(500000, 512, 512);
     }
+
 
     @Override
     public void readFromNBT(NBTTagCompound nbt){
         this.power = nbt.getDouble("Power");
         handler.deserializeNBT(nbt.getCompoundTag("ItemStackHandler"));
         this.infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
+        storage.readFromNBT(nbt);
 
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
 
@@ -53,6 +59,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public NBTTagCompound writeToNBT(NBTTagCompound nbt){
         nbt.setDouble("Power", this.power);
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
+        storage.writeToNBT(nbt);
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
         super.markDirty();
         return super.writeToNBT(nbt);
