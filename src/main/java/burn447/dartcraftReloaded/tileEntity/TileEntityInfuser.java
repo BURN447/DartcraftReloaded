@@ -44,6 +44,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         super();
         force = 0;
         populateToolList();
+        populateModiferList();
         this.handler = new ItemStackHandler(11){
             @Override
             protected int getStackLimit(int slot, ItemStack stack) {
@@ -81,10 +82,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     @Override
     public void update(){
         boolean hasValidTool = hasValidTool();
-        boolean hasValidModifier = false;
+        boolean hasValidModifier = hasValidModifer();
         //Check for tools
         if(hasValidTool){
-
+            if(hasValidModifier){
+                System.out.println("Valid Tool and Modifer");
+            }
         }
 
     }
@@ -140,6 +143,19 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             for(int i = 0; i < References.numTools; i++){
                 if(handler.getStackInSlot(0).getItem() == validToolList.get(i)){
                     return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean hasValidModifer(){
+        for(int i = 1; i < 10; i++) {
+            if (handler.getStackInSlot(i).getItem() != null) {
+                for (int j = 0; j < References.numModifiers; i++) {
+                    if (handler.getStackInSlot(i).getItem() == validModifierList.get(j)) {
+                        return true;
+                    }
                 }
             }
         }
