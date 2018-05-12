@@ -1,6 +1,14 @@
 package burn447.dartcraftReloaded.tileEntity;
 
+import burn447.dartcraftReloaded.Blocks.ModBlocks;
+import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
+import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.util.References;
+import burn447.dartcraftReloaded.util.Utils;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.ItemStackHelper;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -14,6 +22,10 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 /**
  * Created by BURN447 on 3/30/2018.
  */
@@ -22,44 +34,58 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     private ItemStackHandler handler;
     private int force;
-    private double power;
+    private DCREnergyStorage storage;
     private NonNullList<ItemStack> infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
+    private List<Item> validToolList = new ArrayList<Item>();
+    private List<Item> validModifierList = new ArrayList<Item>();
 
 
-
-    public TileEntityInfuser(){
+    public TileEntityInfuser() {
+        super();
         force = 0;
-        power = 0;
+        populateToolList();
         this.handler = new ItemStackHandler(11){
             @Override
-            protected int getStackLimit(int slot, ItemStack stack){
+            protected int getStackLimit(int slot, ItemStack stack) {
                 return 1;
             }
         };
+
+        this.storage = new DCREnergyStorage(500000, 512, 512);
     }
 
-    @Override
-    public void readFromNBT(NBTTagCompound nbt){
-        this.power = nbt.getDouble("Power");
-        handler.deserializeNBT(nbt.getCompoundTag("ItemStackHandler"));
-        this.infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
 
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        //Items
+        handler.deserializeNBT(nbt.getCompoundTag("ItemStackHandler"));
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
+        this.infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
+        //Energy
+        storage.readFromNBT(nbt);
 
         super.readFromNBT(nbt);
     }
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound nbt){
-        nbt.setDouble("Power", this.power);
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        //Items
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
+        //Energy
+        storage.writeToNBT(nbt);
         super.markDirty();
         return super.writeToNBT(nbt);
     }
 
     @Override
-    public void update() {
+    public void update(){
+        boolean hasValidTool = hasValidTool();
+        boolean hasValidModifier = false;
+        //Check for tools
+        if(hasValidTool){
+
+        }
 
     }
 
@@ -109,5 +135,41 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return super.hasCapability(capability, facing);
     }
 
+    private boolean hasValidTool(){
+        if(handler.getStackInSlot(0) != null){
+            for(int i = 0; i < References.numTools; i++){
+                if(handler.getStackInSlot(0).getItem() == validToolList.get(i)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
+    private void populateToolList(){
+        validToolList.add(Items.DIAMOND_PICKAXE);
+        validToolList.add(Items.DIAMOND_AXE);
+    }
+
+    private void populateModiferList(){
+        validModifierList.add(ModItems.nuggetForce);
+        validModifierList.add(Items.SUGAR);
+        validModifierList.add(Items.COAL); //Later Golden Power Source
+        validModifierList.add(ModItems.cookieFortune);
+        validModifierList.add(Items.FLINT);
+        validModifierList.add(Items.DYE); //Needs to specify Lapis
+        validModifierList.add(Items.EXPERIENCE_BOTTLE);
+        validModifierList.add(Items.SPIDER_EYE);
+        validModifierList.add(Items.ARROW);
+        validModifierList.add(Items.GHAST_TEAR);
+        validModifierList.add(ModItems.soulWafer);
+        validModifierList.add(Items.FEATHER);
+        validModifierList.add(Items.ENDER_PEARL);
+        validModifierList.add(Items.GLOWSTONE_DUST);
+        validModifierList.add(Item.getItemFromBlock(Blocks.CRAFTING_TABLE));
+        validModifierList.add(Item.getItemFromBlock(ModBlocks.forceLog));
+        validModifierList.add(Item.getItemFromBlock(Blocks.WEB));
+        validModifierList.add(Item.getItemFromBlock(Blocks.OBSIDIAN));
+        validModifierList.add(Item.getItemFromBlock(Blocks.BRICK_BLOCK));
+    }
 }
