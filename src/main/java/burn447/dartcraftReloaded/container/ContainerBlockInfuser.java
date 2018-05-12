@@ -29,7 +29,6 @@ public class ContainerBlockInfuser extends Container {
     public ContainerBlockInfuser(IInventory playerInv, TileEntityInfuser te) {
 
         this.te = te;
-
         handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
 
         this.addSlotToContainer(new SlotItemHandler(handler, 0, 10, 10));

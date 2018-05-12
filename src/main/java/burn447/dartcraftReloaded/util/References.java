@@ -1,5 +1,9 @@
 package burn447.dartcraftReloaded.util;
 
+import net.minecraft.item.ItemStack;
+
+import java.util.*;
+
 /**
  * Created by BURN447 on 3/18/2018.
  */
@@ -51,4 +55,6 @@ public class References {
     public static final String modId = "dartcraftreloaded";
     public static final String name = "Dartcraft Reloaded";
     public static final String version = "1.0.0";
+    public static final int numModifiers = 25;
+    public static final int numTools = 1;
 }
