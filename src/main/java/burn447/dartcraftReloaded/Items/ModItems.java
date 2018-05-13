@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.Items;
 
+import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
@@ -23,6 +24,12 @@ public class ModItems {
     public static ItemForceRod forceRod = new ItemForceRod("force_rod");
     public static ItemForceWrench forceWrench = new ItemForceWrench("force_wrench");
 
+    //Tools
+    public static ItemForcePickaxe forcePickaxe = new ItemForcePickaxe("forcePickaxe");
+    public static ItemForceAxe forceAxe = new ItemForceAxe("forceAxe");
+    public static ItemForceSword forceSword = new ItemForceSword("forceSword");
+    public static ItemForceShovel forceShovel = new ItemForceShovel("forceSpade");
+
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
                 gemForceGem,
@@ -36,7 +43,11 @@ public class ModItems {
                 forceLegs,
                 forceBoots,
                 forceRod,
-                forceWrench
+                forceWrench,
+                forcePickaxe,
+                forceAxe,
+                forceSword,
+                forceShovel
         );
     }
 
@@ -53,5 +64,9 @@ public class ModItems {
         forceBoots.registerItemModel();
         forceRod.registerItemModel();
         forceWrench.registerItemModel();
+        forcePickaxe.registerItemModel();
+        forceAxe.registerItemModel();
+        forceSword.registerItemModel();
+        forceShovel.registerItemModel();
     }
 }

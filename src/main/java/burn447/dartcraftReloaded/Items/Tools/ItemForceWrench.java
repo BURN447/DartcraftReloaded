@@ -1,6 +1,7 @@
-package burn447.dartcraftReloaded.Items;
+package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
+import burn447.dartcraftReloaded.Items.ItemBase;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;

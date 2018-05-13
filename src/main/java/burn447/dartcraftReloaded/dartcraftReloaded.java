@@ -8,6 +8,8 @@ import burn447.dartcraftReloaded.proxy.CommonProxy;
 import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.world.DCRWorldGen;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.MapColor;
+import net.minecraft.block.material.Material;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
