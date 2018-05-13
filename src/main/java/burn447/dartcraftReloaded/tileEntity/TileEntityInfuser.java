@@ -86,9 +86,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         //Check for tools
         if(hasValidTool){
             if(hasValidModifier){
-                System.out.println("Valid Tool and Modifer");
+
             }
         }
+
 
     }
 
@@ -139,9 +140,9 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean hasValidTool(){
-        if(handler.getStackInSlot(0) != null){
+        if(handler.getStackInSlot(10) != null){
             for(int i = 0; i < References.numTools; i++){
-                if(handler.getStackInSlot(0).getItem() == validToolList.get(i)){
+                if(handler.getStackInSlot(10).getItem() == validToolList.get(i)){
                     return true;
                 }
             }
@@ -150,10 +151,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean hasValidModifer(){
-        for(int i = 1; i < 10; i++) {
-            if (handler.getStackInSlot(i).getItem() != null) {
-                for (int j = 0; j < References.numModifiers; i++) {
-                    if (handler.getStackInSlot(i).getItem() == validModifierList.get(j)) {
+        for(int i = 2; i < 10; i++) {
+            if(handler.getStackInSlot(i) != null){
+                for(int j = 0; j < References.numModifiers - 1; j++){
+                    if(handler.getStackInSlot(i).getItem() == validModifierList.get(j)){
                         return true;
                     }
                 }
