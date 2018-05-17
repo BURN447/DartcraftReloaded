@@ -1,6 +1,6 @@
 package burn447.dartcraftReloaded.Blocks;
 
-import burn447.dartcraftReloaded.client.gui.GUIHandler;
+import burn447.dartcraftReloaded.Handlers.GUIHandler;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.block.ITileEntityProvider;

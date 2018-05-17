@@ -1,5 +1,6 @@
-package burn447.dartcraftReloaded.client.gui;
+package burn447.dartcraftReloaded.Handlers;
 
+import burn447.dartcraftReloaded.client.gui.GUIInfuser;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.entity.player.EntityPlayer;

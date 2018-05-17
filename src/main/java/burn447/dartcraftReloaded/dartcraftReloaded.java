@@ -1,12 +1,12 @@
 package burn447.dartcraftReloaded;
 
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
+import burn447.dartcraftReloaded.Handlers.DCRFuelHandler;
 import burn447.dartcraftReloaded.Items.ModItems;
-import burn447.dartcraftReloaded.client.gui.GUIHandler;
+import burn447.dartcraftReloaded.Handlers.GUIHandler;
 import burn447.dartcraftReloaded.client.tabDartcraft;
 import burn447.dartcraftReloaded.proxy.CommonProxy;
 import burn447.dartcraftReloaded.util.References;
-import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
 import burn447.dartcraftReloaded.world.DCRWorldGen;
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
@@ -14,8 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -57,6 +55,7 @@ public class dartcraftReloaded {
     @Mod.EventHandler
     public void init(FMLInitializationEvent e){
         NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new GUIHandler());
+        GameRegistry.registerFuelHandler(new DCRFuelHandler());
     }
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e){
