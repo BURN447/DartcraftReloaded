@@ -32,4 +32,14 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
      */
     ItemStack applyModifer(ItemStack stack, References.MODIFIERS mod);
 
+    /**
+     *
+     * @param stack
+     *      Passed in modifier item
+     * @return
+     *      Returns a modifer from References.Modifiers
+     */
+
+    References.MODIFIERS findMod(ItemStack stack);
+
 }

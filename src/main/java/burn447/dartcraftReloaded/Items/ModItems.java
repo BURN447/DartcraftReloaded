@@ -23,6 +23,7 @@ public class ModItems {
     public static ItemArmor forceBoots = new ItemArmor(dartcraftReloaded.forceArmorMaterial, EntityEquipmentSlot.FEET, "force_boots");
     public static ItemForceRod forceRod = new ItemForceRod("force_rod");
     public static ItemForceWrench forceWrench = new ItemForceWrench("force_wrench");
+    public static ItemBase goldenPowerSource = new ItemBase("goldenPowerSource").setCreativeTab(dartcraftReloaded.creativeTab);
 
     //Tools
     public static ItemForcePickaxe forcePickaxe = new ItemForcePickaxe("forcePickaxe");
@@ -47,7 +48,8 @@ public class ModItems {
                 forcePickaxe,
                 forceAxe,
                 forceSword,
-                forceShovel
+                forceShovel,
+                goldenPowerSource
         );
 
         ItemToolBase.init();
@@ -70,5 +72,6 @@ public class ModItems {
         forceAxe.registerItemModel();
         forceSword.registerItemModel();
         forceShovel.registerItemModel();
+        goldenPowerSource.registerItemModel();
     }
 }

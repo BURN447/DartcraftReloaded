@@ -37,8 +37,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private int force;
     private DCREnergyStorage storage;
     private NonNullList<ItemStack> infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
-    public List<Item> validToolList = new ArrayList<Item>();
-    public List<Item> validModifierList = new ArrayList<Item>();
+    public static List<Item> validToolList = new ArrayList<Item>();
+    public static List<Item> validModifierList = new ArrayList<Item>();
 
 
     public TileEntityInfuser() {
@@ -172,7 +172,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private void populateModiferList(){
         validModifierList.add(ModItems.nuggetForce);
         validModifierList.add(Items.SUGAR);
-        validModifierList.add(Items.COAL); //Later Golden Power Source
+        validModifierList.add(ModItems.goldenPowerSource);
         validModifierList.add(ModItems.cookieFortune);
         validModifierList.add(Items.FLINT);
         validModifierList.add(Items.DYE); //Needs to specify Lapis
@@ -190,4 +190,5 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validModifierList.add(Item.getItemFromBlock(Blocks.OBSIDIAN));
         validModifierList.add(Item.getItemFromBlock(Blocks.BRICK_BLOCK));
     }
+
 }
