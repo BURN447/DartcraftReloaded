@@ -5,11 +5,18 @@ item.nugget_force.name=Force Nugget
 item.stick_force.name=Force Stick
 item.cookie_fortune.name=Fortune Cookie
 item.soul_wafer.name=Soul Wafer
+
+#Armor
 item.force_helmet.name=Force Cap
 item.force_chest.name=Force Tunic
 item.force_legs.name=Force Kilt
 item.force_boots.name=Force Boots
 
+#Tools
+item.forcePickaxe.name=Force Pickaxe
+item.forceAxe.name=Force Axe
+item.forceSword.name=Force Sword
+item.forceSpade.name=Force Shovel
 
 #Blocks
 tile.orePower.name=Power Ore
