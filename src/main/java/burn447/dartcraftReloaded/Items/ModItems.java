@@ -49,6 +49,8 @@ public class ModItems {
                 forceSword,
                 forceShovel
         );
+
+        ItemToolBase.init();
     }
 
     public static void registerModels() {

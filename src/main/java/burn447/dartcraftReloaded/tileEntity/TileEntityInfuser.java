@@ -3,8 +3,9 @@ package burn447.dartcraftReloaded.tileEntity;
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.Items.Tools.ItemForcePickaxe;
+import burn447.dartcraftReloaded.Items.Tools.ItemToolBase;
 import burn447.dartcraftReloaded.util.References;
-import burn447.dartcraftReloaded.util.Utils;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ItemStackHelper;
@@ -36,8 +37,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private int force;
     private DCREnergyStorage storage;
     private NonNullList<ItemStack> infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
-    private List<Item> validToolList = new ArrayList<Item>();
-    private List<Item> validModifierList = new ArrayList<Item>();
+    public List<Item> validToolList = new ArrayList<Item>();
+    public List<Item> validModifierList = new ArrayList<Item>();
 
 
     public TileEntityInfuser() {
@@ -86,7 +87,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         //Check for tools
         if(hasValidTool){
             if(hasValidModifier){
-
+                ItemStack is = ((ItemForcePickaxe) handler.getStackInSlot(10).getItem()).addSpeedMod(handler.getStackInSlot(10));
+                handler.setStackInSlot(10, is);
             }
         }
 
@@ -164,8 +166,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private void populateToolList(){
-        validToolList.add(Items.DIAMOND_PICKAXE);
-        validToolList.add(Items.DIAMOND_AXE);
+        validToolList.add(ModItems.forcePickaxe);
     }
 
     private void populateModiferList(){

@@ -2,12 +2,14 @@ package burn447.dartcraftReloaded.util.Tools;
 
 import burn447.dartcraftReloaded.Items.Tools.ItemToolBase;
 import burn447.dartcraftReloaded.util.References.*;
-import burn447.dartcraftReloaded.util.capablilities.ITool;
+import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * Created by BURN447 on 3/18/2018.
  */
-public class ToolModified implements ITool {
+public class ToolModified implements IToolModifier {
 
     public void addModifier(MODIFIERS mod, ITEMTYPE tool, ItemToolBase toolItem){
         switch(tool){
@@ -95,6 +97,26 @@ public class ToolModified implements ITool {
 
     }
     public void chestMod(MODIFIERS mod, ItemToolBase toolItem){
+
+    }
+
+    @Override
+    public boolean canApplyModifer(ItemStack stack, MODIFIERS mod) {
+        return false;
+    }
+
+    @Override
+    public ItemStack applyModifer(ItemStack stack, MODIFIERS mod) {
+        return null;
+    }
+
+    @Override
+    public NBTTagCompound serializeNBT() {
+        return null;
+    }
+
+    @Override
+    public void deserializeNBT(NBTTagCompound nbt) {
 
     }
 }
