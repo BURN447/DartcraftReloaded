@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
+import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
 import net.minecraft.block.Block;
@@ -28,7 +29,7 @@ import java.util.Set;
 /**
  * Created by BURN447 on 3/26/2018.
  */
-public class ItemToolBase extends Item {
+public class ItemToolBase extends Item implements IToolModifier {
 
     private final Set<Block> effectiveBlocks;
     public float efficiency;
@@ -58,42 +59,10 @@ public class ItemToolBase extends Item {
         dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
     }
 
-    public ItemStack addSpeedMod(ItemStack stack){
-        NBTTagCompound nbt;
-        if(stack.hasTagCompound()){
-            nbt = stack.getTagCompound();
-        }
-        else
-            nbt = new NBTTagCompound();
-
-        if(!speedMod1){
-            nbt.setFloat("speedMod", 10.0F);
-            this.efficiency = 10.0F;
-            speedMod1 = true;
-        }
-        else if(!speedMod2){
-            nbt.setFloat("speedMod", 15.0F);
-            this.efficiency = 15.0F;
-            speedMod2 = true;
-        }
-        else
-            nbt.setFloat("speedMod", 4.0F);
-
-        stack.setTagCompound(nbt);
-
-        return stack;
-    }
-
-
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
     {
-        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("speedMod") && stack.hasTagCompound())
-        {
-            lores.add("Speed 1\n" + Float.toString(stack.getTagCompound().getFloat("speedMod")));
-        }
-        else
             lores.add("No Modifers");
     }
 
@@ -157,9 +126,38 @@ public class ItemToolBase extends Item {
 
     @SubscribeEvent
     public void onAddCapabilitiesItemStack(AttachCapabilitiesEvent<Item> e){
-        //e.addCapability(IToolModifier.class, );
+
     }
 
+    @Override
+    public boolean canApplyModifer(References.MODIFIERS mod) {
+        return false;
+    }
+
+    @Override
+    public ItemStack applyModifer(ItemStack stack, References.MODIFIERS mod) {
+        return null;
+    }
+
+    @Override
+    public References.MODIFIERS findMod(ItemStack stack) {
+        return null;
+    }
+
+    @Override
+    public NBTTagCompound serializeNBT() {
+        return null;
+    }
+
+    @Override
+    public void deserializeNBT(NBTTagCompound nbt) {
+
+    }
+
+    public ItemStack applySpeedModifer(ItemStack stack){
+
+        return stack;
+    }
 }
 
 

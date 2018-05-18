@@ -82,16 +82,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     @Override
     public void update(){
-        boolean hasValidTool = hasValidTool();
-        boolean hasValidModifier = hasValidModifer();
-        //Check for tools
-        if(hasValidTool){
-            if(hasValidModifier){
-                ItemStack is = ((ItemForcePickaxe) handler.getStackInSlot(10).getItem()).addSpeedMod(handler.getStackInSlot(10));
-                handler.setStackInSlot(10, is);
-            }
-        }
-
 
     }
 
