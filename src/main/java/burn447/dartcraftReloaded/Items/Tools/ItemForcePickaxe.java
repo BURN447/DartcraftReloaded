@@ -1,14 +1,20 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
+import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -27,11 +33,14 @@ public class ItemForcePickaxe extends ItemToolBase {
 
     public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
 
+    public float efficiency;
+
     public ItemForcePickaxe(String name) {
        super(name, 1, -2.8F, forceToolMaterial, EFFECTIVE_ON);
        setApplicableModifers();
        this.attackDamage = 2.0F;
        this.name = name;
+       efficiency = super.efficiency;
     }
 
     public void registerItemModel() {
@@ -110,30 +119,40 @@ public class ItemForcePickaxe extends ItemToolBase {
         return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getDestroySpeed(stack, state) : this.efficiency;
     }
 
-    @Override
-    public ItemStack applyModifer(ItemStack stack, References.MODIFIERS mod) {
-        if(canApplyModifer(mod)){
-            if(mod == MOD_SPEED){
-                stack = applySpeedModifer(stack);
-            }
-
-
-
-
-
-
-        }
-        return stack;
+    protected float getEfficiency(){
+        return efficiency;
     }
 
     @Override
-    public boolean canApplyModifer(References.MODIFIERS mod) {
-        for(References.MODIFIERS m : applicableModifers){
-            if(mod == m)
-                return true;
-        }
-        return false;
+    @SideOnly(Side.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
+    {
+        lores.add("No Modifers " + this.efficiency);
     }
+
+//    @Override
+//    public ItemStack applyModifer(ItemStack stack, References.MODIFIERS mod) {
+//        List<String> mods = new ArrayList<>();
+//        if(stack.getItem() instanceof ItemToolBase) {
+//            if (canApplyModifer(mod)) {
+//                if (mod == MOD_SPEED) {
+//                    stack = speedModOne();
+//                    mods.add("Speed One" + " " + efficiency);
+//                }
+//            }
+//        }
+//        stack.getItem().addInformation(stack, null, mods, null);
+//        return stack;
+//    }
+//
+//    @Override
+//    public boolean canApplyModifer(References.MODIFIERS mod) {
+//        for(References.MODIFIERS m : applicableModifers){
+//            if(mod == m)
+//                return true;
+//        }
+//        return false;
+//    }
 
     public void setApplicableModifers(){
         applicableModifers.add(MOD_CHARGE);
@@ -144,5 +163,6 @@ public class ItemForcePickaxe extends ItemToolBase {
         applicableModifers.add(MOD_TOUCH);
         applicableModifers.add(MOD_STURDY);
         applicableModifers.add(MOD_REPAIR);
+        applicableModifers.add(MOD_SPEED);
     }
 }

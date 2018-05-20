@@ -56,6 +56,8 @@ public class dartcraftReloaded {
     public void init(FMLInitializationEvent e){
         NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new GUIHandler());
         GameRegistry.registerFuelHandler(new DCRFuelHandler());
+
+        CommonProxy.registerCapabilities();
     }
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e){

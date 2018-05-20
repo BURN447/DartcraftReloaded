@@ -11,6 +11,7 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -81,7 +82,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     @Override
-    public void update(){
+    public void update() {
 
     }
 

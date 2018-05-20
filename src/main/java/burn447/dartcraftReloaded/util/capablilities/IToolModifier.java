@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.util.capablilities;
 
+
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -10,34 +11,11 @@ import net.minecraftforge.common.util.INBTSerializable;
  */
 public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
 
-    /**
-     *
-     * @param mod
-     *      What modifier to apply
-     * @return
-     *      True or false on if it can be returned
-     */
-    boolean canApplyModifer(References.MODIFIERS mod);
+    float efficiency = 16.0F;
 
-    /**
-     *
-     * @param stack
-     *      Stack in
-     * @param mod
-     *      Modifer in
-     * @return
-     *      Modified Item
-     */
-    ItemStack applyModifer(ItemStack stack, References.MODIFIERS mod);
+    default boolean canApplyModifier(ItemStack stack, References.MODIFIERS mod){
+        return false;
+    }
 
-    /**
-     *
-     * @param stack
-     *      Passed in modifier item
-     * @return
-     *      Returns a modifer from References.Modifiers
-     */
-
-    References.MODIFIERS findMod(ItemStack stack);
-
+    ItemStack applySpeedModifier(ItemStack stack, int level);
 }

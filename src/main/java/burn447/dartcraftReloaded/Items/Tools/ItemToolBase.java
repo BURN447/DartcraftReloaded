@@ -4,6 +4,7 @@ import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
+import com.sun.webkit.dom.DOMImplementationImpl;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.texture.ITickableTextureObject;
@@ -18,18 +19,24 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
+
+import static burn447.dartcraftReloaded.proxy.CommonProxy.CAPABILITY_TOOLMOD;
 
 /**
  * Created by BURN447 on 3/26/2018.
  */
-public class ItemToolBase extends Item implements IToolModifier {
+public class ItemToolBase extends Item implements Capability.IStorage<IToolModifier> {
 
     private final Set<Block> effectiveBlocks;
     public float efficiency;
@@ -37,7 +44,6 @@ public class ItemToolBase extends Item implements IToolModifier {
     public float attackSpeed;
     protected Item.ToolMaterial toolMaterial;
     private String name;
-    public boolean speedMod1 = false, speedMod2 = false;
 
     public ItemToolBase(String name, float attackDamageIn, float attackSpeedIn, Item.ToolMaterial materialIn, Set<Block> effectiveBlocksIn){
         //super();
@@ -45,7 +51,7 @@ public class ItemToolBase extends Item implements IToolModifier {
         this.toolMaterial = materialIn;
         this.effectiveBlocks = effectiveBlocksIn;
         this.maxStackSize = 1;
-        this.efficiency = materialIn.getEfficiency();
+        this.efficiency = IToolModifier.efficiency;
         this.setMaxDamage(materialIn.getMaxUses());
         this.attackDamage = attackDamageIn + materialIn.getAttackDamage();
         this.attackSpeed = attackSpeedIn;
@@ -63,7 +69,7 @@ public class ItemToolBase extends Item implements IToolModifier {
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
     {
-            lores.add("No Modifers");
+            lores.add("No Modifers" + efficiency);
     }
 
     public float getDestroySpeed(ItemStack stack, IBlockState state)
@@ -108,55 +114,38 @@ public class ItemToolBase extends Item implements IToolModifier {
     }
 
     public static void init(){
-        CapabilityManager.INSTANCE.register(IToolModifier.class, new Capability.IStorage<IToolModifier>() {
+
+    }
+
+    @Nullable
+    @Override
+    public NBTBase writeNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side) {
+        return null;
+    }
+
+    @Override
+    public void readNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side, NBTBase nbt) {
+
+    }
+
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+        return new ICapabilityProvider() {
             @Override
-            public NBTTagCompound writeNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side){
-                return instance.serializeNBT();
+            public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+                if(capability == CAPABILITY_TOOLMOD)
+                    return true;
+                else
+                    return false;
             }
 
+            @Nullable
             @Override
-            public void readNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side, NBTBase nbt){
-                if(nbt instanceof NBTTagCompound){
-                    instance.deserializeNBT(((NBTTagCompound) nbt));
-                }
+            public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+                return null;
             }
-        }, IToolModifier.class);
-        System.out.println("REGISTERED CAPABILITY");
-    }
-
-    @SubscribeEvent
-    public void onAddCapabilitiesItemStack(AttachCapabilitiesEvent<Item> e){
-
-    }
-
-    @Override
-    public boolean canApplyModifer(References.MODIFIERS mod) {
-        return false;
-    }
-
-    @Override
-    public ItemStack applyModifer(ItemStack stack, References.MODIFIERS mod) {
-        return null;
-    }
-
-    @Override
-    public References.MODIFIERS findMod(ItemStack stack) {
-        return null;
-    }
-
-    @Override
-    public NBTTagCompound serializeNBT() {
-        return null;
-    }
-
-    @Override
-    public void deserializeNBT(NBTTagCompound nbt) {
-
-    }
-
-    public ItemStack applySpeedModifer(ItemStack stack){
-
-        return stack;
+        };
     }
 }
 
