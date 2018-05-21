@@ -1,20 +1,16 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
-import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -35,128 +31,63 @@ public class ItemForcePickaxe extends ItemToolBase {
 
     public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
 
-    public float efficiency;
+    private Item.ToolMaterial toolMaterial = dartcraftReloaded.forceToolMaterial;
 
     public ItemForcePickaxe(String name) {
-       super(name, 1, -2.8F, forceToolMaterial, EFFECTIVE_ON);
-       setApplicableModifers();
-       this.attackDamage = 2.0F;
-       this.name = name;
-       efficiency = super.efficiency;
+        super(name);
+        setApplicableModifers();
+        this.name = name;
     }
 
+    @Override
     public void registerItemModel() {
         dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
     }
 
-    public boolean canHarvestBlock(IBlockState blockIn)
-    {
-        Block block = blockIn.getBlock();
-
-        if (block == Blocks.OBSIDIAN)
+    @Override
+    public boolean canHarvestBlock(IBlockState state, ItemStack stack) {
         {
-            return this.toolMaterial.getHarvestLevel() == 3;
-        }
-        else if (block != Blocks.DIAMOND_BLOCK && block != Blocks.DIAMOND_ORE)
-        {
-            if (block != Blocks.EMERALD_ORE && block != Blocks.EMERALD_BLOCK)
-            {
-                if (block != Blocks.GOLD_BLOCK && block != Blocks.GOLD_ORE)
-                {
-                    if (block != Blocks.IRON_BLOCK && block != Blocks.IRON_ORE)
-                    {
-                        if (block != Blocks.LAPIS_BLOCK && block != Blocks.LAPIS_ORE)
-                        {
-                            if (block != Blocks.REDSTONE_ORE && block != Blocks.LIT_REDSTONE_ORE)
-                            {
-                                Material material = blockIn.getMaterial();
+            Block block = state.getBlock();
 
-                                if (material == Material.ROCK)
-                                {
-                                    return true;
+            if (block == Blocks.OBSIDIAN) {
+                return this.toolMaterial.getHarvestLevel() == 3;
+            } else if (block != Blocks.DIAMOND_BLOCK && block != Blocks.DIAMOND_ORE) {
+                if (block != Blocks.EMERALD_ORE && block != Blocks.EMERALD_BLOCK) {
+                    if (block != Blocks.GOLD_BLOCK && block != Blocks.GOLD_ORE) {
+                        if (block != Blocks.IRON_BLOCK && block != Blocks.IRON_ORE) {
+                            if (block != Blocks.LAPIS_BLOCK && block != Blocks.LAPIS_ORE) {
+                                if (block != Blocks.REDSTONE_ORE && block != Blocks.LIT_REDSTONE_ORE) {
+                                    Material material = state.getMaterial();
+
+                                    if (material == Material.ROCK) {
+                                        return true;
+                                    } else if (material == Material.IRON) {
+                                        return true;
+                                    } else {
+                                        return material == Material.ANVIL;
+                                    }
+                                } else {
+                                    return this.toolMaterial.getHarvestLevel() >= 2;
                                 }
-                                else if (material == Material.IRON)
-                                {
-                                    return true;
-                                }
-                                else
-                                {
-                                    return material == Material.ANVIL;
-                                }
+                            } else {
+                                return this.toolMaterial.getHarvestLevel() >= 1;
                             }
-                            else
-                            {
-                                return this.toolMaterial.getHarvestLevel() >= 2;
-                            }
-                        }
-                        else
-                        {
+                        } else {
                             return this.toolMaterial.getHarvestLevel() >= 1;
                         }
+                    } else {
+                        return this.toolMaterial.getHarvestLevel() >= 2;
                     }
-                    else
-                    {
-                        return this.toolMaterial.getHarvestLevel() >= 1;
-                    }
-                }
-                else
-                {
+                } else {
                     return this.toolMaterial.getHarvestLevel() >= 2;
                 }
-            }
-            else
-            {
+            } else {
                 return this.toolMaterial.getHarvestLevel() >= 2;
             }
         }
-        else
-        {
-            return this.toolMaterial.getHarvestLevel() >= 2;
-        }
     }
 
-    public float getDestroySpeed(ItemStack stack, IBlockState state)
-    {
-        Material material = state.getMaterial();
-        return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getDestroySpeed(stack, state) : this.efficiency;
-    }
-
-    protected float getEfficiency(){
-        return efficiency;
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
-    {
-        lores.add("No Modifers " + this.efficiency);
-    }
-
-//    @Override
-//    public ItemStack applyModifer(ItemStack stack, References.MODIFIERS mod) {
-//        List<String> mods = new ArrayList<>();
-//        if(stack.getItem() instanceof ItemToolBase) {
-//            if (canApplyModifer(mod)) {
-//                if (mod == MOD_SPEED) {
-//                    stack = speedModOne();
-//                    mods.add("Speed One" + " " + efficiency);
-//                }
-//            }
-//        }
-//        stack.getItem().addInformation(stack, null, mods, null);
-//        return stack;
-//    }
-//
-//    @Override
-//    public boolean canApplyModifer(References.MODIFIERS mod) {
-//        for(References.MODIFIERS m : applicableModifers){
-//            if(mod == m)
-//                return true;
-//        }
-//        return false;
-//    }
-
-    public void setApplicableModifers(){
+    public void setApplicableModifers() {
         applicableModifers.add(MOD_CHARGE);
         applicableModifers.add(MOD_CHARGEII);
         applicableModifers.add(MOD_HEAT);

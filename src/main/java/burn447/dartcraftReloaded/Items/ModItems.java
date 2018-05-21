@@ -51,8 +51,6 @@ public class ModItems {
                 forceShovel,
                 goldenPowerSource
         );
-
-        ItemToolBase.init();
     }
 
     public static void registerModels() {

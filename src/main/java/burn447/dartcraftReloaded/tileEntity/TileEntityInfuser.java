@@ -7,6 +7,7 @@ import burn447.dartcraftReloaded.Items.Tools.ItemForcePickaxe;
 import burn447.dartcraftReloaded.Items.Tools.ItemToolBase;
 import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.util.Tools.ToolModified;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ItemStackHelper;
@@ -20,11 +21,14 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,17 +39,14 @@ import java.util.List;
 public class TileEntityInfuser extends TileEntity implements ITickable, ICapabilityProvider {
 
 
-    private ItemStackHandler handler;
-    private int force;
+    public final ItemStackHandler handler;
     private DCREnergyStorage storage;
-    private NonNullList<ItemStack> infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
-    public static List<Item> validToolList = new ArrayList<Item>();
-    public static List<Item> validModifierList = new ArrayList<Item>();
+    private NonNullList<ItemStack> infuserContents = NonNullList.create();
+    public static List<Item> validToolList = new ArrayList<>();
+    public static List<Item> validModifierList = new ArrayList<>();
 
 
     public TileEntityInfuser() {
-        super();
-        force = 0;
         populateToolList();
         populateModiferList();
         this.handler = new ItemStackHandler(11){
@@ -64,15 +65,17 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         //Items
         handler.deserializeNBT(nbt.getCompoundTag("ItemStackHandler"));
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
-        this.infuserContents = NonNullList.<ItemStack>withSize(11, ItemStack.EMPTY);
         //Energy
         storage.readFromNBT(nbt);
 
+        System.out.println("READ NBT");
         super.readFromNBT(nbt);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        System.out.println("Write NBT");
+
         //Items
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
@@ -95,6 +98,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbt = new NBTTagCompound();
         this.writeToNBT(nbt);
+        super.markDirty();
         int metadata = getBlockMetadata();
         return new SPacketUpdateTileEntity(this.pos, metadata, nbt);
     }
@@ -108,6 +112,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public NBTTagCompound getUpdateTag() {
         NBTTagCompound nbt = new NBTTagCompound();
         this.writeToNBT(nbt);
+        super.markDirty();
         return nbt;
     }
 
@@ -138,7 +143,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean hasValidTool(){
-        if(handler.getStackInSlot(10) != null){
+        if(!handler.getStackInSlot(10).isEmpty()){
             for(int i = 0; i < References.numTools; i++){
                 if(handler.getStackInSlot(10).getItem() == validToolList.get(i)){
                     return true;
@@ -150,7 +155,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     private boolean hasValidModifer(){
         for(int i = 2; i < 10; i++) {
-            if(handler.getStackInSlot(i) != null){
+            if(!handler.getStackInSlot(10).isEmpty()){
                 for(int j = 0; j < References.numModifiers - 1; j++){
                     if(handler.getStackInSlot(i).getItem() == validModifierList.get(j)){
                         return true;

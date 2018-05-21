@@ -23,19 +23,19 @@ import javax.annotation.Nullable;
 /**
  * Created by BURN447 on 3/31/2018.
  */
-public class BlockInfuser extends BlockBase implements ITileEntityProvider {
+public class BlockInfuser extends BlockBase {
 
-    public BlockInfuser(String name){
+    public BlockInfuser(String name) {
         super(Material.ROCK, name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.setRegistryName(name);
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state){
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
         TileEntityInfuser te = (TileEntityInfuser) world.getTileEntity(pos);
         IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        for(int slot = 0; slot < handler.getSlots() - 1; slot++){
+        for (int slot = 0; slot < handler.getSlots() - 1; slot++) {
             ItemStack stack = handler.getStackInSlot(slot);
             InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), stack);
         }
@@ -44,26 +44,21 @@ public class BlockInfuser extends BlockBase implements ITileEntityProvider {
 
 
     @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
+    }
+
+    @Override
     public TileEntity createTileEntity(World world, IBlockState state) {
         return new TileEntityInfuser();
     }
 
-
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(!worldIn.isRemote){
+        if (!worldIn.isRemote) {
             playerIn.openGui(dartcraftReloaded.instance, GUIHandler.INFUSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
-        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
-    }
-
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase living, ItemStack stack) {
-        super.onBlockPlacedBy(world, pos, state, living, stack);
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityInfuser();
+        return true;
     }
 }
+

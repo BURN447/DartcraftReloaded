@@ -1,35 +1,24 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
-import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
-import com.sun.webkit.dom.DOMImplementationImpl;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.texture.ITickableTextureObject;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.Callable;
 
 import static burn447.dartcraftReloaded.proxy.CommonProxy.CAPABILITY_TOOLMOD;
 
@@ -38,23 +27,10 @@ import static burn447.dartcraftReloaded.proxy.CommonProxy.CAPABILITY_TOOLMOD;
  */
 public class ItemToolBase extends Item {
 
-    private final Set<Block> effectiveBlocks;
-    public float efficiency;
-    public float attackDamage;
-    public float attackSpeed;
-    protected Item.ToolMaterial toolMaterial;
     private String name;
 
-    public ItemToolBase(String name, float attackDamageIn, float attackSpeedIn, Item.ToolMaterial materialIn, Set<Block> effectiveBlocksIn){
+    public ItemToolBase(String name){
         //super();
-
-        this.toolMaterial = materialIn;
-        this.effectiveBlocks = effectiveBlocksIn;
-        this.maxStackSize = 1;
-        this.efficiency = getEfficiency(this.getDefaultInstance());
-        this.setMaxDamage(materialIn.getMaxUses());
-        this.attackDamage = attackDamageIn + materialIn.getAttackDamage();
-        this.attackSpeed = attackSpeedIn;
         this.setRegistryName(name);
         this.setUnlocalizedName(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
@@ -66,28 +42,24 @@ public class ItemToolBase extends Item {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
     {
-            lores.add("No Modifers" + efficiency);
+            //lores.add("No Modifers" + stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency());
     }
 
     public float getDestroySpeed(ItemStack stack, IBlockState state)
     {
-        for (String type : getToolClasses(stack))
-        {
-            if (state.getBlock().isToolEffective(type, state))
-                return efficiency;
-        }
-        return this.effectiveBlocks.contains(state.getBlock()) ? this.efficiency : 1.0F;
+        return stack.getCapability(CAPABILITY_TOOLMOD, null).getDestroySpeed(stack, state);
     }
 
+    @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
     {
         stack.damageItem(2, attacker);
         return true;
     }
 
+    @Override
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving)
     {
         if (!worldIn.isRemote && (double)state.getBlockHardness(worldIn, pos) != 0.0D)
@@ -103,57 +75,45 @@ public class ItemToolBase extends Item {
         return true;
     }
 
-    public int getItemEnchantability()
+    @Override
+    public int getItemEnchantability(ItemStack stack)
     {
-        return this.toolMaterial.getEnchantability();
+        return stack.getCapability(CAPABILITY_TOOLMOD, null).getItemEnchantibility();
     }
 
+    @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
     {
         return false;
     }
 
-    public static void init(){
-
-    }
-
-    public void setEfficiency(float efficiency){
-        this.efficiency = efficiency;
-    }
-
-    public float getEfficiency(ItemStack stack){
-        NBTTagCompound nbt = new NBTTagCompound();
-        float speed;
-        if(stack.hasTagCompound()){
-            nbt = stack.getTagCompound();
-            speed = nbt.getFloat("speed");
-        }
-        else
-            speed = dartcraftReloaded.forceToolMaterial.getEfficiency();
-
-        return speed;
-    }
-
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        return new ICapabilityProvider() {
+        return new ICapabilitySerializable<NBTTagCompound>() {
             @Override
             public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-                if(capability == CAPABILITY_TOOLMOD)
-                    return true;
-                else
-                    return false;
+                return capability == CAPABILITY_TOOLMOD;
             }
 
             @Nullable
             @Override
             public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-                return null;
+                return capability == CAPABILITY_TOOLMOD ? CAPABILITY_TOOLMOD.cast(toolModifier) : null;
+            }
+
+            private IToolModifier toolModifier = new ToolModified();
+
+            @Override
+            public NBTTagCompound serializeNBT(){
+                return toolModifier.serializeNBT();
+            }
+
+            @Override
+            public void deserializeNBT(NBTTagCompound nbt) {
+                toolModifier.deserializeNBT(nbt);
             }
         };
-
-
     }
 }
 

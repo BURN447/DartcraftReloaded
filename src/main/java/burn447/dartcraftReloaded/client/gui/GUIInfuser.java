@@ -21,7 +21,6 @@ import java.util.List;
 public class GUIInfuser extends GuiContainer {
 
     private TileEntityInfuser te;
-    private IInventory playerInv;
 
     public GUIInfuser(IInventory playerInv, TileEntityInfuser te) {
         super(new ContainerBlockInfuser(playerInv, te));
@@ -30,7 +29,6 @@ public class GUIInfuser extends GuiContainer {
         this.ySize = 208;
 
         this.te = te;
-        this.playerInv = playerInv;
     }
 
     @Override
@@ -47,10 +45,8 @@ public class GUIInfuser extends GuiContainer {
         int actualMouseX = mouseX - ((this.width - this.xSize) / 2);
         int actualMouseY = mouseY - ((this.height - this.ySize) / 2);
 
-        if (isPointInRegion(134, 17, 18, 18, mouseX, mouseY)
-                && te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)
-                .getStackInSlot(9) == ItemStack.EMPTY) {
-            List<String> text = new ArrayList<String>();
+        if (isPointInRegion(134, 17, 18, 18, mouseX, mouseY) && te.handler.getStackInSlot(9).isEmpty()) {
+            List<String> text = new ArrayList<>();
             text.add(TextFormatting.GRAY + I18n.format("gui.block_breaker.enchanted_book.tooltip"));
             this.drawHoveringText(text, actualMouseX, actualMouseY);
         }

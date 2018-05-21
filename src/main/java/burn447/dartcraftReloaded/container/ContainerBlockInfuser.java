@@ -1,47 +1,34 @@
 package burn447.dartcraftReloaded.container;
 
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.items.SlotItemHandler;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
 
 /**
  * Created by BURN447 on 3/31/2018.
  */
 public class ContainerBlockInfuser extends Container {
 
-    IItemHandler handler;
-    private TileEntityInfuser te;
-
-
     public ContainerBlockInfuser(IInventory playerInv, TileEntityInfuser te) {
 
-        this.te = te;
-        handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-
-        this.addSlotToContainer(new SlotItemHandler(handler, 0, 10, 10));
-        this.addSlotToContainer(new SlotItemHandler(handler, 1, 10, 35));
-        this.addSlotToContainer(new SlotItemHandler(handler, 2, 80, 20));
-        this.addSlotToContainer(new SlotItemHandler(handler, 3, 104, 32));
-        this.addSlotToContainer(new SlotItemHandler(handler, 4, 116, 57));
-        this.addSlotToContainer(new SlotItemHandler(handler, 5, 104, 81));
-        this.addSlotToContainer(new SlotItemHandler(handler, 6, 80, 93));
-        this.addSlotToContainer(new SlotItemHandler(handler, 7, 56, 81));
-        this.addSlotToContainer(new SlotItemHandler(handler, 8, 44, 57));
-        this.addSlotToContainer(new SlotItemHandler(handler, 9, 56, 32));
-        this.addSlotToContainer(new SlotItemHandler(handler, 10, 80, 57));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 0, 10, 10));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 1, 10, 35));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 2, 80, 20));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 3, 104, 32));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 4, 116, 57));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 5, 104, 81));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 6, 80, 93));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 7, 56, 81));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 8, 44, 57));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 9, 56, 32));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 10, 80, 57));
 
         int xPos = 8;
         int yPos = 127;
@@ -63,7 +50,7 @@ public class ContainerBlockInfuser extends Container {
     }
 
     @Override
-    @Nullable
+    @Nonnull
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {
 
         ItemStack itemstack = ItemStack.EMPTY;
