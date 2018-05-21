@@ -36,7 +36,7 @@ import java.util.List;
 /**
  * Created by BURN447 on 3/30/2018.
  */
-public class TileEntityInfuser extends TileEntity implements ITickable, ICapabilityProvider {
+public class TileEntityInfuser extends TileEntity implements ITickable, ICapabilityProvider, ITileEntityProvider {
 
 
     public final ItemStackHandler handler;
@@ -192,4 +192,9 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validModifierList.add(Item.getItemFromBlock(Blocks.BRICK_BLOCK));
     }
 
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityInfuser();
+    }
 }
