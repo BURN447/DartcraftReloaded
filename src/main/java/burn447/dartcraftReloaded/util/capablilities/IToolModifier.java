@@ -11,8 +11,6 @@ import net.minecraftforge.common.util.INBTSerializable;
  */
 public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
 
-    float efficiency = 16.0F;
-
     default boolean canApplyModifier(ItemStack stack, References.MODIFIERS mod){
         return false;
     }

@@ -62,7 +62,6 @@ public class ContainerBlockInfuser extends Container {
         return !playerIn.isSpectator();
     }
 
-
     @Override
     @Nullable
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index) {

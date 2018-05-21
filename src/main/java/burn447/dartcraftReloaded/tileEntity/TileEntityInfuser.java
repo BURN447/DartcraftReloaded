@@ -6,6 +6,7 @@ import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.ItemForcePickaxe;
 import burn447.dartcraftReloaded.Items.Tools.ItemToolBase;
 import burn447.dartcraftReloaded.util.References;
+import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ItemStackHelper;
@@ -83,7 +84,11 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     @Override
     public void update() {
+        if(hasValidTool()){
+            if(hasValidModifer()){
 
+            }
+        }
     }
 
     @Override

@@ -36,7 +36,7 @@ import static burn447.dartcraftReloaded.proxy.CommonProxy.CAPABILITY_TOOLMOD;
 /**
  * Created by BURN447 on 3/26/2018.
  */
-public class ItemToolBase extends Item implements Capability.IStorage<IToolModifier> {
+public class ItemToolBase extends Item {
 
     private final Set<Block> effectiveBlocks;
     public float efficiency;
@@ -51,7 +51,7 @@ public class ItemToolBase extends Item implements Capability.IStorage<IToolModif
         this.toolMaterial = materialIn;
         this.effectiveBlocks = effectiveBlocksIn;
         this.maxStackSize = 1;
-        this.efficiency = IToolModifier.efficiency;
+        this.efficiency = getEfficiency(this.getDefaultInstance());
         this.setMaxDamage(materialIn.getMaxUses());
         this.attackDamage = attackDamageIn + materialIn.getAttackDamage();
         this.attackSpeed = attackSpeedIn;
@@ -117,15 +117,21 @@ public class ItemToolBase extends Item implements Capability.IStorage<IToolModif
 
     }
 
-    @Nullable
-    @Override
-    public NBTBase writeNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side) {
-        return null;
+    public void setEfficiency(float efficiency){
+        this.efficiency = efficiency;
     }
 
-    @Override
-    public void readNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side, NBTBase nbt) {
+    public float getEfficiency(ItemStack stack){
+        NBTTagCompound nbt = new NBTTagCompound();
+        float speed;
+        if(stack.hasTagCompound()){
+            nbt = stack.getTagCompound();
+            speed = nbt.getFloat("speed");
+        }
+        else
+            speed = dartcraftReloaded.forceToolMaterial.getEfficiency();
 
+        return speed;
     }
 
     @Nullable
@@ -146,6 +152,8 @@ public class ItemToolBase extends Item implements Capability.IStorage<IToolModif
                 return null;
             }
         };
+
+
     }
 }
 
