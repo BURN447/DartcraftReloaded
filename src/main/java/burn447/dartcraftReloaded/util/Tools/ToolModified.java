@@ -1,20 +1,13 @@
 package burn447.dartcraftReloaded.util.Tools;
 
-import burn447.dartcraftReloaded.proxy.CommonProxy;
 import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,7 +34,7 @@ public class ToolModified implements IToolModifier {
 
     @Override
     public float getDestroySpeed(ItemStack stack, IBlockState state) {
-        return 0;
+        return efficiency;
     }
 
     @Override
@@ -78,4 +71,6 @@ public class ToolModified implements IToolModifier {
     public float getEfficiency() {
         return efficiency;
     }
+
+
 }

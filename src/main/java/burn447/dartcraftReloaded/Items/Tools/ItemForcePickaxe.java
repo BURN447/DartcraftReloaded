@@ -6,10 +6,12 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static burn447.dartcraftReloaded.dartcraftReloaded.forceToolMaterial;
+import static burn447.dartcraftReloaded.Handlers.CapabilityHandler.CAPABILITY_TOOLMOD;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 
 /**
@@ -99,10 +101,22 @@ public class ItemForcePickaxe extends ItemToolBase {
         applicableModifers.add(MOD_SPEED);
     }
 
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+//    @Nullable
+//    @Override
+//    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+//
+//        return super.initCapabilities(stack, nbt);
+//    }
 
-        return super.initCapabilities(stack, nbt);
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
+    {
+        if(stack.getCapability(CAPABILITY_TOOLMOD, null) != null)
+            lores.add("No Modifers" + stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency());
+        else
+            lores.add("No Modifiers");
     }
+
+
+
 }

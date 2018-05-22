@@ -1,19 +1,17 @@
 package burn447.dartcraftReloaded.proxy;
 
+import burn447.dartcraftReloaded.Handlers.CapabilityHandler;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
-import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
+import burn447.dartcraftReloaded.util.capablilities.ToolFactory;
+import burn447.dartcraftReloaded.util.capablilities.ToolModStorage;
 import net.minecraft.item.Item;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import javax.annotation.Nullable;
 
 /**
  * Created by BURN447 on 2/4/2018.
@@ -30,23 +28,11 @@ public class CommonProxy {
         GameRegistry.registerTileEntity(TileEntityInfuser.class, References.modId + ":blockInfuser");
     }
 
-    @CapabilityInject(IToolModifier.class)
-    public static final Capability<IToolModifier> CAPABILITY_TOOLMOD = null;
+    @Mod.EventHandler
+    public void init(){
+        //CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), ToolModified.class);
+        //CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), ToolFactory.class);
 
-    public static void registerCapabilities() {
-        CapabilityManager.INSTANCE.register(IToolModifier.class, new CapabilityToolMod(), ToolModified.class);
-    }
-
-    public static class CapabilityToolMod implements Capability.IStorage<IToolModifier> {
-        @Nullable
-        @Override
-        public NBTBase writeNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side) {
-            return null;
-        }
-
-        @Override
-        public void readNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side, NBTBase nbt) {
-
-        }
+        MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
     }
 }
