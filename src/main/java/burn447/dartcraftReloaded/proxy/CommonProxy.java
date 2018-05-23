@@ -7,6 +7,7 @@ import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
 import burn447.dartcraftReloaded.util.capablilities.ToolFactory;
 import burn447.dartcraftReloaded.util.capablilities.ToolModStorage;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -30,8 +31,7 @@ public class CommonProxy {
 
     @Mod.EventHandler
     public void init(){
-        //CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), ToolModified.class);
-        //CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), ToolFactory.class);
+        CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), new ToolFactory());
 
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
     }
