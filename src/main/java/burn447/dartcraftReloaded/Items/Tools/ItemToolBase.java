@@ -7,13 +7,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import static burn447.dartcraftReloaded.Handlers.CapabilityHandler.CAPABILITY_TOOLMOD;
@@ -32,6 +29,11 @@ public class ItemToolBase extends Item {
         this.setUnlocalizedName(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
+
+        if(CAPABILITY_TOOLMOD == null)
+            System.out.println("Capability Tool Mod = NULL");
+        else
+            System.out.println("Capability Tool Mod is Working");
     }
 
     public void registerItemModel() {
@@ -69,7 +71,10 @@ public class ItemToolBase extends Item {
     @Override
     public int getItemEnchantability(ItemStack stack)
     {
-        return stack.getCapability(CAPABILITY_TOOLMOD, null).getItemEnchantibility();
+        if(CAPABILITY_TOOLMOD != null)
+            return stack.getCapability(CAPABILITY_TOOLMOD, null).getItemEnchantibility();
+        else
+            return 0;
     }
 
     @Override
@@ -78,11 +83,16 @@ public class ItemToolBase extends Item {
         return false;
     }
 
-//    @Nullable
-//    @Override
-//    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-//        return new ToolModProvider(CAPABILITY_TOOLMOD, null);
-//    }
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+        if(CAPABILITY_TOOLMOD != null) {
+            System.out.println("Initializing Capability");
+            return new ToolModProvider(CAPABILITY_TOOLMOD, null);
+        }
+        else
+            return null;
+    }
 }
 
 

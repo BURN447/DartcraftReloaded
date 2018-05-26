@@ -4,6 +4,7 @@ import burn447.dartcraftReloaded.Items.Tools.ItemToolBase;
 import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
+import burn447.dartcraftReloaded.util.capablilities.ToolFactory;
 import burn447.dartcraftReloaded.util.capablilities.ToolModProvider;
 import burn447.dartcraftReloaded.util.capablilities.ToolModStorage;
 import net.minecraft.item.Item;
@@ -21,10 +22,12 @@ public class CapabilityHandler {
     public static final ResourceLocation TOOLMOD_CAP = new ResourceLocation(References.modId, "toolMod");
 
     @CapabilityInject(IToolModifier.class)
-    public static final Capability<IToolModifier> CAPABILITY_TOOLMOD = null;
+    public static Capability<IToolModifier> CAPABILITY_TOOLMOD = null;
 
     public static void register(){
-        CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), IToolModifier.class);
+
+        System.out.println("Registering IToolModifer Capability");
+        CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), new ToolFactory());
 
         MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
     }

@@ -10,6 +10,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -18,6 +20,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * Created by BURN447 on 2/4/2018.
  */
 public class CommonProxy {
+
     public void registerItemRenderer(Item item, int meta, String id) {
     }
 
@@ -30,9 +33,7 @@ public class CommonProxy {
     }
 
     @Mod.EventHandler
-    public void init(){
-        CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), new ToolFactory());
-
-        MinecraftForge.EVENT_BUS.register(new CapabilityHandler());
+    public void preInit(){
+        CapabilityHandler.register();
     }
 }

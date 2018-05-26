@@ -34,4 +34,6 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
 
     float getEfficiency();
 
+    void setEfficiency(float newEfficiency);
+
 }

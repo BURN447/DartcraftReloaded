@@ -22,6 +22,10 @@ public class ToolModified implements IToolModifier {
     private Item.ToolMaterial toolMaterial;
     private float efficiency = 8.0F;
 
+    public ToolModified(){
+        System.out.println("Initializing Tool Modified");
+    }
+
     @Override
     public NBTTagCompound serializeNBT() {
         return null;
@@ -70,6 +74,11 @@ public class ToolModified implements IToolModifier {
     @Override
     public float getEfficiency() {
         return efficiency;
+    }
+
+    @Override
+    public void setEfficiency(float newEfficiency) {
+        efficiency = newEfficiency;
     }
 
 

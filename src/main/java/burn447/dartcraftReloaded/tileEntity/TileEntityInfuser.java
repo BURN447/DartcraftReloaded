@@ -68,13 +68,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         //Energy
         storage.readFromNBT(nbt);
 
-        System.out.println("READ NBT");
+        System.out.println("Read Infuser NBT");
         super.readFromNBT(nbt);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        System.out.println("Write NBT");
+        System.out.println("Write Infuser NBT");
 
         //Items
         nbt.setTag("ItemStackHandler", handler.serializeNBT());

@@ -50,14 +50,13 @@ public class dartcraftReloaded {
     public void preInit(FMLPreInitializationEvent e){
         GameRegistry.registerWorldGenerator(new DCRWorldGen(), 3);
         proxy.registerTileEntities();
+        proxy.preInit();
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e){
         NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new GUIHandler());
         GameRegistry.registerFuelHandler(new DCRFuelHandler());
-
-        proxy.init();
     }
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e){

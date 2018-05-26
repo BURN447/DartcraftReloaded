@@ -1,37 +1,41 @@
 package burn447.dartcraftReloaded.util.capablilities;
 
+import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+import static burn447.dartcraftReloaded.Handlers.CapabilityHandler.CAPABILITY_TOOLMOD;
+
 public class ToolModProvider implements ICapabilitySerializable<NBTBase>, ICapabilityProvider {
 
-    @CapabilityInject(IToolModifier.class)
-    private final Capability<IToolModifier> CAPABILITY_TOOLMOD;
+    private EnumFacing facing = null;
 
-    private final EnumFacing facing;
+    private IToolModifier instance = null;
 
-    private final IToolModifier instance;
+    private ToolModified toolModified = new ToolModified();
 
-//    public ToolModProvider(Capability<IToolModifier> capability, EnumFacing facing){
-//        this(capability, facing, capability.getDefaultInstance());
-//    }
-
-    public ToolModProvider(Capability<IToolModifier> capability, EnumFacing facing, IToolModifier instance){
-        this.CAPABILITY_TOOLMOD = capability;
-        this.facing = facing;
-        this.instance = instance;
+    public ToolModProvider(Capability<IToolModifier> capability, EnumFacing facing){
+        if(capability != null){
+            System.out.println("Initializing Tool Modifier Provider");
+            CAPABILITY_TOOLMOD = capability;
+            this.facing = facing;
+            this.instance = CAPABILITY_TOOLMOD.getDefaultInstance();
+        }
     }
+
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        return capability == getCapability();
+        if(capability == CAPABILITY_TOOLMOD)
+            return capability == getCapability();
+        else
+            return false;
     }
 
     @Nullable

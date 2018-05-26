@@ -36,6 +36,7 @@ public class ItemForcePickaxe extends ItemToolBase {
     private Item.ToolMaterial toolMaterial = dartcraftReloaded.forceToolMaterial;
 
     public ItemForcePickaxe(String name) {
+
         super(name);
         setApplicableModifers();
         this.name = name;
@@ -101,22 +102,21 @@ public class ItemForcePickaxe extends ItemToolBase {
         applicableModifers.add(MOD_SPEED);
     }
 
-//    @Nullable
-//    @Override
-//    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-//
-//        return super.initCapabilities(stack, nbt);
-//    }
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+
+        return super.initCapabilities(stack, nbt);
+    }
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
     {
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null) != null)
+        if(stack.getCapability(CAPABILITY_TOOLMOD, null) != null && stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() != 0.0)
             lores.add("No Modifers" + stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency());
+        else if(stack.getCapability(CAPABILITY_TOOLMOD, null) != null)
+            lores.add("Capability Attached but no Efficiency");
         else
             lores.add("No Modifiers");
     }
-
-
-
 }
