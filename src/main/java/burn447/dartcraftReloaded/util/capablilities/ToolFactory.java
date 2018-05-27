@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.util.capablilities;
 
+import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -14,16 +15,18 @@ public class ToolFactory implements Callable<IToolModifier> {
 
     @Override
     public IToolModifier call() throws Exception {
-        System.out.println("Tool Factory Initialization");
+        //System.out.println("Tool Factory Initialization");
         return new IToolModifier() {
+            private Item.ToolMaterial tm = dartcraftReloaded.forceToolMaterial;
+            private float efficiency = 12.0F;
             @Override
             public float getDestroySpeed(ItemStack stack, IBlockState state) {
-                return 0;
+                return efficiency;
             }
 
             @Override
             public int getItemEnchantibility() {
-                return 0;
+                return tm.getEnchantability();
             }
 
             @Override
@@ -33,7 +36,7 @@ public class ToolFactory implements Callable<IToolModifier> {
 
             @Override
             public float getAttackDamage() {
-                return 0;
+                return tm.getAttackDamage();
             }
 
             @Override
@@ -43,17 +46,18 @@ public class ToolFactory implements Callable<IToolModifier> {
 
             @Override
             public Item.ToolMaterial getToolMaterial() {
-                return null;
+                return tm;
             }
 
             @Override
             public float getEfficiency() {
-                return 0;
+                return efficiency;
             }
 
             @Override
             public void setEfficiency(float newEfficiency) {
-
+                //System.out.println("Setting Efficiency in Factory");
+                efficiency = newEfficiency;
             }
 
             @Override

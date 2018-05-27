@@ -22,6 +22,9 @@ import static burn447.dartcraftReloaded.Handlers.CapabilityHandler.CAPABILITY_TO
 public class ItemToolBase extends Item {
 
     private String name;
+    private boolean hasCapability;
+
+    protected float efficiency;
 
     public ItemToolBase(String name){
         //super();
@@ -30,10 +33,10 @@ public class ItemToolBase extends Item {
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
 
-        if(CAPABILITY_TOOLMOD == null)
-            System.out.println("Capability Tool Mod = NULL");
-        else
-            System.out.println("Capability Tool Mod is Working");
+//        if(CAPABILITY_TOOLMOD == null)
+//            System.out.println("Capability Tool Mod = NULL");
+//        else
+//            System.out.println("Capability Tool Mod is Working");
     }
 
     public void registerItemModel() {
@@ -42,7 +45,10 @@ public class ItemToolBase extends Item {
 
     public float getDestroySpeed(ItemStack stack, IBlockState state)
     {
-        return stack.getCapability(CAPABILITY_TOOLMOD, null).getDestroySpeed(stack, state);
+        //System.out.println("Efficiency: " + stack.getCapability(CAPABILITY_TOOLMOD, null).getDestroySpeed(stack, state));
+        efficiency = stack.getCapability(CAPABILITY_TOOLMOD, null).getDestroySpeed(stack, state);
+
+        return efficiency;
     }
 
     @Override
@@ -86,13 +92,13 @@ public class ItemToolBase extends Item {
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        if(CAPABILITY_TOOLMOD != null) {
-            System.out.println("Initializing Capability");
+        if(!stack.hasCapability(CAPABILITY_TOOLMOD, null))
             return new ToolModProvider(CAPABILITY_TOOLMOD, null);
-        }
         else
             return null;
     }
+
+
 }
 
 

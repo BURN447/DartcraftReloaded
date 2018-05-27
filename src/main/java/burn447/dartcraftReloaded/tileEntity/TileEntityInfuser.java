@@ -32,6 +32,8 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static burn447.dartcraftReloaded.Handlers.CapabilityHandler.CAPABILITY_TOOLMOD;
+
 
 /**
  * Created by BURN447 on 3/30/2018.
@@ -44,6 +46,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private NonNullList<ItemStack> infuserContents = NonNullList.create();
     public static List<Item> validToolList = new ArrayList<>();
     public static List<Item> validModifierList = new ArrayList<>();
+
+    private int tickCounter = 0;
 
 
     public TileEntityInfuser() {
@@ -68,13 +72,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         //Energy
         storage.readFromNBT(nbt);
 
-        System.out.println("Read Infuser NBT");
+        //System.out.println("Read Infuser NBT");
         super.readFromNBT(nbt);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        System.out.println("Write Infuser NBT");
+        //System.out.println("Write Infuser NBT");
 
         //Items
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
@@ -87,11 +91,20 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     @Override
     public void update() {
-        if(hasValidTool()){
-            if(hasValidModifer()){
-
+        if(tickCounter % 60 == 0){
+            if(hasValidTool()){
+                if(hasValidModifer()) {
+                    ItemStack stack = handler.getStackInSlot(10);
+                    if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+                        if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 8.0) {
+                            stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(12.0F);
+                        }
+                    }
+                }
             }
+            tickCounter = 0;
         }
+        tickCounter++;
     }
 
     @Override

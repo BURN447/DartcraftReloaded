@@ -14,7 +14,7 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
 
 
     public ToolModStorage(){
-        System.out.println("Tool Mod Storage Initialization");
+        //System.out.println("Tool Mod Storage Initialization");
     }
 
     @Nullable

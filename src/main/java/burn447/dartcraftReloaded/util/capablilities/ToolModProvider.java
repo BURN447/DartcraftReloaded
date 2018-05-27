@@ -22,7 +22,7 @@ public class ToolModProvider implements ICapabilitySerializable<NBTBase>, ICapab
 
     public ToolModProvider(Capability<IToolModifier> capability, EnumFacing facing){
         if(capability != null){
-            System.out.println("Initializing Tool Modifier Provider");
+            //System.out.println("Initializing Tool Modifier Provider");
             CAPABILITY_TOOLMOD = capability;
             this.facing = facing;
             this.instance = CAPABILITY_TOOLMOD.getDefaultInstance();

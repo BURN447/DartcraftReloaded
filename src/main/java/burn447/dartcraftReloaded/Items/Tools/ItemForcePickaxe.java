@@ -2,6 +2,7 @@ package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
+import burn447.dartcraftReloaded.util.Utils;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -36,10 +37,16 @@ public class ItemForcePickaxe extends ItemToolBase {
     private Item.ToolMaterial toolMaterial = dartcraftReloaded.forceToolMaterial;
 
     public ItemForcePickaxe(String name) {
-
         super(name);
         setApplicableModifers();
         this.name = name;
+    }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
+        Material material = state.getMaterial();
+        System.out.println("Efficiency: " + stack.getCapability(CAPABILITY_TOOLMOD, null).getDestroySpeed(stack, state));
+        return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getDestroySpeed(stack, state) : stack.getCapability(CAPABILITY_TOOLMOD,null).getDestroySpeed(stack, state);
     }
 
     @Override
@@ -113,10 +120,11 @@ public class ItemForcePickaxe extends ItemToolBase {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
     {
         if(stack.getCapability(CAPABILITY_TOOLMOD, null) != null && stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() != 0.0)
-            lores.add("No Modifers" + stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency());
+            lores.add("No Modifers " + stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency());
         else if(stack.getCapability(CAPABILITY_TOOLMOD, null) != null)
             lores.add("Capability Attached but no Efficiency");
         else
             lores.add("No Modifiers");
     }
+
 }
