@@ -2,7 +2,6 @@ package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
-import burn447.dartcraftReloaded.util.Utils;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import static burn447.dartcraftReloaded.Handlers.CapabilityHandler.CAPABILITY_TOOLMOD;
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 
 /**
@@ -45,7 +44,6 @@ public class ItemForcePickaxe extends ItemToolBase {
     @Override
     public float getDestroySpeed(ItemStack stack, IBlockState state) {
         Material material = state.getMaterial();
-        System.out.println("Efficiency: " + stack.getCapability(CAPABILITY_TOOLMOD, null).getDestroySpeed(stack, state));
         return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getDestroySpeed(stack, state) : stack.getCapability(CAPABILITY_TOOLMOD,null).getDestroySpeed(stack, state);
     }
 

@@ -1,12 +1,10 @@
 package burn447.dartcraftReloaded.Blocks;
 
-import burn447.dartcraftReloaded.Handlers.GUIHandler;
+import burn447.dartcraftReloaded.Handlers.DCRGUIHandler;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
@@ -17,8 +15,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-
-import javax.annotation.Nullable;
 
 /**
  * Created by BURN447 on 3/31/2018.
@@ -56,7 +52,7 @@ public class BlockInfuser extends BlockBase {
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (!worldIn.isRemote) {
-            playerIn.openGui(dartcraftReloaded.instance, GUIHandler.INFUSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            playerIn.openGui(dartcraftReloaded.instance, DCRGUIHandler.INFUSER, worldIn, pos.getX(), pos.getY(), pos.getZ());
         }
         return true;
     }

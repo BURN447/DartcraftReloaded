@@ -2,7 +2,7 @@ package burn447.dartcraftReloaded;
 
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Handlers.DCRFuelHandler;
-import burn447.dartcraftReloaded.Handlers.GUIHandler;
+import burn447.dartcraftReloaded.Handlers.DCRGUIHandler;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.client.tabDartcraft;
 import burn447.dartcraftReloaded.proxy.CommonProxy;
@@ -55,7 +55,7 @@ public class dartcraftReloaded {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e){
-        NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new GUIHandler());
+        NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new DCRGUIHandler());
         GameRegistry.registerFuelHandler(new DCRFuelHandler());
     }
     @Mod.EventHandler

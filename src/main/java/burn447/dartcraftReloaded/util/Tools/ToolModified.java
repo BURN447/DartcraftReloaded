@@ -20,11 +20,9 @@ public class ToolModified implements IToolModifier {
     private float attackDamage;
     private float attackSpeed;
     private Item.ToolMaterial toolMaterial;
-    private float efficiency = 12.0F;
+    private float efficiency = 15.0F;
 
     public ToolModified(){
-        //System.out.println("Initializing Tool Modified");
-        //efficiency = 12.0F;
     }
 
     @Override

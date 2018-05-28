@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 /**
  * Created by BURN447 on 3/31/2018.
  */
-public class GUIHandler implements IGuiHandler {
+public class DCRGUIHandler implements IGuiHandler {
 
     public static final int INFUSER = 0;
 

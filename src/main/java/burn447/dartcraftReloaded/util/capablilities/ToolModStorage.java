@@ -14,14 +14,12 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
 
 
     public ToolModStorage(){
-        //System.out.println("Tool Mod Storage Initialization");
     }
 
     @Nullable
     @Override
     public NBTBase writeNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side) {
         NBTTagCompound nbt = new NBTTagCompound();
-            //System.out.println("Saving Efficiency");
             nbt.setFloat("efficiency", instance.getEfficiency());
 
         return nbt;
@@ -31,8 +29,6 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
     public void readNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side, NBTBase nbtIn) {
         if(nbtIn instanceof NBTTagCompound){
             NBTTagCompound nbt = (NBTTagCompound) nbtIn;
-
-            //System.out.println("Reading Efficiency " + nbt.getFloat("efficiency"));
             instance.setEfficiency(nbt.getFloat("efficiency"));
         }
     }

@@ -15,10 +15,9 @@ public class ToolFactory implements Callable<IToolModifier> {
 
     @Override
     public IToolModifier call() throws Exception {
-        //System.out.println("Tool Factory Initialization");
         return new IToolModifier() {
             private Item.ToolMaterial tm = dartcraftReloaded.forceToolMaterial;
-            private float efficiency = 12.0F;
+            private float efficiency = 8.0F;
             @Override
             public float getDestroySpeed(ItemStack stack, IBlockState state) {
                 return efficiency;
@@ -56,7 +55,6 @@ public class ToolFactory implements Callable<IToolModifier> {
 
             @Override
             public void setEfficiency(float newEfficiency) {
-                //System.out.println("Setting Efficiency in Factory");
                 efficiency = newEfficiency;
             }
 

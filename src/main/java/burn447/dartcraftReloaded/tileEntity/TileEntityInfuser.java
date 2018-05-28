@@ -3,17 +3,13 @@ package burn447.dartcraftReloaded.tileEntity;
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Items.ModItems;
-import burn447.dartcraftReloaded.Items.Tools.ItemForcePickaxe;
-import burn447.dartcraftReloaded.Items.Tools.ItemToolBase;
 import burn447.dartcraftReloaded.util.References;
-import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -21,7 +17,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -32,7 +27,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static burn447.dartcraftReloaded.Handlers.CapabilityHandler.CAPABILITY_TOOLMOD;
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
 
 /**
@@ -71,14 +66,11 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
         //Energy
         storage.readFromNBT(nbt);
-
-        //System.out.println("Read Infuser NBT");
         super.readFromNBT(nbt);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-        //System.out.println("Write Infuser NBT");
 
         //Items
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
@@ -97,7 +89,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                     ItemStack stack = handler.getStackInSlot(10);
                     if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
                         if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 8.0) {
+                            stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(10.0F);
+                        }
+                        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 10.0){
                             stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(12.0F);
+                        }
+                        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 12.0){
+                            stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(14.0F);
                         }
                     }
                 }

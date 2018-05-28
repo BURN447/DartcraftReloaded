@@ -13,7 +13,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
 
-import static burn447.dartcraftReloaded.Handlers.CapabilityHandler.CAPABILITY_TOOLMOD;
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
 
 /**
@@ -32,11 +32,6 @@ public class ItemToolBase extends Item {
         this.setUnlocalizedName(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
-
-//        if(CAPABILITY_TOOLMOD == null)
-//            System.out.println("Capability Tool Mod = NULL");
-//        else
-//            System.out.println("Capability Tool Mod is Working");
     }
 
     public void registerItemModel() {
@@ -45,7 +40,6 @@ public class ItemToolBase extends Item {
 
     public float getDestroySpeed(ItemStack stack, IBlockState state)
     {
-        //System.out.println("Efficiency: " + stack.getCapability(CAPABILITY_TOOLMOD, null).getDestroySpeed(stack, state));
         efficiency = stack.getCapability(CAPABILITY_TOOLMOD, null).getDestroySpeed(stack, state);
 
         return efficiency;

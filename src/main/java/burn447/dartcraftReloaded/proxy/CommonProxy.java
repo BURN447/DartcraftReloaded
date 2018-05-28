@@ -1,18 +1,10 @@
 package burn447.dartcraftReloaded.proxy;
 
-import burn447.dartcraftReloaded.Handlers.CapabilityHandler;
+import burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
-import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
-import burn447.dartcraftReloaded.util.capablilities.ToolFactory;
-import burn447.dartcraftReloaded.util.capablilities.ToolModStorage;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.translation.I18n;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -34,6 +26,6 @@ public class CommonProxy {
 
     @Mod.EventHandler
     public void preInit(){
-        CapabilityHandler.register();
+        DCRCapabilityHandler.register();
     }
 }
