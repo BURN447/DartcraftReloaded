@@ -15,6 +15,8 @@ import javax.annotation.Nonnull;
  */
 public class ContainerBlockInfuser extends Container {
 
+    TileEntityInfuser te;
+
     public ContainerBlockInfuser(IInventory playerInv, TileEntityInfuser te) {
 
         this.addSlotToContainer(new SlotItemHandler(te.handler, 0, 10, 10));
@@ -41,6 +43,8 @@ public class ContainerBlockInfuser extends Container {
         for (int x = 0; x < 9; ++x) {
             this.addSlotToContainer(new Slot(playerInv, x, xPos + x * 18, yPos + 58));
         }
+
+        this.te = te;
     }
 
     @Override
@@ -56,8 +60,7 @@ public class ContainerBlockInfuser extends Container {
         Slot slot = this.inventorySlots.get(index);
         boolean hasReturned = false;
 
-        if (slot != null && slot.getHasStack())
-        {
+        if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
@@ -103,4 +106,9 @@ public class ContainerBlockInfuser extends Container {
 
         return itemstack;
     }
+
+    public void setButtonPressed(boolean buttonPressed){
+        te.canWork = buttonPressed;
+    }
+
 }

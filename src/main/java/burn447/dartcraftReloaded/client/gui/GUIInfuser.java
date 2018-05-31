@@ -1,5 +1,7 @@
 package burn447.dartcraftReloaded.client.gui;
 
+import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
+import burn447.dartcraftReloaded.Networking.InfuserMessage;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
@@ -20,6 +22,8 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static burn447.dartcraftReloaded.Handlers.DCRPacketHandler.packetHandler;
 
 /**
  * Created by BURN447 on 3/31/2018.
@@ -65,19 +69,24 @@ public class GUIInfuser extends GuiContainer {
             text.add(TextFormatting.GRAY + I18n.format("gui.blockInfuser.Start.tooltip"));
             this.drawHoveringText(text, actualMouseX, actualMouseY);
         }
-
     }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
-
-        int actualMouseX = mouseX - ((this.width - this.xSize) / 2);
-        int actualMouseY = mouseY - ((this.height - this.ySize) / 2);
-
         if(isPointInRegion(39, 101, 12, 12, mouseX, mouseY)){
-            System.out.println("Mouse Clicked");
+            this.actionPerformed(startButton);
         }
-        else
-            super.mouseClicked(mouseX, mouseY, mouseButton);
+        super.mouseClicked(mouseX, mouseY, mouseButton);
     }
+
+    @Override
+    protected void actionPerformed(GuiButton button) throws IOException {
+        //Start Infusion
+        if(button.id == 0){
+            DCRPacketHandler.sendToServer(new InfuserMessage(true));
+            te.canWork = true;
+        }
+    }
+
+
 }

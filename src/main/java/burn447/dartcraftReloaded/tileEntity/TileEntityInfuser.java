@@ -41,6 +41,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private NonNullList<ItemStack> infuserContents = NonNullList.create();
     public static List<Item> validToolList = new ArrayList<>();
     public static List<Item> validModifierList = new ArrayList<>();
+    public boolean canWork = false;
 
     private int tickCounter = 0;
 
@@ -58,7 +59,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         this.storage = new DCREnergyStorage(500000, 512, 512);
     }
 
-
     @Override
     public void readFromNBT(NBTTagCompound nbt) {
         //Items
@@ -66,24 +66,24 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
         //Energy
         storage.readFromNBT(nbt);
+        super.markDirty();
         super.readFromNBT(nbt);
     }
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
-
         //Items
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
         //Energy
         storage.writeToNBT(nbt);
-        super.markDirty();
         return super.writeToNBT(nbt);
     }
 
     @Override
     public void update() {
         if(tickCounter % 60 == 0){
+            this.markDirty();
             if(hasValidTool()){
                 if(hasValidModifer()) {
                     ItemStack stack = handler.getStackInSlot(10);
@@ -108,8 +108,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     @Override
     public SPacketUpdateTileEntity getUpdatePacket() {
         NBTTagCompound nbt = new NBTTagCompound();
-        this.writeToNBT(nbt);
-        super.markDirty();
+        markDirty();
+        writeToNBT(nbt);
         int metadata = getBlockMetadata();
         return new SPacketUpdateTileEntity(this.pos, metadata, nbt);
     }
@@ -122,8 +122,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     @Override
     public NBTTagCompound getUpdateTag() {
         NBTTagCompound nbt = new NBTTagCompound();
+        markDirty();
         this.writeToNBT(nbt);
-        super.markDirty();
         return nbt;
     }
 
@@ -208,4 +208,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityInfuser();
     }
+
+
+
+
 }

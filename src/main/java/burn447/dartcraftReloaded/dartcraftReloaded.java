@@ -3,6 +3,7 @@ package burn447.dartcraftReloaded;
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Handlers.DCRFuelHandler;
 import burn447.dartcraftReloaded.Handlers.DCRGUIHandler;
+import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.client.tabDartcraft;
 import burn447.dartcraftReloaded.proxy.CommonProxy;
@@ -48,19 +49,22 @@ public class dartcraftReloaded {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e){
+        System.out.println("Dartcraft Reloaded Pre-Init");
         GameRegistry.registerWorldGenerator(new DCRWorldGen(), 3);
         proxy.registerTileEntities();
         proxy.preInit();
+        DCRPacketHandler.init();
     }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e){
+        System.out.println("Dartcraft Reloaded Init");
         NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new DCRGUIHandler());
         GameRegistry.registerFuelHandler(new DCRFuelHandler());
     }
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e){
-
+        System.out.println("Dartcraft Reloaded Post-Init");
     }
 
     @Mod.EventBusSubscriber
