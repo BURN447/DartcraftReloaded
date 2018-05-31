@@ -110,19 +110,7 @@ public class ItemForcePickaxe extends ItemToolBase {
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-
         return super.initCapabilities(stack, nbt);
-    }
-
-    @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
-    {
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null) != null && stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() != 0.0)
-            lores.add("No Modifers " + stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency());
-        else if(stack.getCapability(CAPABILITY_TOOLMOD, null) != null)
-            lores.add("Capability Attached but no Efficiency");
-        else
-            lores.add("No Modifiers");
     }
 
 }

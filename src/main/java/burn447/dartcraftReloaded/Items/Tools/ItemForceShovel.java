@@ -1,26 +1,106 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
+import burn447.dartcraftReloaded.util.References;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemSpade;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
+import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
+import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_REPAIR;
+import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_SPEED;
 
 /**
  * Created by BURN447 on 5/13/2018.
  */
-public class ItemForceShovel extends ItemSpade {
+public class ItemForceShovel extends ItemToolBase {
 
     private static String name;
 
+    public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
+
     public ItemForceShovel(String name) {
-        super(ToolMaterial.DIAMOND);
-        this.setRegistryName(name);
-        this.setUnlocalizedName(name);
-        this.setCreativeTab(dartcraftReloaded.creativeTab);
-        this.efficiency = 15F;
-        this.attackDamage = 3.0F;
+        super(name);
+        setApplicableModifers();
         this.name = name;
     }
 
     public void registerItemModel() {
         dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
+    }
+
+    public void setApplicableModifers() {
+        applicableModifers.add(MOD_CHARGE);
+        applicableModifers.add(MOD_CHARGEII);
+        applicableModifers.add(MOD_HEAT);
+        applicableModifers.add(MOD_LUCK);
+        applicableModifers.add(MOD_GRINDING);
+        applicableModifers.add(MOD_TOUCH);
+        applicableModifers.add(MOD_STURDY);
+        applicableModifers.add(MOD_REPAIR);
+        applicableModifers.add(MOD_SPEED);
+    }
+
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        ItemStack itemstack = player.getHeldItem(hand);
+
+        if (!player.canPlayerEdit(pos.offset(facing), facing, itemstack))
+        {
+            return EnumActionResult.FAIL;
+        }
+        else
+        {
+            IBlockState iblockstate = worldIn.getBlockState(pos);
+            Block block = iblockstate.getBlock();
+
+            if (facing != EnumFacing.DOWN && worldIn.getBlockState(pos.up()).getMaterial() == Material.AIR && block == Blocks.GRASS)
+            {
+                IBlockState iblockstate1 = Blocks.GRASS_PATH.getDefaultState();
+                worldIn.playSound(player, pos, SoundEvents.ITEM_SHOVEL_FLATTEN, SoundCategory.BLOCKS, 1.0F, 1.0F);
+
+                if (!worldIn.isRemote)
+                {
+                    worldIn.setBlockState(pos, iblockstate1, 11);
+                    itemstack.damageItem(1, player);
+                }
+
+                return EnumActionResult.SUCCESS;
+            }
+            else
+            {
+                return EnumActionResult.PASS;
+            }
+        }
+    }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
+        Material material = state.getMaterial();
+        return stack.getCapability(CAPABILITY_TOOLMOD,null).getDestroySpeed(stack, state);
+
+    }
+
+    @Nullable
+    @Override
+    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
+        return super.initCapabilities(stack, nbt);
     }
 }

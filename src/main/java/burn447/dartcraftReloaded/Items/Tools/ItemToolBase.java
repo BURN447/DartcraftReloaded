@@ -3,6 +3,7 @@ package burn447.dartcraftReloaded.Items.Tools;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.capablilities.ToolModProvider;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
+
+import java.util.List;
 
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
@@ -90,6 +93,22 @@ public class ItemToolBase extends Item {
             return new ToolModProvider(CAPABILITY_TOOLMOD, null);
         else
             return null;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn)
+    {
+        if(stack.getCapability(CAPABILITY_TOOLMOD, null) != null)
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 10.0F){
+                lores.add("Speed One");
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 14.0F){
+            lores.add("Speed Two");
+            }
+        else
+            lores.add("No Modifiers");
+
+        super.addInformation(stack, worldIn, lores, flagIn);
     }
 
 

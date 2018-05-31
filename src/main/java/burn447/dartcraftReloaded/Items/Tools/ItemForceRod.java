@@ -3,18 +3,39 @@ package burn447.dartcraftReloaded.Items.Tools;
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Items.ItemBase;
 import burn447.dartcraftReloaded.dartcraftReloaded;
+import burn447.dartcraftReloaded.util.References;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+
+import javax.annotation.Nullable;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
+import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_REPAIR;
+import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_SPEED;
 
 /**
  * Created by BURN447 on 2/23/2018.
  */
 public class ItemForceRod extends ItemBase {
+
+    public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
+
+    private Item.ToolMaterial toolMaterial = dartcraftReloaded.forceToolMaterial;
 
     public ItemForceRod(String name){
         super(name);
@@ -32,7 +53,5 @@ public class ItemForceRod extends ItemBase {
 
         return EnumActionResult.PASS;
     }
-
-
 
 }
