@@ -1,12 +1,9 @@
-package burn447.dartcraftReloaded.util.capablilities;
+package burn447.dartcraftReloaded.capablilities;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagByteArray;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 
 import javax.annotation.Nullable;
 

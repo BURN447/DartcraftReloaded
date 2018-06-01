@@ -1,9 +1,9 @@
 package burn447.dartcraftReloaded.Handlers;
 
 import burn447.dartcraftReloaded.util.References;
-import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
-import burn447.dartcraftReloaded.util.capablilities.ToolFactory;
-import burn447.dartcraftReloaded.util.capablilities.ToolModStorage;
+import burn447.dartcraftReloaded.capablilities.IToolModifier;
+import burn447.dartcraftReloaded.capablilities.ToolFactory;
+import burn447.dartcraftReloaded.capablilities.ToolModStorage;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;

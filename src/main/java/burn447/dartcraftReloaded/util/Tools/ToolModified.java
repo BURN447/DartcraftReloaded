@@ -1,7 +1,7 @@
 package burn447.dartcraftReloaded.util.Tools;
 
 import burn447.dartcraftReloaded.util.References;
-import burn447.dartcraftReloaded.util.capablilities.IToolModifier;
+import burn447.dartcraftReloaded.capablilities.IToolModifier;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
