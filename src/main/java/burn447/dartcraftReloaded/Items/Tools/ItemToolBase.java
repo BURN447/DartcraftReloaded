@@ -27,7 +27,6 @@ import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY
 public class ItemToolBase extends Item {
 
     private String name;
-    private boolean hasCapability;
 
     protected float efficiency;
 
@@ -37,6 +36,10 @@ public class ItemToolBase extends Item {
         this.setUnlocalizedName(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
+        this.maxStackSize = 1;
+        this.showDurabilityBar(this.getDefaultInstance());
+        this.isDamageable();
+        this.setMaxDamage(dartcraftReloaded.forceToolMaterial.getMaxUses());
     }
 
     public void registerItemModel() {
@@ -62,6 +65,8 @@ public class ItemToolBase extends Item {
     {
         if (!worldIn.isRemote && (double)state.getBlockHardness(worldIn, pos) != 0.0D)
         {
+            //System.out.println("Damaging Tool");
+            System.out.println(this.getDurabilityForDisplay(stack));
             stack.damageItem(1, entityLiving);
         }
 

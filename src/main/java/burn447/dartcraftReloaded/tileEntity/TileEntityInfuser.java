@@ -82,7 +82,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     @Override
     public void update() {
-        if(tickCounter % 60 == 0){
+        if(canWork){
             this.markDirty();
             if(hasValidTool()){
                 if(hasValidModifer()) {
