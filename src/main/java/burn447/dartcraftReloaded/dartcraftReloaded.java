@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded;
 
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
+import burn447.dartcraftReloaded.Handlers.DCREventHandler;
 import burn447.dartcraftReloaded.Handlers.DCRFuelHandler;
 import burn447.dartcraftReloaded.Handlers.DCRGUIHandler;
 import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
@@ -61,6 +62,7 @@ public class dartcraftReloaded {
         System.out.println("Dartcraft Reloaded Init");
         NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new DCRGUIHandler());
         GameRegistry.registerFuelHandler(new DCRFuelHandler());
+        DCREventHandler.init();
     }
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e){

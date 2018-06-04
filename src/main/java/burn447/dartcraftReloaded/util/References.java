@@ -31,7 +31,10 @@ public class References {
         MOD_CRAFT,
         MOD_GRINDING,
         MOD_REPAIR,
-        MOD_WING
+        MOD_WING,
+        MOD_FREEZING,
+        MOD_TREASURE,
+        MOD_IMPERVIOUS
     }
 
     public enum ITEMTYPE {
@@ -52,5 +55,5 @@ public class References {
     public static final String name = "Dartcraft Reloaded";
     public static final String version = "1.0.0";
     public static final int numModifiers = 20;
-    public static final int numTools = 1;
+    public static final int numTools = 4;
 }

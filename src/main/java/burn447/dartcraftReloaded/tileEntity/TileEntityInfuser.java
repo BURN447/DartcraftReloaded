@@ -3,9 +3,14 @@ package burn447.dartcraftReloaded.tileEntity;
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.util.References;
+import burn447.dartcraftReloaded.util.Utils;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
@@ -26,6 +31,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
@@ -43,13 +49,11 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public static List<Item> validModifierList = new ArrayList<>();
     public boolean canWork = false;
 
-    private int tickCounter = 0;
-
 
     public TileEntityInfuser() {
         populateToolList();
         populateModiferList();
-        this.handler = new ItemStackHandler(11){
+        this.handler = new ItemStackHandler(11) {
             @Override
             protected int getStackLimit(int slot, ItemStack stack) {
                 return 1;
@@ -82,27 +86,20 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     @Override
     public void update() {
-        if(canWork){
+        if (canWork) {
             this.markDirty();
-            if(hasValidTool()){
-                if(hasValidModifer()) {
+            if (hasValidTool()) {
+                if (hasValidModifer()) {
+                    ItemStack mod = getModifer();
                     ItemStack stack = handler.getStackInSlot(10);
-                    if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                        if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 8.0) {
-                            stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(10.0F);
-                        }
-                        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 10.0){
-                            stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(12.0F);
-                        }
-                        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 12.0){
-                            stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(14.0F);
-                        }
+                    boolean success = applyModifier(stack, mod);
+                    if (success) {
+                        //TODO: Remove Modifier Item
                     }
                 }
             }
-            tickCounter = 0;
+            canWork = false;
         }
-        tickCounter++;
     }
 
     @Override
@@ -140,23 +137,23 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing){
-        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
-            return (T)this.handler;
+    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+            return (T) this.handler;
         return super.getCapability(capability, facing);
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing){
-        if(capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return true;
         return super.hasCapability(capability, facing);
     }
 
-    private boolean hasValidTool(){
-        if(!handler.getStackInSlot(10).isEmpty()){
-            for(int i = 0; i < References.numTools; i++){
-                if(handler.getStackInSlot(10).getItem() == validToolList.get(i)){
+    private boolean hasValidTool() {
+        if (!handler.getStackInSlot(10).isEmpty()) {
+            for (int i = 0; i < References.numTools; i++) {
+                if (handler.getStackInSlot(10).getItem() == validToolList.get(i)) {
                     return true;
                 }
             }
@@ -164,11 +161,11 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return false;
     }
 
-    private boolean hasValidModifer(){
-        for(int i = 2; i < 10; i++) {
-            if(!handler.getStackInSlot(10).isEmpty()){
-                for(int j = 0; j < References.numModifiers - 1; j++){
-                    if(handler.getStackInSlot(i).getItem() == validModifierList.get(j)){
+    private boolean hasValidModifer() {
+        for (int i = 2; i < 10; i++) {
+            if (!handler.getStackInSlot(10).isEmpty()) {
+                for (int j = 0; j < References.numModifiers - 1; j++) {
+                    if (handler.getStackInSlot(i).getItem() == validModifierList.get(j)) {
                         return true;
                     }
                 }
@@ -177,13 +174,19 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return false;
     }
 
-    private void populateToolList(){
+    private void populateToolList() {
         validToolList.add(ModItems.forcePickaxe);
+        validToolList.add(ModItems.forceAxe);
+        validToolList.add(ModItems.forceShovel);
+        validToolList.add(ModItems.forceSword);
     }
 
-    private void populateModiferList(){
+    private void populateModiferList() {
         validModifierList.add(ModItems.nuggetForce);
+        validModifierList.add(ModItems.claw);
+        validModifierList.add(ModItems.fortune);
         validModifierList.add(Items.SUGAR);
+        validModifierList.add(Items.COAL);
         validModifierList.add(ModItems.goldenPowerSource);
         validModifierList.add(ModItems.cookieFortune);
         validModifierList.add(Items.FLINT);
@@ -203,13 +206,194 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validModifierList.add(Item.getItemFromBlock(Blocks.BRICK_BLOCK));
     }
 
+    private ItemStack getModifer() {
+        for (int i = 2; i < 10; i++) {
+            if (!handler.getStackInSlot(10).isEmpty()) {
+                for (int j = 0; j < References.numModifiers - 1; j++) {
+                    if (handler.getStackInSlot(i).getItem() == validModifierList.get(j)) {
+                        return handler.getStackInSlot(i);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     @Nullable
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityInfuser();
     }
 
+    private boolean applyModifier(ItemStack stack, ItemStack mod) {
+        Item modifier = mod.getItem();
+        if (modifier == Items.SUGAR)
+            return addSpeedModifier(stack);
+        if (modifier == Items.COAL)
+            return addHeatModifier(stack);
+        if (modifier == Items.FLINT)
+            return addGrindingModifier(stack);
+        if (modifier == ModItems.nuggetForce)
+            return addForceModifier(stack);
+        if (modifier == Item.getItemFromBlock(Blocks.WEB))
+            return addSilkTouchModifier(stack);
+        if (modifier == ModItems.claw)
+            return addDamageModifier(stack);
+        if (modifier == ModItems.fortune)
+            return addLuckModifier(stack);
+        if(modifier == Items.GLOWSTONE_DUST)
+            return addLightModifier(stack);
 
+        return false;
+    }
 
+    private boolean addSpeedModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemToolBase) {
+            if (stack.getItem() instanceof ItemForcePickaxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForceAxe) {
+                if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+                    if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 8.0) {
+                        stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(12.0F);
+                        return true;
+                    } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 12.0) {
+                        stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(16.0F);
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+        return false;
+    }
 
+    private boolean addHeatModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemToolBase) {
+            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setHeat(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addForceModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceSword) {
+            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+                if (stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 1.5F)
+                    stack.getCapability(CAPABILITY_TOOLMOD, null).setKnockback(1.5F);
+                else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 1.5F)
+                    stack.getCapability(CAPABILITY_TOOLMOD, null).setKnockback(2.0F);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addGrindingModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceAxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForcePickaxe) {
+            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setGrinding(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addSilkTouchModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceAxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForcePickaxe) {
+            stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
+        }
+        return false;
+    }
+
+    private boolean addDamageModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceSword) {
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 8.0F) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setAttackDamage(12.0F);
+                return true;
+            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 12.0F) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setAttackDamage(16.0F);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addLuckModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForcePickaxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForceAxe) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckOne() && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckFour()) {
+                stack.addEnchantment(Enchantments.FORTUNE, 1);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(1);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckTwo()) {
+                Utils.removeEnchant(Enchantments.FORTUNE, stack);
+                stack.addEnchantment(Enchantments.FORTUNE, 2);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(2);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckThree()) {
+                Utils.removeEnchant(Enchantments.FORTUNE, stack);
+                stack.addEnchantment(Enchantments.FORTUNE, 3);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(3);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckFour()) {
+                Utils.removeEnchant(Enchantments.FORTUNE, stack);
+                stack.addEnchantment(Enchantments.FORTUNE, 4);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(4);
+                return true;
+            }
+        } else if (stack.getItem() instanceof ItemForceSword) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckOne() && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckFour()) {
+                stack.addEnchantment(Enchantments.LOOTING, 1);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(1);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckTwo()) {
+                Utils.removeEnchant(Enchantments.LOOTING, stack);
+                stack.addEnchantment(Enchantments.LOOTING, 2);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(2);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckThree()) {
+                Utils.removeEnchant(Enchantments.LOOTING, stack);
+                stack.addEnchantment(Enchantments.LOOTING, 3);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(3);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckFour()) {
+                Utils.removeEnchant(Enchantments.LOOTING, stack);
+                stack.addEnchantment(Enchantments.LOOTING, 4);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(4);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addLightModifier(ItemStack stack) {
+        //Smite
+        if (stack.getItem() instanceof ItemForceSword) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightOne()) {
+                stack.addEnchantment(Enchantments.SMITE, 1);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(1);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightTwo()) {
+                Utils.removeEnchant(Enchantments.SMITE, stack);
+                stack.addEnchantment(Enchantments.SMITE, 2);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(2);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightThree()) {
+                Utils.removeEnchant(Enchantments.SMITE, stack);
+                stack.addEnchantment(Enchantments.SMITE, 3);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(3);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightFour()) {
+                Utils.removeEnchant(Enchantments.SMITE, stack);
+                stack.addEnchantment(Enchantments.SMITE, 4);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(4);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightFive()) {
+                Utils.removeEnchant(Enchantments.SMITE, stack);
+                stack.addEnchantment(Enchantments.SMITE, 5);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(5);
+                return true;
+            }
+        }
+        return false;
+    }
 }

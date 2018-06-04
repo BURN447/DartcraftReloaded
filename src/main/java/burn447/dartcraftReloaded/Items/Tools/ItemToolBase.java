@@ -7,10 +7,15 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -46,27 +51,21 @@ public class ItemToolBase extends Item {
         dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
     }
 
-    public float getDestroySpeed(ItemStack stack, IBlockState state)
-    {
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
         efficiency = stack.getCapability(CAPABILITY_TOOLMOD, null).getDestroySpeed(stack, state);
 
         return efficiency;
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
-    {
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         stack.damageItem(2, attacker);
         return true;
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving)
-    {
-        if (!worldIn.isRemote && (double)state.getBlockHardness(worldIn, pos) != 0.0D)
-        {
-            //System.out.println("Damaging Tool");
-            System.out.println(this.getDurabilityForDisplay(stack));
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+        if (!worldIn.isRemote && (double)state.getBlockHardness(worldIn, pos) != 0.0D) {
             stack.damageItem(1, entityLiving);
         }
 
@@ -79,8 +78,7 @@ public class ItemToolBase extends Item {
     }
 
     @Override
-    public int getItemEnchantability(ItemStack stack)
-    {
+    public int getItemEnchantability(ItemStack stack) {
         if(CAPABILITY_TOOLMOD != null)
             return stack.getCapability(CAPABILITY_TOOLMOD, null).getItemEnchantibility();
         else
@@ -106,13 +104,42 @@ public class ItemToolBase extends Item {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn) {
         if (stack.getCapability(CAPABILITY_TOOLMOD, null) != null) {
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 10.0F) {
-                lores.add("Speed One");
-            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 14.0F) {
-                lores.add("Speed Two");
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 12.0F) {
+                lores.add("Speed I");
+            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 16.0F) {
+                lores.add("Speed II");
+            }
+
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasHeat()){
+                lores.add("Heat");
+            }
+
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 1.5F){
+                lores.add("Force I");
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 2.0F){
+                lores.add("Force II");
+            }
+
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasGrinding()){
+                lores.add("Grinding");
+            }
+
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasTouch()){
+                lores.add("Silk Touch");
+            }
+
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 12.0F){
+                lores.add("Damage I");
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 16.0F){
+                lores.add("Damage II");
             }
         }
     }
+
+    @Override
+    public boolean hasEffect(ItemStack stack) {
+        return false;
+    }
 }
-
-

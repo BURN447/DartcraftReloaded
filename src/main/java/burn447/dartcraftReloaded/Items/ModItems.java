@@ -24,6 +24,8 @@ public class ModItems {
     public static ItemForceRod forceRod = new ItemForceRod("force_rod");
     public static ItemForceWrench forceWrench = new ItemForceWrench("force_wrench");
     public static ItemBase goldenPowerSource = new ItemBase("goldenPowerSource").setCreativeTab(dartcraftReloaded.creativeTab);
+    public static ItemBase claw = new ItemBase("forceClaw").setCreativeTab(dartcraftReloaded.creativeTab);
+    public static ItemFortune fortune = new ItemFortune("fortune");
 
     //Tools
     public static ItemForcePickaxe forcePickaxe = new ItemForcePickaxe("forcePickaxe");
@@ -49,7 +51,9 @@ public class ModItems {
                 forceAxe,
                 forceSword,
                 forceShovel,
-                goldenPowerSource
+                goldenPowerSource,
+                claw,
+                fortune
         );
     }
 
@@ -71,5 +75,7 @@ public class ModItems {
         forceSword.registerItemModel();
         forceShovel.registerItemModel();
         goldenPowerSource.registerItemModel();
+        claw.registerItemModel();
+        fortune.registerItemModel();
     }
 }

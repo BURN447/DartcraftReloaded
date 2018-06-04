@@ -13,13 +13,16 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import sun.security.pkcs11.wrapper.CK_AES_CTR_PARAMS;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_REPAIR;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_SPEED;
@@ -44,15 +47,19 @@ public class ItemForceSword extends ItemToolBase {
     }
 
     public void setApplicableModifers() {
-        applicableModifers.add(MOD_CHARGE);
-        applicableModifers.add(MOD_CHARGEII);
+        applicableModifers.add(MOD_DAMAGE);
+        applicableModifers.add(MOD_FREEZING);
         applicableModifers.add(MOD_HEAT);
         applicableModifers.add(MOD_LUCK);
-        applicableModifers.add(MOD_GRINDING);
-        applicableModifers.add(MOD_TOUCH);
-        applicableModifers.add(MOD_STURDY);
+        applicableModifers.add(MOD_WING);
+        applicableModifers.add(MOD_BANE);
+        applicableModifers.add(MOD_BLEED);
+        applicableModifers.add(MOD_LIGHT);
         applicableModifers.add(MOD_REPAIR);
-        applicableModifers.add(MOD_SPEED);
+        applicableModifers.add(MOD_SOUL);
+        applicableModifers.add(MOD_TREASURE);
+        applicableModifers.add(MOD_IMPERVIOUS);
+        applicableModifers.add(MOD_FORCE);
     }
 
     @Nullable
@@ -61,8 +68,7 @@ public class ItemForceSword extends ItemToolBase {
         return super.initCapabilities(stack, nbt);
     }
 
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving)
-    {
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if ((double)state.getBlockHardness(worldIn, pos) != 0.0D)
         {
             stack.damageItem(2, entityLiving);
@@ -76,19 +82,23 @@ public class ItemForceSword extends ItemToolBase {
         return blockIn.getBlock() == Blocks.WEB;
     }
 
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker)
-    {
+    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
+
+        Vec3d look = attacker.getLookVec().normalize();
+
+        double knockback = stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback();
+
+        target.addVelocity(look.x * knockback, look.y * knockback, look.z * knockback);
+
         stack.damageItem(1, attacker);
         return true;
     }
 
-    public float getAttackDamage()
-    {
+    public float getAttackDamage() {
         return dartcraftReloaded.forceToolMaterial.getAttackDamage();
     }
 
-    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot)
-    {
+    public Multimap<String, AttributeModifier> getItemAttributeModifiers(EntityEquipmentSlot equipmentSlot) {
         Multimap<String, AttributeModifier> multimap = super.getItemAttributeModifiers(equipmentSlot);
 
         if (equipmentSlot == EntityEquipmentSlot.MAINHAND)
@@ -99,7 +109,5 @@ public class ItemForceSword extends ItemToolBase {
 
         return multimap;
     }
-
-
 
 }

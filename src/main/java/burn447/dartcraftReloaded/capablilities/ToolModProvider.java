@@ -1,6 +1,5 @@
 package burn447.dartcraftReloaded.capablilities;
 
-import burn447.dartcraftReloaded.util.Tools.ToolModified;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -18,7 +17,6 @@ public class ToolModProvider implements ICapabilitySerializable<NBTBase>, ICapab
 
     private IToolModifier instance = null;
 
-    private ToolModified toolModified = new ToolModified();
 
     public ToolModProvider(Capability<IToolModifier> capability, EnumFacing facing){
         if(capability != null){
