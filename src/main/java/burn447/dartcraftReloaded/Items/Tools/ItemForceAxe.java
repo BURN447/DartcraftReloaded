@@ -1,17 +1,23 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
+import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
-import net.minecraft.item.ItemAxe;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static burn447.dartcraftReloaded.dartcraftReloaded.forceToolMaterial;
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
+import static burn447.dartcraftReloaded.util.DartUtils.fellTree;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_REPAIR;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_SPEED;
@@ -27,7 +33,7 @@ public class ItemForceAxe extends ItemToolBase {
 
     public ItemForceAxe(String name) {
         super(name);
-
+        setApplicableModifers();
         this.name = name;
     }
 
@@ -45,6 +51,7 @@ public class ItemForceAxe extends ItemToolBase {
         applicableModifers.add(MOD_STURDY);
         applicableModifers.add(MOD_REPAIR);
         applicableModifers.add(MOD_SPEED);
+        applicableModifers.add(MOD_LUMBERJACK);
     }
 
     @Nullable
@@ -53,4 +60,18 @@ public class ItemForceAxe extends ItemToolBase {
         return super.initCapabilities(stack, nbt);
     }
 
+    @Override
+    public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
+
+        EntityPlayer player = null;
+        if (entityLiving instanceof EntityPlayer) {
+            player = (EntityPlayer) entityLiving;
+        }
+        if (player != null) {
+            if (DartUtils.isTree(worldIn, pos)) {
+                return fellTree(stack, pos, player);
+            }
+        }
+        return false;
+    }
 }

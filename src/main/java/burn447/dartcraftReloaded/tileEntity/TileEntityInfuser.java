@@ -4,11 +4,9 @@ import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
+import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
-import burn447.dartcraftReloaded.util.Utils;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -31,7 +29,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
@@ -241,8 +238,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addDamageModifier(stack);
         if (modifier == ModItems.fortune)
             return addLuckModifier(stack);
-        if(modifier == Items.GLOWSTONE_DUST)
+        if (modifier == Items.GLOWSTONE_DUST)
             return addLightModifier(stack);
+        if(modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
+            return addSturdyModifier(stack);
+        if(modifier == Item.getItemFromBlock(ModBlocks.forceLog))
+            return addLumberjackModifier(stack);
 
         return false;
     }
@@ -320,43 +321,43 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     private boolean addLuckModifier(ItemStack stack) {
         if (stack.getItem() instanceof ItemForcePickaxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForceAxe) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckOne() && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckFour()) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(4)) {
                 stack.addEnchantment(Enchantments.FORTUNE, 1);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(1);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckTwo()) {
-                Utils.removeEnchant(Enchantments.FORTUNE, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(2)) {
+                DartUtils.removeEnchant(Enchantments.FORTUNE, stack);
                 stack.addEnchantment(Enchantments.FORTUNE, 2);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(2);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckThree()) {
-                Utils.removeEnchant(Enchantments.FORTUNE, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(3)) {
+                DartUtils.removeEnchant(Enchantments.FORTUNE, stack);
                 stack.addEnchantment(Enchantments.FORTUNE, 3);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(3);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckFour()) {
-                Utils.removeEnchant(Enchantments.FORTUNE, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(4)) {
+                DartUtils.removeEnchant(Enchantments.FORTUNE, stack);
                 stack.addEnchantment(Enchantments.FORTUNE, 4);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(4);
                 return true;
             }
         } else if (stack.getItem() instanceof ItemForceSword) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckOne() && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckFour()) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(4)) {
                 stack.addEnchantment(Enchantments.LOOTING, 1);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(1);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckTwo()) {
-                Utils.removeEnchant(Enchantments.LOOTING, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(2)) {
+                DartUtils.removeEnchant(Enchantments.LOOTING, stack);
                 stack.addEnchantment(Enchantments.LOOTING, 2);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(2);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckThree()) {
-                Utils.removeEnchant(Enchantments.LOOTING, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(3)) {
+                DartUtils.removeEnchant(Enchantments.LOOTING, stack);
                 stack.addEnchantment(Enchantments.LOOTING, 3);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(3);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckFour()) {
-                Utils.removeEnchant(Enchantments.LOOTING, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(4)) {
+                DartUtils.removeEnchant(Enchantments.LOOTING, stack);
                 stack.addEnchantment(Enchantments.LOOTING, 4);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(4);
                 return true;
@@ -368,32 +369,62 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private boolean addLightModifier(ItemStack stack) {
         //Smite
         if (stack.getItem() instanceof ItemForceSword) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightOne()) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(1)) {
                 stack.addEnchantment(Enchantments.SMITE, 1);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(1);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightTwo()) {
-                Utils.removeEnchant(Enchantments.SMITE, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(2)) {
+                DartUtils.removeEnchant(Enchantments.SMITE, stack);
                 stack.addEnchantment(Enchantments.SMITE, 2);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(2);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightThree()) {
-                Utils.removeEnchant(Enchantments.SMITE, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(3)) {
+                DartUtils.removeEnchant(Enchantments.SMITE, stack);
                 stack.addEnchantment(Enchantments.SMITE, 3);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(3);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightFour()) {
-                Utils.removeEnchant(Enchantments.SMITE, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(4)) {
+                DartUtils.removeEnchant(Enchantments.SMITE, stack);
                 stack.addEnchantment(Enchantments.SMITE, 4);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(4);
                 return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightFive()) {
-                Utils.removeEnchant(Enchantments.SMITE, stack);
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(5)) {
+                DartUtils.removeEnchant(Enchantments.SMITE, stack);
                 stack.addEnchantment(Enchantments.SMITE, 5);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(5);
                 return true;
             }
         }
         return false;
+    }
+
+    private boolean addSturdyModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemToolBase) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasSturdyLevel(1)) {
+                stack.addEnchantment(Enchantments.UNBREAKING, 1);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setSturdy(1);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasSturdyLevel(2)) {
+                DartUtils.removeEnchant(Enchantments.UNBREAKING, stack);
+                stack.addEnchantment(Enchantments.UNBREAKING, 2);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setSturdy(2);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasSturdyLevel(3)) {
+                DartUtils.removeEnchant(Enchantments.UNBREAKING, stack);
+                stack.addEnchantment(Enchantments.UNBREAKING, 3);
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setSturdy(3);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addLumberjackModifier(ItemStack stack){
+        if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()){
+            stack.getCapability(CAPABILITY_TOOLMOD, null).setLumberJack(true);
+            return true;
+        }
+        else
+            return false;
     }
 }

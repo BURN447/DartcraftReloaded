@@ -36,10 +36,11 @@ public class ToolFactory implements Callable<IToolModifier> {
             boolean unbreakable = false;
             boolean grinding = false;
             boolean silkTouch = false;
-            boolean sturdy = false;
+            boolean lumberjack = false;
 
             boolean[] luck = {false, false, false, false};
             boolean[] light = {false, false, false, false, false};
+            boolean[] sturdy = {false, false, false};
 
             @Override
             public float getDestroySpeed(ItemStack stack, IBlockState state) {
@@ -99,8 +100,8 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
-            public boolean hasLuckOne() {
-                return luck[0];
+            public boolean hasLuckLevel(int level) {
+                return luck[level - 1];
             }
 
             @Override
@@ -109,28 +110,13 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
-            public boolean hasLuckTwo() {
-                return luck[1];
-            }
-
-            @Override
             public void setLuckTwo(boolean newVal) {
                 luck[1] = newVal;
             }
 
             @Override
-            public boolean hasLuckThree() {
-                return luck[2];
-            }
-
-            @Override
             public void setLuckThree(boolean newVal) {
                 luck[2] = newVal;
-            }
-
-            @Override
-            public boolean hasLuckFour() {
-                return luck[3];
             }
 
             @Override
@@ -181,8 +167,8 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
-            public boolean hasLightOne() {
-                return light[0];
+            public boolean hasLightLevel(int level) {
+                return light[level - 1];
             }
 
             @Override
@@ -191,18 +177,8 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
-            public boolean hasLightTwo() {
-                return light[1];
-            }
-
-            @Override
             public void setLightTwo(boolean newVal) {
                 light[1] = newVal;
-            }
-
-            @Override
-            public boolean hasLightThree() {
-                return light[2];
             }
 
             @Override
@@ -211,18 +187,8 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
-            public boolean hasLightFour() {
-                return light[3];
-            }
-
-            @Override
             public void setLightFour(boolean newVal) {
                 light[3] = newVal;
-            }
-
-            @Override
-            public boolean hasLightFive() {
-                return light[4];
             }
 
             @Override
@@ -305,13 +271,23 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
-            public boolean hasSturdy() {
-                return sturdy;
+            public boolean hasSturdyLevel(int level) {
+                return sturdy[level - 1];
             }
 
             @Override
-            public void setSturdy(boolean newVal) {
-                sturdy = newVal;
+            public void setSturdy(int level, boolean newVal) {
+                sturdy[level - 1] = newVal;
+            }
+
+            @Override
+            public void setSturdy(int level) {
+                if(level == 1 && !sturdy[1] && !sturdy[2])
+                    sturdy[0] = true;
+                else if(level == 2 && sturdy[0] && !sturdy[2])
+                    sturdy[1] = true;
+                else if(level == 3 && sturdy[0] && sturdy[1])
+                    sturdy[2] = true;
             }
 
             @Override
@@ -322,6 +298,30 @@ public class ToolFactory implements Callable<IToolModifier> {
             @Override
             public void setKnockback(float newVal) {
                 force = newVal;
+            }
+
+            @Override
+            public boolean hasLumberJack() {
+                return lumberjack;
+            }
+
+            @Override
+            public void setLumberJack(boolean newVal) {
+                lumberjack = newVal;
+            }
+
+            @Override
+            public boolean hasUpgrades(ItemStack stack) {
+                if(!(efficiency == 8.0F))
+                    return true;
+                else if(!(attackDamage != tm.getAttackDamage()))
+                    return true;
+                else if(!(force == .5F))
+                    return true;
+                else if(!freezing || !heat || !wing || !bane || !bleeding || !repair || !soul || !treasure || !unbreakable || !grinding || !silkTouch || !lumberjack || !hasSturdyLevel(1) || !hasLightLevel(1) || !hasLuckLevel(1))
+                    return false;
+                else
+                    return true;
             }
 
             @Override

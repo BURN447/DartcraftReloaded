@@ -54,6 +54,6 @@ public class References {
     public static final String modId = "dartcraftreloaded";
     public static final String name = "Dartcraft Reloaded";
     public static final String version = "1.0.0";
-    public static final int numModifiers = 20;
+    public static final int numModifiers = 23;
     public static final int numTools = 4;
 }

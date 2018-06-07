@@ -17,21 +17,27 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
     @Override
     public NBTBase writeNBT(Capability<IToolModifier> capability, IToolModifier instance, EnumFacing side) {
         NBTTagCompound nbt = new NBTTagCompound();
-            nbt.setFloat("efficiency", instance.getEfficiency());
-            nbt.setBoolean("heat", instance.hasHeat());
-            nbt.setFloat("knockback", instance.getKnockback());
-            nbt.setBoolean("grinding", instance.hasGrinding());
-            nbt.setBoolean("silkTouch", instance.hasTouch());
-            nbt.setFloat("damage", instance.getAttackDamage());
 
-            //Luck
-            nbt.setBoolean("luckOne", instance.hasLuckOne());       nbt.setBoolean("luckTwo", instance.hasLuckTwo());
-            nbt.setBoolean("luckThree", instance.hasLuckThree());   nbt.setBoolean("luckFour", instance.hasLuckFour());
+        nbt.setFloat("efficiency", instance.getEfficiency());
+        nbt.setBoolean("heat", instance.hasHeat());
+        nbt.setFloat("knockback", instance.getKnockback());
+        nbt.setBoolean("grinding", instance.hasGrinding());
+        nbt.setBoolean("silkTouch", instance.hasTouch());
+        nbt.setFloat("damage", instance.getAttackDamage());
+        nbt.setBoolean("lumberjack", instance.hasLumberJack());
+
+        //Luck
+        nbt.setBoolean("luckOne", instance.hasLuckLevel(1));            nbt.setBoolean("luckTwo", instance.hasLuckLevel(2));
+        nbt.setBoolean("luckThree", instance.hasLuckLevel(3));          nbt.setBoolean("luckFour", instance.hasLuckLevel(4));
 
             //Light
-        nbt.setBoolean("lightOne", instance.hasLightOne());         nbt.setBoolean("lightTwo", instance.hasLightTwo());
-        nbt.setBoolean("lightThree", instance.hasLightThree());     nbt.setBoolean("lightFour", instance.hasLightFour());
-        nbt.setBoolean("lightFive", instance.hasLightFive());
+        nbt.setBoolean("lightOne", instance.hasLightLevel(1));          nbt.setBoolean("lightTwo", instance.hasLightLevel(2));
+        nbt.setBoolean("lightThree", instance.hasLightLevel(3));        nbt.setBoolean("lightFour", instance.hasLightLevel(4));
+        nbt.setBoolean("lightFive", instance.hasLightLevel(5));
+
+            //Sturdy
+        nbt.setBoolean("sturdyOne", instance.hasSturdyLevel(1));        nbt.setBoolean("sturdyTwo", instance.hasSturdyLevel(2));
+        nbt.setBoolean("sturdyThree", instance.hasSturdyLevel(3));
 
         return nbt;
     }
@@ -46,6 +52,7 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
             instance.setGrinding(nbt.getBoolean("grinding"));
             instance.setTouch(nbt.getBoolean("silkTouch"));
             instance.setAttackDamage(nbt.getFloat("damage"));
+            instance.setLumberJack(nbt.getBoolean("lumberjack"));
 
             //Luck
             instance.setLuckOne(nbt.getBoolean("luckOne"));     instance.setLuckTwo(nbt.getBoolean("luckTwo"));
@@ -56,6 +63,9 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
             instance.setLightThree(nbt.getBoolean("lightThree"));   instance.setLightFour(nbt.getBoolean("lightFour"));
             instance.setLightFive(nbt.getBoolean("lightFive"));
 
+            //Sturdy
+            instance.setSturdy(1, nbt.getBoolean("sturdyOne"));     instance.setSturdy(2, nbt.getBoolean("sturdyTwo"));
+            instance.setSturdy(3, nbt.getBoolean("sturdyThree"));
 
         }
     }

@@ -46,13 +46,10 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
     void setHeat(boolean newVal);
 
     //Luck Modifier
-    boolean hasLuckOne();
+    boolean hasLuckLevel(int level);
     void setLuckOne(boolean newVal);
-    boolean hasLuckTwo();
     void setLuckTwo(boolean newVal);
-    boolean hasLuckThree();
     void setLuckThree(boolean newVal);
-    boolean hasLuckFour();
     void setLuckFour(boolean newVal);
     void setLuck(int level);
 
@@ -69,15 +66,11 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
     void setBleeding(boolean newVal);
 
     //Light
-    boolean hasLightOne();
+    boolean hasLightLevel(int level);
     void setLightOne(boolean newVal);
-    boolean hasLightTwo();
     void setLightTwo(boolean newVal);
-    boolean hasLightThree();
     void setLightThree(boolean newVal);
-    boolean hasLightFour();
     void setLightFour(boolean newVal);
-    boolean hasLightFive();
     void setLightFive(boolean newVal);
     void setLight(int level);
 
@@ -106,8 +99,9 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
     void setTouch(boolean newVal);
 
     //Sturdy
-    boolean hasSturdy();
-    void setSturdy(boolean newVal);
+    boolean hasSturdyLevel(int level);
+    void setSturdy(int level, boolean newVal);
+    void setSturdy(int level);
 
     //Grafting
     //TODO: Needs Foresty Integration First
@@ -118,5 +112,10 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
     //Force
     float getKnockback();
     void setKnockback(float newVal);
+
+    boolean hasLumberJack();
+    void setLumberJack(boolean newVal);
+
+    boolean hasUpgrades(ItemStack stack);
 
 }

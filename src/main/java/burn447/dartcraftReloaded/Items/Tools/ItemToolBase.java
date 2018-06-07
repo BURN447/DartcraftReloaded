@@ -135,6 +135,10 @@ public class ItemToolBase extends Item {
             else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 16.0F){
                 lores.add("Damage II");
             }
+
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()){
+                lores.add("LumberJack");
+            }
         }
     }
 
