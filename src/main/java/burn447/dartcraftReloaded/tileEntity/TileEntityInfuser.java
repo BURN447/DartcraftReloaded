@@ -30,6 +30,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_FORCEROD;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
 
@@ -171,11 +172,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return false;
     }
 
-    private void populateToolList() {
+    private void populateToolList()  {
         validToolList.add(ModItems.forcePickaxe);
         validToolList.add(ModItems.forceAxe);
         validToolList.add(ModItems.forceShovel);
         validToolList.add(ModItems.forceSword);
+        validToolList.add(ModItems.forceRod);
     }
 
     private void populateModiferList() {
@@ -201,6 +203,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validModifierList.add(Item.getItemFromBlock(Blocks.WEB));
         validModifierList.add(Item.getItemFromBlock(Blocks.OBSIDIAN));
         validModifierList.add(Item.getItemFromBlock(Blocks.BRICK_BLOCK));
+        validModifierList.add(Items.GOLD_INGOT);
+        validModifierList.add(Items.IRON_INGOT);
     }
 
     private ItemStack getModifer() {
@@ -240,10 +244,18 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addLuckModifier(stack);
         if (modifier == Items.GLOWSTONE_DUST)
             return addLightModifier(stack);
-        if(modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
+        if (modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
             return addSturdyModifier(stack);
-        if(modifier == Item.getItemFromBlock(ModBlocks.forceLog))
+        if (modifier == Item.getItemFromBlock(ModBlocks.forceLog))
             return addLumberjackModifier(stack);
+        if (modifier == Items.GHAST_TEAR)
+            return addHealingModifier(stack);
+        if (modifier == Items.GOLD_INGOT)
+            return addCamoModifier(stack);
+        if (modifier == Items.ENDER_PEARL)
+            return addEnderModifier(stack);
+        if (modifier == Items.IRON_INGOT)
+            return addSightModifier(stack);
 
         return false;
     }
@@ -426,5 +438,48 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         }
         else
             return false;
+    }
+
+    private boolean addHealingModifier(ItemStack stack){
+        if(stack.getItem() instanceof ItemForceRod){
+            if(!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
+                stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 1);
+                return true;
+            }
+            else if(!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)){
+                stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 2);
+                return true;
+            }
+            else if(!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(3) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)){
+                stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 3);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addCamoModifier(ItemStack stack){
+        if(stack.getItem() instanceof ItemForceRod){
+            stack.getCapability(CAPABILITY_FORCEROD, null).setCamoModifier(true);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean addEnderModifier(ItemStack stack){
+        if(stack.getItem() instanceof ItemForceRod){
+            System.out.println("Adding Ender Modifier");
+            stack.getCapability(CAPABILITY_FORCEROD, null).setEnderModifier(true);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean addSightModifier(ItemStack stack){
+        if(stack.getItem() instanceof ItemForceRod){
+            stack.getCapability(CAPABILITY_FORCEROD, null).setSightModifier(true);
+            return true;
+        }
+        return false;
     }
 }

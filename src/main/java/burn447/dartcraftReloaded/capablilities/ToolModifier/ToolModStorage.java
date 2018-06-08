@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.capablilities;
+package burn447.dartcraftReloaded.capablilities.ToolModifier;
 
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;

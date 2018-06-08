@@ -37,23 +37,9 @@ public class References {
         MOD_IMPERVIOUS
     }
 
-    public enum ITEMTYPE {
-        TOOL_PICK,
-        TOOL_SWORD,
-        TOOL_SPADE,
-        TOOL_AXE,
-        TOOL_SHEARS,
-        TOOL_BOW,
-        TOOL_CLAWS,
-        ARMOR_HELM,
-        ARMOR_CHEST,
-        ARMOR_LEGS,
-        ARMOR_BOOTS
-    }
-
     public static final String modId = "dartcraftreloaded";
     public static final String name = "Dartcraft Reloaded";
     public static final String version = "1.0.0";
-    public static final int numModifiers = 23;
-    public static final int numTools = 4;
+    public static final int numModifiers = 25;
+    public static final int numTools = 5;
 }

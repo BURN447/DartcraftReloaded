@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.capablilities;
+package burn447.dartcraftReloaded.capablilities.ToolModifier;
 
 
 import burn447.dartcraftReloaded.util.References;

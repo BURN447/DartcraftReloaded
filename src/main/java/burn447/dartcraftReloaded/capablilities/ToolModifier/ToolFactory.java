@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.capablilities;
+package burn447.dartcraftReloaded.capablilities.ToolModifier;
 
 import burn447.dartcraftReloaded.Items.Tools.ItemForceSword;
 import burn447.dartcraftReloaded.dartcraftReloaded;
