@@ -2,7 +2,9 @@ package burn447.dartcraftReloaded.Handlers;
 
 import burn447.dartcraftReloaded.Networking.InfuserMessage;
 import burn447.dartcraftReloaded.util.References;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.network.Packet;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
@@ -27,5 +29,11 @@ public class DCRPacketHandler {
 
     public static void sendToClient(IMessage message, EntityPlayerMP player){
         packetHandler.sendTo(message, player);
+    }
+
+    public static void sendPacket(Entity player, Packet<?> packet) {
+        if(player instanceof EntityPlayerMP && ((EntityPlayerMP) player).connection != null) {
+            ((EntityPlayerMP) player).connection.sendPacket(packet);
+        }
     }
 }
