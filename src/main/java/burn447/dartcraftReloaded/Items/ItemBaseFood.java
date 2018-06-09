@@ -50,7 +50,7 @@ public class ItemBaseFood extends ItemFood {
                 CriteriaTriggers.CONSUME_ITEM.trigger((EntityPlayerMP)entityplayer, stack);
             }
             if(name == "cookie_fortune"){
-                entityplayer.addItemStackToInventory(new ItemStack(ModItems.nuggetForce));
+                entityplayer.addItemStackToInventory(new ItemStack(ModItems.fortune));
             }
             if(name == "soul_wafer"){
                 this.randPotionEffect(entityplayer);

@@ -468,8 +468,11 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     private boolean addEnderModifier(ItemStack stack){
         if(stack.getItem() instanceof ItemForceRod){
-            System.out.println("Adding Ender Modifier");
             stack.getCapability(CAPABILITY_FORCEROD, null).setEnderModifier(true);
+            return true;
+        }
+        else if(stack.getItem() instanceof ItemForceSword){
+            stack.getCapability(CAPABILITY_TOOLMOD, null).setEnder(true);
             return true;
         }
         return false;

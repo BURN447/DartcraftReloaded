@@ -116,6 +116,9 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
     boolean hasLumberJack();
     void setLumberJack(boolean newVal);
 
+    boolean hasEnder();
+    void setEnder(boolean newVal);
+
     boolean hasUpgrades(ItemStack stack);
 
 }

@@ -37,6 +37,7 @@ public class ToolFactory implements Callable<IToolModifier> {
             boolean grinding = false;
             boolean silkTouch = false;
             boolean lumberjack = false;
+            boolean ender = false;
 
             boolean[] luck = {false, false, false, false};
             boolean[] light = {false, false, false, false, false};
@@ -308,6 +309,16 @@ public class ToolFactory implements Callable<IToolModifier> {
             @Override
             public void setLumberJack(boolean newVal) {
                 lumberjack = newVal;
+            }
+
+            @Override
+            public boolean hasEnder() {
+                return ender;
+            }
+
+            @Override
+            public void setEnder(boolean newVal) {
+                ender = newVal;
             }
 
             @Override

@@ -18,6 +18,7 @@ import javax.annotation.Nullable;
 
 import java.util.List;
 
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_FORCEROD;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
 
@@ -133,6 +134,10 @@ public class ItemToolBase extends Item {
 
             if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()){
                 lores.add("LumberJack");
+            }
+
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasEnder()){
+                lores.add("Ender");
             }
         }
     }
