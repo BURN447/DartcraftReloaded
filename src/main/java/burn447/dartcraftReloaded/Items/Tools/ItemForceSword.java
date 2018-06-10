@@ -117,7 +117,12 @@ public class ItemForceSword extends ItemToolBase {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         if(playerIn.getHeldItemMainhand().getCapability(CAPABILITY_TOOLMOD, null).hasEnder()){
-            worldIn.spawnEntity(new EntityEnderPearl(worldIn, playerIn));
+            if (!worldIn.isRemote)
+            {
+                EntityEnderPearl entityenderpearl = new EntityEnderPearl(worldIn, playerIn);
+                entityenderpearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+                worldIn.spawnEntity(entityenderpearl);
+            }
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
