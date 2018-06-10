@@ -10,12 +10,16 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.PotionUtils;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
@@ -198,13 +202,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validModifierList.add(Items.FEATHER);
         validModifierList.add(Items.ENDER_PEARL);
         validModifierList.add(Items.GLOWSTONE_DUST);
+        validModifierList.add(Items.POTIONITEM);
         validModifierList.add(Item.getItemFromBlock(Blocks.CRAFTING_TABLE));
         validModifierList.add(Item.getItemFromBlock(ModBlocks.forceLog));
         validModifierList.add(Item.getItemFromBlock(Blocks.WEB));
         validModifierList.add(Item.getItemFromBlock(Blocks.OBSIDIAN));
         validModifierList.add(Item.getItemFromBlock(Blocks.BRICK_BLOCK));
-        validModifierList.add(Items.GOLD_INGOT);
-        validModifierList.add(Items.IRON_INGOT);
     }
 
     private ItemStack getModifer() {
@@ -250,12 +253,19 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addLumberjackModifier(stack);
         if (modifier == Items.GHAST_TEAR)
             return addHealingModifier(stack);
-        if (modifier == Items.GOLD_INGOT)
-            return addCamoModifier(stack);
         if (modifier == Items.ENDER_PEARL)
             return addEnderModifier(stack);
-        if (modifier == Items.IRON_INGOT)
-            return addSightModifier(stack);
+        if (modifier == Items.POTIONITEM){
+            List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
+                for(PotionEffect e : effects){
+                    if(e.getPotion() == MobEffects.NIGHT_VISION){
+                        return addSightModifier(stack);
+                    }
+                    if(e.getPotion() == MobEffects.INVISIBILITY){
+                        return addCamoModifier(stack);
+                    }
+            }
+        }
 
         return false;
     }
