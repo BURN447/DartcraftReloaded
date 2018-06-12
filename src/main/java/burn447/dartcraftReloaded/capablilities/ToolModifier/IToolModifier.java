@@ -107,7 +107,8 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
     //TODO: Needs Foresty Integration First
 
     //Rainbow
-    //TODO: Implement Shears
+    boolean hasRainbow();
+    void setRainbow(boolean newVal);
 
     //Force
     float getKnockback();

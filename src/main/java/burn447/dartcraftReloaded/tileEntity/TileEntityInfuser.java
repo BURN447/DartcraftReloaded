@@ -13,6 +13,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -182,6 +183,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validToolList.add(ModItems.forceShovel);
         validToolList.add(ModItems.forceSword);
         validToolList.add(ModItems.forceRod);
+        validToolList.add(ModItems.forceShears);
     }
 
     private void populateModiferList() {
@@ -264,6 +266,11 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                     if(e.getPotion() == MobEffects.INVISIBILITY){
                         return addCamoModifier(stack);
                     }
+            }
+        }
+        if(modifier == Items.DYE){
+            if(mod.getMetadata() == 4){
+                return addRainbowModifier(stack);
             }
         }
 
@@ -491,6 +498,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private boolean addSightModifier(ItemStack stack){
         if(stack.getItem() instanceof ItemForceRod){
             stack.getCapability(CAPABILITY_FORCEROD, null).setSightModifier(true);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean addRainbowModifier(ItemStack stack){
+        if(stack.getItem() instanceof ItemForceShears){
+            stack.getCapability(CAPABILITY_TOOLMOD, null).setRainbow(true);
             return true;
         }
         return false;

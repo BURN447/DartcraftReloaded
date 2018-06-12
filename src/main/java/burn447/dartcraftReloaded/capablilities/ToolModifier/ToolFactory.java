@@ -38,6 +38,7 @@ public class ToolFactory implements Callable<IToolModifier> {
             boolean silkTouch = false;
             boolean lumberjack = false;
             boolean ender = false;
+            boolean rainbow = false;
 
             boolean[] luck = {false, false, false, false};
             boolean[] light = {false, false, false, false, false};
@@ -289,6 +290,16 @@ public class ToolFactory implements Callable<IToolModifier> {
                     sturdy[1] = true;
                 else if(level == 3 && sturdy[0] && sturdy[1])
                     sturdy[2] = true;
+            }
+
+            @Override
+            public boolean hasRainbow() {
+                return rainbow;
+            }
+
+            @Override
+            public void setRainbow(boolean newVal) {
+                rainbow = newVal;
             }
 
             @Override
