@@ -32,6 +32,10 @@ public class ModItems {
     public static ItemForceAxe forceAxe = new ItemForceAxe("forceAxe");
     public static ItemForceSword forceSword = new ItemForceSword("forceSword");
     public static ItemForceShovel forceShovel = new ItemForceShovel("forceSpade");
+    public static ItemForceShears forceShears = new ItemForceShears("forceShears");
+
+    //Experience Tome
+    public static ItemExperienceTome experienceTome = new ItemExperienceTome("experienceTome");
 
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
@@ -53,7 +57,9 @@ public class ModItems {
                 forceShovel,
                 goldenPowerSource,
                 claw,
-                fortune
+                fortune,
+                forceShears,
+                experienceTome
         );
     }
 
@@ -77,5 +83,7 @@ public class ModItems {
         goldenPowerSource.registerItemModel();
         claw.registerItemModel();
         fortune.registerItemModel();
+        forceShears.registerItemModel();
+        experienceTome.registerItemModel();
     }
 }
