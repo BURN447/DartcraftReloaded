@@ -5,7 +5,7 @@
   "description": "A Reboot of the Original Dartcraft",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://github.com/BURN447/DartcraftReloaded",
   "updateUrl": "",
   "authorList": ["BURN447"],
   "credits": "Bluedart for the Original Mod and Rere__ for the support through development",
