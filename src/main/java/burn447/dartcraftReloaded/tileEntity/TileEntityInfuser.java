@@ -92,12 +92,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         if (canWork) {
             this.markDirty();
             if (hasValidTool()) {
-                if (hasValidModifer()) {
-                    ItemStack mod = getModifer();
-                    ItemStack stack = handler.getStackInSlot(10);
-                    boolean success = applyModifier(stack, mod);
-                    if (success) {
-                        //TODO: Remove Modifier Item
+                for (int i = 2; i < 11; i++) {
+                    if (hasValidModifer(i)) {
+                        ItemStack mod = getModifer(i);
+                        ItemStack stack = handler.getStackInSlot(10);
+                        boolean success = applyModifier(stack, mod);
+                        if (success) {
+                            handler.setStackInSlot(i, ItemStack.EMPTY);
+                        }
                     }
                 }
             }
@@ -164,13 +166,11 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return false;
     }
 
-    private boolean hasValidModifer() {
-        for (int i = 2; i < 10; i++) {
-            if (!handler.getStackInSlot(10).isEmpty()) {
-                for (int j = 0; j < References.numModifiers - 1; j++) {
-                    if (handler.getStackInSlot(i).getItem() == validModifierList.get(j)) {
-                        return true;
-                    }
+    private boolean hasValidModifer(int slot) {
+        if (!handler.getStackInSlot(10).isEmpty()) {
+            for (int j = 0; j < References.numModifiers - 1; j++) {
+                if (handler.getStackInSlot(slot).getItem() == validModifierList.get(j)) {
+                    return true;
                 }
             }
         }
@@ -212,16 +212,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validModifierList.add(Item.getItemFromBlock(Blocks.BRICK_BLOCK));
     }
 
-    private ItemStack getModifer() {
-        for (int i = 2; i < 10; i++) {
-            if (!handler.getStackInSlot(10).isEmpty()) {
-                for (int j = 0; j < References.numModifiers - 1; j++) {
-                    if (handler.getStackInSlot(i).getItem() == validModifierList.get(j)) {
-                        return handler.getStackInSlot(i);
-                    }
+    private ItemStack getModifer(int slot) {
+        if (!handler.getStackInSlot(10).isEmpty()) {
+            for (int j = 0; j < References.numModifiers - 1; j++) {
+                if (handler.getStackInSlot(slot).getItem() == validModifierList.get(j)) {
+                    return handler.getStackInSlot(slot);
+                }
                 }
             }
-        }
         return null;
     }
 
