@@ -1,6 +1,5 @@
 package burn447.dartcraftReloaded.capablilities.ExperienceTome;
 
-import burn447.dartcraftReloaded.capablilities.ForceRod.IForceRodModifier;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;

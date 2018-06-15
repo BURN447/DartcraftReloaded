@@ -5,25 +5,17 @@ import burn447.dartcraftReloaded.Networking.InfuserMessage;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiButtonImage;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import static burn447.dartcraftReloaded.Handlers.DCRPacketHandler.packetHandler;
 
 /**
  * Created by BURN447 on 3/31/2018.

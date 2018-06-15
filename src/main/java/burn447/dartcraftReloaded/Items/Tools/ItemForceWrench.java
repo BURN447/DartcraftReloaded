@@ -1,10 +1,8 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
-import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Items.ItemBase;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;

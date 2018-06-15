@@ -8,7 +8,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
@@ -25,8 +24,6 @@ import java.util.List;
 
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
-import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_REPAIR;
-import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_SPEED;
 
 /**
  * Created by BURN447 on 5/13/2018.

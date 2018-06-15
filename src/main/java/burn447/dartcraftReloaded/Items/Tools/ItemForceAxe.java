@@ -5,8 +5,6 @@ import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
 import com.google.common.collect.Lists;
 import gnu.trove.set.hash.THashSet;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

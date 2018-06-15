@@ -1,6 +1,5 @@
 package burn447.dartcraftReloaded.util;
 
-import net.minecraft.client.resources.I18n;
 import org.lwjgl.input.Keyboard;
 
 /**

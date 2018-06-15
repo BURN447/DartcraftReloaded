@@ -1,9 +1,7 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
-import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModProvider;
-import burn447.dartcraftReloaded.util.DartUtils;
-import burn447.dartcraftReloaded.util.References;
+import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.StringHelper;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -18,10 +16,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-
 import java.util.List;
 
-import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_FORCEROD;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
 

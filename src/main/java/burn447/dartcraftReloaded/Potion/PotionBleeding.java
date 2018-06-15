@@ -1,8 +1,6 @@
 package burn447.dartcraftReloaded.Potion;
 
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
-import net.minecraft.util.DamageSource;
 
 /**
  * Created by BURN447 on 6/14/2018.

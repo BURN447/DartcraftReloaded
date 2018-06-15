@@ -4,12 +4,9 @@ import burn447.dartcraftReloaded.client.gui.GUIInfuser;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
-
-import javax.annotation.Nullable;
 
 /**
  * Created by BURN447 on 3/31/2018.

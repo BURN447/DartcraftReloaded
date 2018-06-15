@@ -1,6 +1,5 @@
 package burn447.dartcraftReloaded.Events;
 
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.event.world.BlockEvent;
