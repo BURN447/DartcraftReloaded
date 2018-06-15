@@ -1,5 +1,7 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
+import burn447.dartcraftReloaded.Handlers.DCRPotionHandler;
+import burn447.dartcraftReloaded.Potion.EffectBleeding;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
 import com.google.common.collect.Multimap;
@@ -12,15 +14,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import sun.security.pkcs11.wrapper.CK_AES_CTR_PARAMS;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -28,8 +29,6 @@ import java.util.List;
 
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
-import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_REPAIR;
-import static burn447.dartcraftReloaded.util.References.MODIFIERS.MOD_SPEED;
 
 /**
  * Created by BURN447 on 5/13/2018.
@@ -93,6 +92,30 @@ public class ItemForceSword extends ItemToolBase {
         double knockback = stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback();
 
         target.addVelocity(look.x * knockback, look.y * knockback, look.z * knockback);
+
+        PotionEffect bleedingOne = new EffectBleeding(2);
+        PotionEffect bleedingTwo = new EffectBleeding(4);
+        PotionEffect bleedingThree = new EffectBleeding(5);
+        PotionEffect bleedingFour = new EffectBleeding(16);
+
+
+        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4)){
+            target.addPotionEffect(bleedingFour);
+        }
+
+        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3)){
+            target.addPotionEffect(bleedingThree);
+        }
+
+        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2)){
+            target.addPotionEffect(bleedingTwo);
+        }
+
+        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1)){
+            target.addPotionEffect(bleedingOne);
+        }
+
+
 
         stack.damageItem(1, attacker);
         return true;

@@ -1,10 +1,7 @@
 package burn447.dartcraftReloaded;
 
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
-import burn447.dartcraftReloaded.Handlers.DCREventHandler;
-import burn447.dartcraftReloaded.Handlers.DCRFuelHandler;
-import burn447.dartcraftReloaded.Handlers.DCRGUIHandler;
-import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
+import burn447.dartcraftReloaded.Handlers.*;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.client.tabDartcraft;
 import burn447.dartcraftReloaded.proxy.CommonProxy;
@@ -15,6 +12,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemTool;
+import net.minecraft.potion.Potion;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
@@ -54,7 +52,7 @@ public class dartcraftReloaded {
         GameRegistry.registerWorldGenerator(new DCRWorldGen(), 3);
         proxy.registerTileEntities();
         proxy.preInit();
-        DCRPacketHandler.init();
+        DCRPotionHandler.preInit(e);
     }
 
     @Mod.EventHandler
@@ -63,6 +61,7 @@ public class dartcraftReloaded {
         NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new DCRGUIHandler());
         GameRegistry.registerFuelHandler(new DCRFuelHandler());
         DCREventHandler.init();
+        DCRPacketHandler.init();
     }
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e){
@@ -86,6 +85,11 @@ public class dartcraftReloaded {
         public static void registerModels(ModelRegistryEvent event) {
             ModItems.registerModels();
             ModBlocks.registerModels();
+        }
+
+        @SubscribeEvent
+        public static void registerPotions(RegistryEvent.Register<Potion> event) {
+            DCRPotionHandler.registerPotions(event.getRegistry());
         }
     }
 

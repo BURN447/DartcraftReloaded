@@ -92,7 +92,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         if (canWork) {
             this.markDirty();
             if (hasValidTool()) {
-                for (int i = 2; i < 11; i++) {
+                for (int i = 2; i < 9; i++) {
                     if (hasValidModifer(i)) {
                         ItemStack mod = getModifer(i);
                         ItemStack stack = handler.getStackInSlot(10);
@@ -255,6 +255,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addHealingModifier(stack);
         if (modifier == Items.ENDER_PEARL)
             return addEnderModifier(stack);
+        if(modifier == Items.ARROW)
+            return addBleedingModifier(stack);
         if (modifier == Items.POTIONITEM){
             List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
                 for(PotionEffect e : effects){
@@ -505,6 +507,28 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         if(stack.getItem() instanceof ItemForceShears){
             stack.getCapability(CAPABILITY_TOOLMOD, null).setRainbow(true);
             return true;
+        }
+        return false;
+    }
+
+    private boolean addBleedingModifier(ItemStack stack){
+        if(stack.getItem() instanceof ItemForceSword){
+            if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1)){
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(1);
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2)){
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(2);
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3)){
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(3);
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4)){
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(4);
+                return true;
+            }
         }
         return false;
     }

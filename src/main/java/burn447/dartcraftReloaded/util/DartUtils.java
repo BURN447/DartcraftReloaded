@@ -20,6 +20,7 @@ import net.minecraft.network.play.server.SPacketBlockChange;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -30,6 +31,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Stack;
 
@@ -41,6 +43,7 @@ import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY
 public class DartUtils {
 
     public static Logger logger;
+    public static final String RESOURCE = References.modId.toLowerCase(Locale.US);
 
     public static Logger getLogger(){
         if(logger == null){
@@ -219,6 +222,12 @@ public class DartUtils {
         return (player instanceof FakePlayer);
     }
 
+    public static String resource(String res) {
+        return String.format("%s:%s", RESOURCE, res);
+    }
 
+    public static ResourceLocation getResource(String res) {
+        return new ResourceLocation(RESOURCE, res);
+    }
 
 }

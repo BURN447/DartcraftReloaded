@@ -29,7 +29,6 @@ public class ToolFactory implements Callable<IToolModifier> {
             boolean heat = false;
             boolean wing = false;
             boolean bane = false;
-            boolean bleeding = false;
             boolean repair = false;
             boolean soul = false;
             boolean treasure = false;
@@ -43,6 +42,7 @@ public class ToolFactory implements Callable<IToolModifier> {
             boolean[] luck = {false, false, false, false};
             boolean[] light = {false, false, false, false, false};
             boolean[] sturdy = {false, false, false};
+            boolean[] bleeding = {false, false, false, false};
 
             @Override
             public float getDestroySpeed(ItemStack stack, IBlockState state) {
@@ -159,13 +159,22 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
-            public boolean hasBleeding() {
-                return false;
+            public void setBleeding(int level) {
+                if(level == 1 && !bleeding[0])
+                    bleeding[0] = true;
+                else if(level == 2 && bleeding[0] && !bleeding[1])
+                    bleeding[1] = true;
+                else if(level == 3 && bleeding[0] && bleeding[1] && !bleeding[2])
+                    bleeding[2] = true;
+                else if(level == 4 && bleeding[0] && bleeding[1] && bleeding[2] && !bleeding[3])
+                    bleeding[3] = true;
+                else if(level == 5 && bleeding[0] && bleeding[1] && bleeding[2] && bleeding[3] && !bleeding[4])
+                    bleeding[4] = true;
             }
 
             @Override
-            public void setBleeding(boolean newVal) {
-                bleeding = newVal;
+            public void setBleeding(int level, boolean newVal) {
+                bleeding[level - 1] = newVal;
             }
 
             @Override
@@ -333,6 +342,11 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
+            public boolean hasBleeding(int level) {
+                return bleeding[level - 1];
+            }
+
+            @Override
             public boolean hasUpgrades(ItemStack stack) {
                 if(!(efficiency == 8.0F))
                     return true;
@@ -340,7 +354,7 @@ public class ToolFactory implements Callable<IToolModifier> {
                     return true;
                 else if(!(force == .5F))
                     return true;
-                else if(!freezing || !heat || !wing || !bane || !bleeding || !repair || !soul || !treasure || !unbreakable || !grinding || !silkTouch || !lumberjack || !hasSturdyLevel(1) || !hasLightLevel(1) || !hasLuckLevel(1))
+                else if(!freezing || !heat || !wing || !bane || !repair || !soul || !treasure || !unbreakable || !grinding || !silkTouch || !lumberjack || !hasSturdyLevel(1) || !hasLightLevel(1) || !hasLuckLevel(1))
                     return false;
                 else
                     return true;

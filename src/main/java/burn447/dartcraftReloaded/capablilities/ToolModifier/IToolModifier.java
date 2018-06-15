@@ -61,10 +61,6 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
     boolean hasBane();
     void setBane(boolean newVal);
 
-    //Bleed
-    boolean hasBleeding();
-    void setBleeding(boolean newVal);
-
     //Light
     boolean hasLightLevel(int level);
     void setLightOne(boolean newVal);
@@ -119,6 +115,10 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
 
     boolean hasEnder();
     void setEnder(boolean newVal);
+
+    boolean hasBleeding(int level);
+    void setBleeding(int level);
+    void setBleeding(int level, boolean newVal);
 
     boolean hasUpgrades(ItemStack stack);
 
