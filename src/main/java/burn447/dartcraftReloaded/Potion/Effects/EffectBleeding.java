@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.Potion;
+package burn447.dartcraftReloaded.Potion.Effects;
 
 import burn447.dartcraftReloaded.Handlers.DCRPotionHandler;
 import net.minecraft.entity.EntityLivingBase;

@@ -255,6 +255,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addEnderModifier(stack);
         if(modifier == Items.ARROW)
             return addBleedingModifier(stack);
+        if(modifier == Items.SPIDER_EYE)
+            return addBaneModifier(stack);
         if (modifier == Items.POTIONITEM){
             List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
                 for(PotionEffect e : effects){
@@ -525,6 +527,16 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             }
             else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4)){
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(4);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addBaneModifier(ItemStack stack){
+        if (stack.getItem() instanceof ItemToolBase) {
+            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setBane(true);
                 return true;
             }
         }

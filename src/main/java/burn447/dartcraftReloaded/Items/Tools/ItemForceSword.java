@@ -1,6 +1,6 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
-import burn447.dartcraftReloaded.Potion.EffectBleeding;
+import burn447.dartcraftReloaded.Potion.Effects.EffectBleeding;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
 import com.google.common.collect.Multimap;

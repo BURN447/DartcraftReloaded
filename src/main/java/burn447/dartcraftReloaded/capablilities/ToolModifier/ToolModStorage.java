@@ -27,6 +27,7 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
         nbt.setBoolean("lumberjack", instance.hasLumberJack());
         nbt.setBoolean("ender", instance.hasEnder());
         nbt.setBoolean("rainbow", instance.hasRainbow());
+        nbt.setBoolean("bane", instance.hasBane());
 
         //Luck
         nbt.setBoolean("luckOne", instance.hasLuckLevel(1));            nbt.setBoolean("luckTwo", instance.hasLuckLevel(2));
@@ -61,6 +62,7 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
             instance.setLumberJack(nbt.getBoolean("lumberjack"));
             instance.setEnder(nbt.getBoolean("ender"));
             instance.setRainbow(nbt.getBoolean("rainbow"));
+            instance.setBane(nbt.getBoolean("bane"));
 
             //Luck
             instance.setLuckOne(nbt.getBoolean("luckOne"));     instance.setLuckTwo(nbt.getBoolean("luckTwo"));

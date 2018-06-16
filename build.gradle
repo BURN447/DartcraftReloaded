@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
 
-version = "1.12.2-1.2.2-Alpha"
+version = "1.12.2-1.2.3-Alpha"
 group = "com.BURN447.dartcraftReloaded" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "dartcraftreloaded"
 
@@ -74,4 +74,6 @@ processResources {
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
     }
+
+    rename'(.+_at.cfg)', 'META-INF/$1'
 }

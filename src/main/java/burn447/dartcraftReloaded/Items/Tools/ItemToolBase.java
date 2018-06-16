@@ -150,6 +150,9 @@ public class ItemToolBase extends Item {
                     lores.add("Bleeding II");
                 else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1))
                     lores.add("Bleeding I");
+
+                if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBane())
+                    lores.add("Bane");
             }
             super.addInformation(stack, worldIn, lores, flagIn);
         }
