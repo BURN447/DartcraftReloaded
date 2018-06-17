@@ -30,8 +30,7 @@ public class ItemToolBase extends Item {
 
     protected float efficiency;
 
-    public ItemToolBase(String name){
-        //super();
+    public ItemToolBase(String name) {
         this.setRegistryName(name);
         this.setUnlocalizedName(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
@@ -152,7 +151,7 @@ public class ItemToolBase extends Item {
                     lores.add("Bleeding I");
 
                 if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBane())
-                    lores.add("Bane");
+                    lores.add("Bane - Does not prevent teleportaion in rain currently - Bug? Not sure why");
             }
             super.addInformation(stack, worldIn, lores, flagIn);
         }
