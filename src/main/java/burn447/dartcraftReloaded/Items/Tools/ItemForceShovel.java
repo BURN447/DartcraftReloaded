@@ -2,6 +2,7 @@ package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
+import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,6 +22,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
@@ -32,10 +34,12 @@ public class ItemForceShovel extends ItemToolBase {
 
     private static String name;
 
+    private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.CLAY, Blocks.DIRT, Blocks.FARMLAND, Blocks.GRASS, Blocks.GRAVEL, Blocks.MYCELIUM, Blocks.SAND, Blocks.SNOW, Blocks.SNOW_LAYER, Blocks.SOUL_SAND, Blocks.GRASS_PATH, Blocks.CONCRETE_POWDER);
+
     public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
 
     public ItemForceShovel(String name) {
-        super(name);
+        super(name, EFFECTIVE_ON);
         setApplicableModifers();
         this.name = name;
     }
@@ -86,13 +90,6 @@ public class ItemForceShovel extends ItemToolBase {
                 return EnumActionResult.PASS;
             }
         }
-    }
-
-    @Override
-    public float getDestroySpeed(ItemStack stack, IBlockState state) {
-        Material material = state.getMaterial();
-        return stack.getCapability(CAPABILITY_TOOLMOD,null).getDestroySpeed(stack, state);
-
     }
 
     @Nullable

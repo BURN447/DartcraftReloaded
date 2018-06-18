@@ -34,7 +34,7 @@ public class ItemForcePickaxe extends ItemToolBase {
     private Item.ToolMaterial toolMaterial = dartcraftReloaded.forceToolMaterial;
 
     public ItemForcePickaxe(String name) {
-        super(name);
+        super(name, EFFECTIVE_ON);
         setApplicableModifers();
         this.name = name;
     }

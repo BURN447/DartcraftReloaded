@@ -4,8 +4,11 @@ import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import gnu.trove.set.hash.THashSet;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -35,8 +38,10 @@ public class ItemForceAxe extends ItemToolBase {
 
     public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
 
+    private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.PLANKS, Blocks.BOOKSHELF, Blocks.LOG, Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK, Blocks.LADDER, Blocks.WOODEN_BUTTON, Blocks.WOODEN_PRESSURE_PLATE);
+
     public ItemForceAxe(String name) {
-        super(name);
+        super(name, EFFECTIVE_ON);
         setApplicableModifers();
         this.name = name;
     }

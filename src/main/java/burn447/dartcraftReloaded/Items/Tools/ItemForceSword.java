@@ -5,6 +5,8 @@ import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.MobUtil;
 import burn447.dartcraftReloaded.util.References;
 import com.google.common.collect.Multimap;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -49,7 +51,7 @@ public class ItemForceSword extends ItemToolBase {
     public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
 
     public ItemForceSword(String name) {
-        super(name);
+        super(name, null);
         setApplicableModifers();
         this.name = name;
     }
@@ -169,5 +171,20 @@ public class ItemForceSword extends ItemToolBase {
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
+        Block block = state.getBlock();
+
+        if (block == Blocks.WEB)
+        {
+            return 15.0F;
+        }
+        else
+        {
+            Material material = state.getMaterial();
+            return material != Material.PLANTS && material != Material.VINE && material != Material.CORAL && material != Material.LEAVES && material != Material.GOURD ? 1.0F : 1.5F;
+        }
     }
 }
