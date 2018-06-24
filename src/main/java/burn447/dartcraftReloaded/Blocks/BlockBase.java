@@ -3,6 +3,7 @@ package burn447.dartcraftReloaded.Blocks;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -34,5 +35,8 @@ public class BlockBase extends Block{
         return this;
     }
 
-
+    @Override
+    public BlockStateContainer getBlockState() {
+        return super.getBlockState();
+    }
 }

@@ -2,6 +2,7 @@ package burn447.dartcraftReloaded.tileEntity;
 
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
+import burn447.dartcraftReloaded.Items.ItemArmor;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.util.DartUtils;
@@ -182,6 +183,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validToolList.add(ModItems.forceSword);
         validToolList.add(ModItems.forceRod);
         validToolList.add(ModItems.forceShears);
+        validToolList.add(ModItems.forceHelmet);
+        validToolList.add(ModItems.forceChest);
+        validToolList.add(ModItems.forceLegs);
+        validToolList.add(ModItems.forceBoots);
     }
 
     private void populateModiferList() {
@@ -534,12 +539,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean addBaneModifier(ItemStack stack){
-        if (stack.getItem() instanceof ItemToolBase) {
+        if (stack.getItem() instanceof ItemToolBase || stack.getItem() instanceof ItemArmor) {
             if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setBane(true);
                 return true;
             }
         }
+
         return false;
     }
 }
