@@ -1,14 +1,21 @@
 package burn447.dartcraftReloaded.container;
 
+import burn447.dartcraftReloaded.Fluids.ModFluids;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Created by BURN447 on 3/31/2018.
@@ -110,5 +117,4 @@ public class ContainerBlockInfuser extends Container {
     public void setButtonPressed(boolean buttonPressed){
         te.canWork = buttonPressed;
     }
-
 }
