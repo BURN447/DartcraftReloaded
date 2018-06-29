@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.Blocks;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.creativetab.CreativeTabs;
 
 /**
@@ -22,5 +23,8 @@ public class BlockForceLog extends BlockBase {
         return this;
     }
 
-
+    @Override
+    public BlockStateContainer getBlockState() {
+        return super.getBlockState();
+    }
 }

@@ -15,6 +15,7 @@ public class ModBlocks {
     public static BlockForceLog forceLog = new BlockForceLog("forceLog").setCreativeTab(dartcraftReloaded.creativeTab);
     public static BlockForceLeaves forceLeaves = new BlockForceLeaves("forceLeaves");
     public static BlockInfuser infuser = new BlockInfuser("infuser");
+    public static BlockFluidForce blockFluidForce = new BlockFluidForce();
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -22,7 +23,8 @@ public class ModBlocks {
                 forceSapling,
                 forceLog,
                 forceLeaves,
-                infuser
+                infuser,
+                blockFluidForce
         );
 
     }

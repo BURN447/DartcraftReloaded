@@ -23,7 +23,11 @@ import java.util.List;
 public class GUIInfuser extends GuiContainer {
 
     private TileEntityInfuser te;
-    private GuiButton startButton = new GuiButton(0, 39, 101, 12, 12, "Test Button");
+    private GuiButton startButton = new GuiButton(0, 39, 101, 12, 12, "Start Button");
+    private ProgressBar infuserProgress;
+
+    private ResourceLocation TEXTURE = new ResourceLocation(References.modId, "textures/gui/container/forceinfuser.png");
+
 
     public GUIInfuser(IInventory playerInv, TileEntityInfuser te) {
         super(new ContainerBlockInfuser(playerInv, te));
@@ -34,6 +38,9 @@ public class GUIInfuser extends GuiContainer {
         this.te = te;
 
         this.addButton(startButton);
+
+        this.infuserProgress = new ProgressBar(TEXTURE, ProgressBar.ProgressBarDirection.DOWN_TO_UP, 2, 20, 134, 93, 176, 0);
+
     }
 
     @Override
@@ -46,7 +53,7 @@ public class GUIInfuser extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0f, 1.0f, 1.0f);
-        this.mc.getTextureManager().bindTexture(new ResourceLocation(References.modId, "textures/gui/container/forceinfuser.png"));
+        this.mc.getTextureManager().bindTexture(TEXTURE);
         this.drawTexturedModalRect(this.guiLeft, this.guiTop, 0,0,this.xSize, this.ySize);
     }
 
@@ -56,6 +63,9 @@ public class GUIInfuser extends GuiContainer {
 
         int actualMouseX = mouseX - ((this.width - this.xSize) / 2);
         int actualMouseY = mouseY - ((this.height - this.ySize) / 2);
+
+        this.infuserProgress.setMin(te.processTime).setMax(te.maxProcessTime);
+        this.infuserProgress.draw(this.mc);
 
         if (isPointInRegion(123, 16, 12, 12, mouseX, mouseY) && te.handler.getStackInSlot(9).isEmpty()) {
             List<String> text = new ArrayList<>();
@@ -86,6 +96,5 @@ public class GUIInfuser extends GuiContainer {
             te.canWork = true;
         }
     }
-
 
 }

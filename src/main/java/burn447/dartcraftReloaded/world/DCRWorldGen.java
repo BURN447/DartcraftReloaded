@@ -18,11 +18,9 @@ import java.util.Random;
 public class DCRWorldGen implements IWorldGenerator {
 
     //World Generator
-    private WorldGenerator forceTree;
     private WorldGenerator forceOre;
 
     public DCRWorldGen(){
-        forceTree = new WorldGenTrees(false, 4, ModBlocks.forceLog.getDefaultState(), ModBlocks.forceLeaves.getDefaultState(), false);
         forceOre = new WorldGenMinable(ModBlocks.orePower.getDefaultState(), 6);
     }
 
@@ -41,11 +39,6 @@ public class DCRWorldGen implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider){
-        switch(world.provider.getDimension()){
-            //Overworld
-            case 0:
-                this.runGenerator(forceTree, world, random, chunkX, chunkZ, 10, 4, 256);
-                this.runGenerator(forceOre, world, random, chunkX, chunkZ, 5, 0, 64);
-        }
+
     }
 }

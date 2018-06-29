@@ -2,6 +2,9 @@ package burn447.dartcraftReloaded.tileEntity;
 
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
+import burn447.dartcraftReloaded.Fluids.FluidForce;
+import burn447.dartcraftReloaded.Fluids.ModFluids;
+import burn447.dartcraftReloaded.Items.ItemArmor;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.util.DartUtils;
@@ -26,6 +29,9 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
@@ -35,21 +41,26 @@ import java.util.List;
 
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_FORCEROD;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
+import static net.minecraftforge.fluids.capability.CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY;
 
 
 /**
  * Created by BURN447 on 3/30/2018.
  */
-public class TileEntityInfuser extends TileEntity implements ITickable, ICapabilityProvider, ITileEntityProvider {
+public class TileEntityInfuser extends TileEntity implements ITickable, ICapabilityProvider, ITileEntityProvider, IFluidHandler {
 
 
     public final ItemStackHandler handler;
+    public FluidTank tank;
     private DCREnergyStorage storage;
     private NonNullList<ItemStack> infuserContents = NonNullList.create();
+
     public static List<Item> validToolList = new ArrayList<>();
     public static List<Item> validModifierList = new ArrayList<>();
     public boolean canWork = false;
 
+    public int processTime = 0;
+    public int maxProcessTime = 17;
 
     public TileEntityInfuser() {
         populateToolList();
@@ -62,6 +73,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         };
 
         this.storage = new DCREnergyStorage(500000, 512, 512);
+
+        tank = new FluidTank(10000);
     }
 
     @Override
@@ -71,6 +84,9 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
         //Energy
         storage.readFromNBT(nbt);
+        //Fluids
+        tank.readFromNBT(nbt);
+
         super.markDirty();
         super.readFromNBT(nbt);
     }
@@ -82,26 +98,48 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
         //Energy
         storage.writeToNBT(nbt);
+        //Fluids
+        tank.writeToNBT(nbt);
+
         return super.writeToNBT(nbt);
     }
 
     @Override
     public void update() {
+
+        if(handler.getStackInSlot(1).getItem() == ModItems.gemForceGem) {
+            FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 100);
+
+            if (tank.getFluidAmount() < tank.getCapacity() - 100) {
+                fill(force, true);
+                if (handler.getStackInSlot(1).getCount() > 1) {
+                    handler.getStackInSlot(1).setCount(handler.getStackInSlot(1).getCount() - 1);
+                } else
+                    handler.setStackInSlot(1, ItemStack.EMPTY);
+            }
+        }
+
         if (canWork) {
-            this.markDirty();
-            if (hasValidTool()) {
-                for (int i = 2; i < 9; i++) {
-                    if (hasValidModifer(i)) {
-                        ItemStack mod = getModifer(i);
-                        ItemStack stack = handler.getStackInSlot(10);
-                        boolean success = applyModifier(stack, mod);
-                        if (success) {
-                            handler.setStackInSlot(i, ItemStack.EMPTY);
+            if (processTime == maxProcessTime) {
+                this.markDirty();
+                if (hasValidTool()) {
+                    for (int i = 2; i < 9; i++) {
+                        if (hasValidModifer(i)) {
+                            ItemStack mod = getModifer(i);
+                            ItemStack stack = handler.getStackInSlot(10);
+                            boolean success = applyModifier(stack, mod);
+                            if (success) {
+                                handler.setStackInSlot(i, ItemStack.EMPTY);
+                            }
                         }
                     }
                 }
+                System.out.println("Capacity: " + tank.getCapacity() + "\n" + "Filled: " + tank.getFluidAmount());
+                System.out.println(canWork + " " + processTime);
+                canWork = false;
+                processTime = 0;
             }
-            canWork = false;
+            processTime++;
         }
     }
 
@@ -143,12 +181,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return (T) this.handler;
+        if(capability == FLUID_HANDLER_CAPABILITY)
+            return (T) this.tank;
         return super.getCapability(capability, facing);
     }
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == FLUID_HANDLER_CAPABILITY)
             return true;
         return super.hasCapability(capability, facing);
     }
@@ -182,6 +222,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validToolList.add(ModItems.forceSword);
         validToolList.add(ModItems.forceRod);
         validToolList.add(ModItems.forceShears);
+        validToolList.add(ModItems.forceHelmet);
+        validToolList.add(ModItems.forceChest);
+        validToolList.add(ModItems.forceLegs);
+        validToolList.add(ModItems.forceBoots);
     }
 
     private void populateModiferList() {
@@ -225,6 +269,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityInfuser();
+    }
+
+    private void addForceFromSlot(){
+        FluidStack force = new FluidStack(ModFluids.fluidForce, 100);
     }
 
     private boolean applyModifier(ItemStack stack, ItemStack mod) {
@@ -534,12 +582,41 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean addBaneModifier(ItemStack stack){
-        if (stack.getItem() instanceof ItemToolBase) {
+        if (stack.getItem() instanceof ItemToolBase || stack.getItem() instanceof ItemArmor) {
             if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setBane(true);
                 return true;
             }
         }
+
         return false;
+    }
+
+    @Override
+    public IFluidTankProperties[] getTankProperties() {
+        return new IFluidTankProperties[0];
+    }
+
+    @Override
+    public int fill(FluidStack resource, boolean doFill) {
+        FluidStack resourceCopy = resource.copy();
+
+        if(tank.getFluid().getFluid() instanceof FluidForce || tank.getFluidAmount() == 0){
+            tank.fill(resourceCopy, true);
+        }
+
+        return resource.amount;
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(FluidStack resource, boolean doDrain) {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public FluidStack drain(int maxDrain, boolean doDrain) {
+        return null;
     }
 }
