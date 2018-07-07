@@ -1,21 +1,16 @@
 package burn447.dartcraftReloaded.container;
 
-import burn447.dartcraftReloaded.Fluids.ModFluids;
+import burn447.dartcraftReloaded.container.Slot.SlotForceBook;
+import burn447.dartcraftReloaded.container.Slot.SlotForceGems;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.IFluidTank;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * Created by BURN447 on 3/31/2018.
@@ -26,17 +21,21 @@ public class ContainerBlockInfuser extends Container {
 
     public ContainerBlockInfuser(IInventory playerInv, TileEntityInfuser te) {
 
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 0, 10, 10));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 1, 10, 35));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 2, 80, 20));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 3, 104, 32));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 4, 116, 57));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 5, 104, 81));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 6, 80, 93));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 7, 56, 81));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 8, 44, 57));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 9, 56, 32));
-        this.addSlotToContainer(new SlotItemHandler(te.handler, 10, 80, 57));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 0, 80, 20));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 1, 104, 32));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 2, 116, 57));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 3, 104, 81));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 4, 80, 93));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 5, 56, 81));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 6, 44, 57));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 7, 56, 32));
+        this.addSlotToContainer(new SlotItemHandler(te.handler, 8, 80, 57));
+
+        //Force Book Slot
+        this.addSlotToContainer(new SlotForceBook(te.bookSlotHandler, 0, 10, 10));
+
+        //Force Gem Slot
+        this.addSlotToContainer(new SlotForceGems(te.forceSlotHandler, 0, 10, 35));
 
         int xPos = 8;
         int yPos = 127;

@@ -4,8 +4,12 @@ import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModProvider;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.passive.EntityChicken;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
 import net.minecraft.item.ItemStack;
@@ -19,6 +23,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_SHEARABLE;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
 /**
@@ -58,19 +63,68 @@ public class ItemForceShears extends ItemShears {
                     drops.add(newDrops);
 
                     java.util.Random rand = new java.util.Random();
-                    for (ItemStack stack : drops) {
-                        net.minecraft.entity.item.EntityItem ent = entity.entityDropItem(stack, 1.0F);
-                        ent.motionY += rand.nextFloat() * 0.05F;
-                        ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                        ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                    }
+                    dropItems(entity, drops, rand);
                     itemstack.damageItem(1, entity);
                 }
                 return true;
             }
             return false;
         }
+
+        if(entity instanceof EntityCow) {
+            if (entity.hasCapability(CAPABILITY_SHEARABLE, null)) {
+                if(entity.getCapability(CAPABILITY_SHEARABLE, null).canBeSheared()) {
+
+                    if (entity.world.isRemote) {
+                        return false;
+                    }
+
+                    java.util.Random rand = new java.util.Random();
+                    int i = 1 + rand.nextInt(3);
+
+                    java.util.List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
+                    for (int j = 0; j < i; ++j)
+                        ret.add(new ItemStack(Items.LEATHER, 1));
+
+                    entity.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+                    dropItems(entity, ret, rand);
+                    entity.getCapability(CAPABILITY_SHEARABLE, null).setSheared(true);
+                    return true;
+                }
+            }
+        }
+        if(entity instanceof EntityChicken) {
+            if (entity.hasCapability(CAPABILITY_SHEARABLE, null)) {
+                if(entity.getCapability(CAPABILITY_SHEARABLE, null).canBeSheared()) {
+
+                    if (entity.world.isRemote) {
+                        return false;
+                    }
+
+                    java.util.Random rand = new java.util.Random();
+                    int i = 1 + rand.nextInt(3);
+
+                    java.util.List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
+                    for (int j = 0; j < i; ++j)
+                        ret.add(new ItemStack(Items.FEATHER, 1));
+
+                    entity.playSound(SoundEvents.ENTITY_SHEEP_SHEAR, 1.0F, 1.0F);
+                    dropItems(entity, ret, rand);
+                    entity.getCapability(CAPABILITY_SHEARABLE, null).setSheared(true);
+                    return true;
+                }
+            }
+        }
         return super.itemInteractionForEntity(itemstack, player, entity, hand);
+    }
+
+    private void dropItems(EntityLivingBase entity, List<ItemStack> drops, Random rand) {
+        for (ItemStack stack : drops) {
+            net.minecraft.entity.item.EntityItem ent = entity.entityDropItem(stack, 1.0F);
+            ent.motionY += rand.nextFloat() * 0.05F;
+            ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+            ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
+        }
     }
 
     @Nullable

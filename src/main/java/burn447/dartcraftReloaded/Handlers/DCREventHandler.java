@@ -1,9 +1,7 @@
 package burn447.dartcraftReloaded.Handlers;
 
-import burn447.dartcraftReloaded.Events.attachCapabilitiesEvent;
-import burn447.dartcraftReloaded.Events.attackEntityEvent;
-import burn447.dartcraftReloaded.Events.enderTeleportEvent;
-import burn447.dartcraftReloaded.Events.onHarvestEvent;
+import burn447.dartcraftReloaded.Events.*;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 
 /**
@@ -16,6 +14,7 @@ public class DCREventHandler {
         MinecraftForge.EVENT_BUS.register(new attachCapabilitiesEvent());
         MinecraftForge.EVENT_BUS.register(new enderTeleportEvent());
         MinecraftForge.EVENT_BUS.register(new attackEntityEvent());
+        MinecraftForge.EVENT_BUS.register(new onLivingUpdate());
     }
 
 

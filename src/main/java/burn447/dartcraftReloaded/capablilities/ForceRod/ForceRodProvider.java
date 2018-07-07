@@ -17,13 +17,13 @@ import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY
 public class ForceRodProvider implements ICapabilitySerializable<NBTBase>, ICapabilityProvider {
 
     private EnumFacing facing = null;
-    private IForceRodModifier instacne = null;
+    private IForceRodModifier instance = null;
 
     public ForceRodProvider(Capability<IForceRodModifier> capability, EnumFacing facing){
         if(capability != null){
             CAPABILITY_FORCEROD = capability;
             this.facing = facing;
-            this.instacne = CAPABILITY_FORCEROD.getDefaultInstance();
+            this.instance = CAPABILITY_FORCEROD.getDefaultInstance();
         }
     }
 
@@ -38,17 +38,17 @@ public class ForceRodProvider implements ICapabilitySerializable<NBTBase>, ICapa
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        return capability == CAPABILITY_FORCEROD ? CAPABILITY_FORCEROD.<T> cast(instacne) : null;
+        return capability == CAPABILITY_FORCEROD ? CAPABILITY_FORCEROD.<T> cast(instance) : null;
     }
 
     @Override
     public NBTBase serializeNBT() {
-        return CAPABILITY_FORCEROD.getStorage().writeNBT(CAPABILITY_FORCEROD, instacne, null);
+        return CAPABILITY_FORCEROD.getStorage().writeNBT(CAPABILITY_FORCEROD, instance, null);
     }
 
     @Override
     public void deserializeNBT(NBTBase nbt) {
-        CAPABILITY_FORCEROD.getStorage().readNBT(CAPABILITY_FORCEROD, instacne, null, nbt);
+        CAPABILITY_FORCEROD.getStorage().readNBT(CAPABILITY_FORCEROD, instance, null, nbt);
     }
 
     public final Capability<IForceRodModifier> getCapability(){

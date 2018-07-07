@@ -51,6 +51,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
 
     public final ItemStackHandler handler;
+    public final ItemStackHandler bookSlotHandler;
+    public final ItemStackHandler forceSlotHandler;
     public FluidTank tank;
     private DCREnergyStorage storage;
     private NonNullList<ItemStack> infuserContents = NonNullList.create();
@@ -71,6 +73,9 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return 1;
             }
         };
+        this.bookSlotHandler = new ItemStackHandler(1);
+
+        this.forceSlotHandler = new ItemStackHandler(1);
 
         this.storage = new DCREnergyStorage(500000, 512, 512);
 
@@ -81,6 +86,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public void readFromNBT(NBTTagCompound nbt) {
         //Items
         handler.deserializeNBT(nbt.getCompoundTag("ItemStackHandler"));
+        bookSlotHandler.deserializeNBT(nbt.getCompoundTag("BookSlotHandler"));
+        forceSlotHandler.deserializeNBT(nbt.getCompoundTag("ForceSlotHandler"));
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
         //Energy
         storage.readFromNBT(nbt);
@@ -95,6 +102,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         //Items
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
+        nbt.setTag("ForceSlotHandler", forceSlotHandler.serializeNBT());
+        nbt.setTag("BookSlotHandler", bookSlotHandler.serializeNBT());
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
         //Energy
         storage.writeToNBT(nbt);
@@ -107,15 +116,15 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     @Override
     public void update() {
 
-        if(handler.getStackInSlot(1).getItem() == ModItems.gemForceGem) {
-            FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 100);
+        if(forceSlotHandler.getStackInSlot(0).getItem() == ModItems.gemForceGem) {
+            FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 1);
 
             if (tank.getFluidAmount() < tank.getCapacity() - 100) {
                 fill(force, true);
-                if (handler.getStackInSlot(1).getCount() > 1) {
-                    handler.getStackInSlot(1).setCount(handler.getStackInSlot(1).getCount() - 1);
+                if (forceSlotHandler.getStackInSlot(0).getCount() > 1) {
+                    forceSlotHandler.getStackInSlot(0).setCount(forceSlotHandler.getStackInSlot(0).getCount() - 1);
                 } else
-                    handler.setStackInSlot(1, ItemStack.EMPTY);
+                    forceSlotHandler.setStackInSlot(0, ItemStack.EMPTY);
             }
         }
 
@@ -601,10 +610,11 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public int fill(FluidStack resource, boolean doFill) {
         FluidStack resourceCopy = resource.copy();
 
-        if(tank.getFluid().getFluid() instanceof FluidForce || tank.getFluidAmount() == 0){
-            tank.fill(resourceCopy, true);
+        if (tank.getFluid() != null) {
+            if (tank.getFluid().getFluid() instanceof FluidForce || tank.getFluidAmount() == 0) {
+                tank.fill(resourceCopy, true);
+            }
         }
-
         return resource.amount;
     }
 

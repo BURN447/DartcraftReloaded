@@ -11,6 +11,9 @@ import burn447.dartcraftReloaded.capablilities.ForceRod.ForceRodFactory;
 import burn447.dartcraftReloaded.capablilities.ForceRod.ForceRodStorage;
 import burn447.dartcraftReloaded.capablilities.ForceRod.IForceRodModifier;
 import burn447.dartcraftReloaded.capablilities.PlayerModifier.IPlayerModifier;
+import burn447.dartcraftReloaded.capablilities.Shearable.IShearableMob;
+import burn447.dartcraftReloaded.capablilities.Shearable.ShearableFactory;
+import burn447.dartcraftReloaded.capablilities.Shearable.ShearableStorage;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.IToolModifier;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolFactory;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModStorage;
@@ -29,6 +32,7 @@ public class DCRCapabilityHandler {
 
     public static final ResourceLocation BANE_CAP = new ResourceLocation(References.modId, "baneMod");
     public static final ResourceLocation PLAYER_CAP = new ResourceLocation(References.modId, "playerMod");
+    public static final ResourceLocation SHEAR_CAP = new ResourceLocation(References.modId, "shearable");
 
     @CapabilityInject(IToolModifier.class)
     public static Capability<IToolModifier> CAPABILITY_TOOLMOD = null;
@@ -45,11 +49,15 @@ public class DCRCapabilityHandler {
     @CapabilityInject(IPlayerModifier.class)
     public static Capability<IPlayerModifier> CAPABILITY_PLAYERMOD = null;
 
+    @CapabilityInject(IShearableMob.class)
+    public static Capability<IShearableMob> CAPABILITY_SHEARABLE = null;
+
     public static void register(){
         CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), new ToolFactory());
         CapabilityManager.INSTANCE.register(IForceRodModifier.class, new ForceRodStorage(), new ForceRodFactory());
         CapabilityManager.INSTANCE.register(IExperienceTome.class, new ExperienceTomeStorage(), new ExperienceTomeFactory());
         CapabilityManager.INSTANCE.register(IBaneModifier.class, new BaneModifierStorage(), new BaneFactory());
+        CapabilityManager.INSTANCE.register(IShearableMob.class, new ShearableStorage(), new ShearableFactory());
 
         MinecraftForge.EVENT_BUS.register(new DCRCapabilityHandler());
     }
