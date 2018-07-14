@@ -5,9 +5,11 @@ import burn447.dartcraftReloaded.container.Slot.SlotForceGems;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
@@ -78,15 +80,14 @@ public class ContainerBlockInfuser extends Container {
                 }
             }
             else {
-                hasReturned = false;
                 for (int i = 0; i < 11; i++) {
-                    if (hasReturned == false) {
+                    if (!hasReturned) {
                         if (((Slot) this.inventorySlots.get(i)).getHasStack() || !((Slot) this.inventorySlots.get(i)).isItemValid(itemstack1)) {
-                            //hasReturned = true;
+                            hasReturned = true;
                             return ItemStack.EMPTY;
                         }
                     }
-                    if (hasReturned == false) {
+                    if (!hasReturned) {
                         if (itemstack1.hasTagCompound() && itemstack1.getCount() == 1) {
                             ((Slot) this.inventorySlots.get(i)).putStack(itemstack1.copy());
                             itemstack1.setCount(0);
@@ -115,5 +116,22 @@ public class ContainerBlockInfuser extends Container {
 
     public void setButtonPressed(boolean buttonPressed){
         te.canWork = buttonPressed;
+    }
+
+    public void setFluidAmount(int amount){
+        te.fluidContained = amount;
+    }
+
+    public int getFluidAmount(){
+        return te.fluidContained;
+    }
+
+    public TileEntity getTE(){
+        return te;
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
     }
 }

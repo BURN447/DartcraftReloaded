@@ -4,9 +4,11 @@ import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Fluids.FluidForce;
 import burn447.dartcraftReloaded.Fluids.ModFluids;
+import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
 import burn447.dartcraftReloaded.Items.ItemArmor;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
+import burn447.dartcraftReloaded.Networking.InfuserMessage;
 import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.ITileEntityProvider;
@@ -28,13 +30,17 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -55,14 +61,18 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public final ItemStackHandler forceSlotHandler;
     public FluidTank tank;
     private DCREnergyStorage storage;
+
     private NonNullList<ItemStack> infuserContents = NonNullList.create();
 
-    public static List<Item> validToolList = new ArrayList<>();
-    public static List<Item> validModifierList = new ArrayList<>();
+    private static List<Item> validToolList = new ArrayList<>();
+    private static List<Item> validModifierList = new ArrayList<>();
     public boolean canWork = false;
 
     public int processTime = 0;
     public int maxProcessTime = 17;
+
+    public int fluidContained;
+
 
     public TileEntityInfuser() {
         populateToolList();
@@ -73,13 +83,19 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return 1;
             }
         };
-        this.bookSlotHandler = new ItemStackHandler(1);
+        this.bookSlotHandler = new ItemStackHandler(1){
+            @Nonnull
+            @Override
+            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+                return super.insertItem(slot, stack, simulate);
+            }
+        };
 
         this.forceSlotHandler = new ItemStackHandler(1);
 
         this.storage = new DCREnergyStorage(500000, 512, 512);
 
-        tank = new FluidTank(10000);
+        tank = new FluidTank(50000);
     }
 
     @Override
@@ -115,40 +131,44 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     @Override
     public void update() {
+        fluidContained = tank.getFluidAmount();
+        if(world != null) {
+            if (!world.isRemote) {
+                if (forceSlotHandler.getStackInSlot(0).getItem() == ModItems.gemForceGem) {
+                    FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 500);
 
-        if(forceSlotHandler.getStackInSlot(0).getItem() == ModItems.gemForceGem) {
-            FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 1);
+                    if (tank.getFluidAmount() < tank.getCapacity() - 100) {
+                        fill(force, true);
+                        if (forceSlotHandler.getStackInSlot(0).getCount() > 1) {
+                            forceSlotHandler.getStackInSlot(0).setCount(forceSlotHandler.getStackInSlot(0).getCount() - 1);
+                        } else
+                            forceSlotHandler.setStackInSlot(0, ItemStack.EMPTY);
 
-            if (tank.getFluidAmount() < tank.getCapacity() - 100) {
-                fill(force, true);
-                if (forceSlotHandler.getStackInSlot(0).getCount() > 1) {
-                    forceSlotHandler.getStackInSlot(0).setCount(forceSlotHandler.getStackInSlot(0).getCount() - 1);
-                } else
-                    forceSlotHandler.setStackInSlot(0, ItemStack.EMPTY);
-            }
-        }
-
-        if (canWork) {
-            if (processTime == maxProcessTime) {
-                this.markDirty();
-                if (hasValidTool()) {
-                    for (int i = 2; i < 9; i++) {
-                        if (hasValidModifer(i)) {
-                            ItemStack mod = getModifer(i);
-                            ItemStack stack = handler.getStackInSlot(10);
-                            boolean success = applyModifier(stack, mod);
-                            if (success) {
-                                handler.setStackInSlot(i, ItemStack.EMPTY);
-                            }
-                        }
+                        markDirty();
+                        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
                     }
                 }
-                System.out.println("Capacity: " + tank.getCapacity() + "\n" + "Filled: " + tank.getFluidAmount());
-                System.out.println(canWork + " " + processTime);
-                canWork = false;
-                processTime = 0;
+                if (canWork) {
+                    if (processTime == maxProcessTime) {
+                        this.markDirty();
+                        if (hasValidTool()) {
+                            for (int i = 0; i < 8; i++) {
+                                if (hasValidModifer(i)) {
+                                    ItemStack mod = getModifer(i);
+                                    ItemStack stack = handler.getStackInSlot(8);
+                                    boolean success = applyModifier(stack, mod);
+                                    if (success) {
+                                        handler.setStackInSlot(i, ItemStack.EMPTY);
+                                    }
+                                }
+                            }
+                        }
+                        canWork = false;
+                        processTime = 0;
+                    }
+                    processTime++;
+                }
             }
-            processTime++;
         }
     }
 
@@ -192,20 +212,22 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return (T) this.handler;
         if(capability == FLUID_HANDLER_CAPABILITY)
             return (T) this.tank;
+        if(capability == CapabilityEnergy.ENERGY)
+            return (T) this.storage;
         return super.getCapability(capability, facing);
     }
 
     @Override
     public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
-        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == FLUID_HANDLER_CAPABILITY)
+        if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || capability == FLUID_HANDLER_CAPABILITY || capability == CapabilityEnergy.ENERGY)
             return true;
         return super.hasCapability(capability, facing);
     }
 
     private boolean hasValidTool() {
-        if (!handler.getStackInSlot(10).isEmpty()) {
+        if (!handler.getStackInSlot(8).isEmpty()) {
             for (int i = 0; i < References.numTools; i++) {
-                if (handler.getStackInSlot(10).getItem() == validToolList.get(i)) {
+                if (handler.getStackInSlot(8).getItem() == validToolList.get(i)) {
                     return true;
                 }
             }
@@ -214,7 +236,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean hasValidModifer(int slot) {
-        if (!handler.getStackInSlot(10).isEmpty()) {
+        if (!handler.getStackInSlot(8).isEmpty()) {
             for (int j = 0; j < References.numModifiers - 1; j++) {
                 if (handler.getStackInSlot(slot).getItem() == validModifierList.get(j)) {
                     return true;
@@ -264,7 +286,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private ItemStack getModifer(int slot) {
-        if (!handler.getStackInSlot(10).isEmpty()) {
+        if (!handler.getStackInSlot(8).isEmpty()) {
             for (int j = 0; j < References.numModifiers - 1; j++) {
                 if (handler.getStackInSlot(slot).getItem() == validModifierList.get(j)) {
                     return handler.getStackInSlot(slot);
@@ -278,10 +300,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityInfuser();
-    }
-
-    private void addForceFromSlot(){
-        FluidStack force = new FluidStack(ModFluids.fluidForce, 100);
     }
 
     private boolean applyModifier(ItemStack stack, ItemStack mod) {
@@ -615,18 +633,48 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 tank.fill(resourceCopy, true);
             }
         }
+        if(tank.getFluid() == null){
+            tank.fill(resourceCopy, true);
+        }
         return resource.amount;
     }
 
     @Nullable
     @Override
     public FluidStack drain(FluidStack resource, boolean doDrain) {
-        return null;
+        if(!isFluidEqual(resource))
+            return null;
+        if(!doDrain){
+            int amount = tank.getFluidAmount() - resource.amount < 0 ? tank.getFluidAmount() : resource.amount;
+            return new FluidStack(tank.getFluid(), amount);
+        }
+        return tank.drain(resource.amount, doDrain);
     }
 
     @Nullable
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
-        return null;
+        return drain(new FluidStack(tank.getFluid(), maxDrain), doDrain);
     }
+
+    public float getFluidPercentage()
+    {
+        return (float) tank.getFluidAmount() / (float) tank.getCapacity();
+    }
+
+    public int getFluidGuiHeight(int maxHeight)
+    {
+        return (int) Math.ceil(getFluidPercentage() * (float) maxHeight);
+    }
+
+    protected boolean isFluidEqual(FluidStack fluid)
+    {
+        return isFluidEqual(fluid.getFluid());
+    }
+
+    protected boolean isFluidEqual(Fluid fluid)
+    {
+        return tank.getFluid().equals(fluid);
+    }
+
 }

@@ -14,6 +14,7 @@ public class MobUtil {
 
             if(entity instanceof EntityCreeper && (ai instanceof EntityAICreeperSwell || ai instanceof EntityAIAttackMelee)){
                 entity.tasks.removeTask(ai);
+                entity.setCreeperState(-1);
             }
         }
 
@@ -22,6 +23,7 @@ public class MobUtil {
 
             if(entity instanceof EntityCreeper && ai instanceof EntityAINearestAttackableTarget){
                 entity.targetTasks.removeTask(ai);
+                entity.setCreeperState(-1);
             }
         }
     }

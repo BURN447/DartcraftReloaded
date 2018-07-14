@@ -92,4 +92,3 @@ public class DCREnergyStorage extends EnergyStorage {
     }
 
 }
-

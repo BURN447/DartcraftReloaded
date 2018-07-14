@@ -1,17 +1,30 @@
 package burn447.dartcraftReloaded.client.gui;
 
+import burn447.dartcraftReloaded.Fluids.ModFluids;
 import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
 import burn447.dartcraftReloaded.Networking.InfuserMessage;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GLSync;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -66,6 +79,7 @@ public class GUIInfuser extends GuiContainer {
 
         this.infuserProgress.setMin(te.processTime).setMax(te.maxProcessTime);
         this.infuserProgress.draw(this.mc);
+        this.drawFluidBar();
 
         if (isPointInRegion(123, 16, 12, 12, mouseX, mouseY) && te.handler.getStackInSlot(9).isEmpty()) {
             List<String> text = new ArrayList<>();
@@ -78,12 +92,26 @@ public class GUIInfuser extends GuiContainer {
             text.add(TextFormatting.GRAY + I18n.format("gui.blockInfuser.Start.tooltip"));
             this.drawHoveringText(text, actualMouseX, actualMouseY);
         }
+
+        if(isPointInRegion(10, 60, 15, 57, mouseX, mouseY)) {
+            List<String> text = new ArrayList<>();
+            if (te.tank.getFluid() == null) {
+                text.add(I18n.format("gui.blockInfuser.Empty.tooltip"));
+            } else {
+                text.add("Force: " + Integer.toString(te.tank.getFluidAmount()) + "/" + Integer.toString(te.tank.getCapacity()));
+            }
+
+            this.drawHoveringText(text, actualMouseX, actualMouseY);
+        }
     }
 
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         if(isPointInRegion(39, 101, 12, 12, mouseX, mouseY)){
             this.actionPerformed(startButton);
+        }
+        if (isPointInRegion(123, 16, 12, 12, mouseX, mouseY) && te.handler.getStackInSlot(9).isEmpty()){
+            System.out.println(te.tank.getFluidAmount());
         }
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -95,6 +123,19 @@ public class GUIInfuser extends GuiContainer {
             DCRPacketHandler.sendToServer(new InfuserMessage(true));
             te.canWork = true;
         }
+    }
+
+    private void drawFluidBar(){
+        Fluid fluid = ModFluids.fluidForce;
+
+        TextureAtlasSprite fluidTexture = mc.getTextureMapBlocks().getTextureExtry(fluid.getStill().toString());
+        mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
+        int fluidHeight = te.getFluidGuiHeight(57);
+        drawTexturedModalRect(10, 60 + (57 - fluidHeight), fluidTexture, 15, fluidHeight);
+    }
+
+    private void drawEnergyBar(){
+
     }
 
 }
