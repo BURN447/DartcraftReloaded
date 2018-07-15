@@ -159,6 +159,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                                     boolean success = applyModifier(stack, mod);
                                     if (success) {
                                         handler.setStackInSlot(i, ItemStack.EMPTY);
+                                        tank.drain(1000, true);
+                                        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
                                     }
                                 }
                             }
@@ -654,7 +656,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     @Nullable
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
-        return drain(new FluidStack(tank.getFluid(), maxDrain), doDrain);
+        return this.tank.drain(maxDrain, doDrain);
     }
 
     public float getFluidPercentage()
