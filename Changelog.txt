@@ -1,0 +1,9 @@
+1.12.2-1.5-Alpha
+* Added Syncing of Infuser Tile Entity between Client and Server - Fixes Unsynced Force Liquid
+    - Used world.notifyBlockUpdate(blockPos, oldBlockState, newBlockState, flag [2])
+* Fixed Fluid GUI display in Infuser
+* Added 1000 Force Liquid Cost to each infuser operation
+* Implemented Tile Entity Serialization to the Force Wrench
+    - Should work for all TE's, Not tested outside of Dev Environment or with other Mods
+    - Errors when Picking up the infuser, no negative consequences yet
+* Added Force Wrench Capability to store the Data inside the Force Wrench ItemStack

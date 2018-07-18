@@ -98,8 +98,15 @@ public class GUIInfuser extends GuiContainer {
             if (te.tank.getFluid() == null) {
                 text.add(I18n.format("gui.blockInfuser.Empty.tooltip"));
             } else {
-                text.add("Force: " + Integer.toString(te.tank.getFluidAmount()) + "/" + Integer.toString(te.tank.getCapacity()));
+                text.add(TextFormatting.YELLOW + "Liquid Force" + TextFormatting.WHITE + " (" + te.tank.getFluidAmount() + ")");
             }
+
+            this.drawHoveringText(text, actualMouseX, actualMouseY);
+        }
+
+        if(isPointInRegion(152, 11, 12, 106, mouseX, mouseY)){
+            List<String> text = new ArrayList<>();
+            text.add(Integer.toString(te.battery.getEnergyStored()) + " FE");
 
             this.drawHoveringText(text, actualMouseX, actualMouseY);
         }
@@ -111,7 +118,7 @@ public class GUIInfuser extends GuiContainer {
             this.actionPerformed(startButton);
         }
         if (isPointInRegion(123, 16, 12, 12, mouseX, mouseY) && te.handler.getStackInSlot(9).isEmpty()){
-            System.out.println(te.tank.getFluidAmount());
+            System.out.println(te.battery.getEnergyStored());
         }
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -130,8 +137,8 @@ public class GUIInfuser extends GuiContainer {
 
         TextureAtlasSprite fluidTexture = mc.getTextureMapBlocks().getTextureExtry(fluid.getStill().toString());
         mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        int fluidHeight = te.getFluidGuiHeight(57);
-        drawTexturedModalRect(10, 60 + (57 - fluidHeight), fluidTexture, 15, fluidHeight);
+        int fluidHeight = te.getFluidGuiHeight(58);
+        drawTexturedModalRect(10, 60 + (58 - fluidHeight), fluidTexture, 16, fluidHeight);
     }
 
     private void drawEnergyBar(){

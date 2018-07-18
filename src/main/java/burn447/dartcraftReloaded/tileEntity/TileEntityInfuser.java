@@ -3,12 +3,9 @@ package burn447.dartcraftReloaded.tileEntity;
 import burn447.dartcraftReloaded.Blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Fluids.FluidForce;
-import burn447.dartcraftReloaded.Fluids.ModFluids;
-import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
 import burn447.dartcraftReloaded.Items.ItemArmor;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
-import burn447.dartcraftReloaded.Networking.InfuserMessage;
 import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.ITileEntityProvider;
@@ -30,10 +27,8 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
@@ -60,7 +55,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public final ItemStackHandler bookSlotHandler;
     public final ItemStackHandler forceSlotHandler;
     public FluidTank tank;
-    private DCREnergyStorage storage;
+    public DCREnergyStorage battery;
 
     private NonNullList<ItemStack> infuserContents = NonNullList.create();
 
@@ -93,7 +88,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
         this.forceSlotHandler = new ItemStackHandler(1);
 
-        this.storage = new DCREnergyStorage(500000, 512, 512);
+        this.battery = new DCREnergyStorage(500000, 512, 512);
 
         tank = new FluidTank(50000);
     }
@@ -106,7 +101,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         forceSlotHandler.deserializeNBT(nbt.getCompoundTag("ForceSlotHandler"));
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
         //Energy
-        storage.readFromNBT(nbt);
+        //battery.readFromNBT(nbt);
         //Fluids
         tank.readFromNBT(nbt);
 
@@ -122,7 +117,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         nbt.setTag("BookSlotHandler", bookSlotHandler.serializeNBT());
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
         //Energy
-        storage.writeToNBT(nbt);
+        //battery.writeToNBT(nbt);
         //Fluids
         tank.writeToNBT(nbt);
 
@@ -215,7 +210,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         if(capability == FLUID_HANDLER_CAPABILITY)
             return (T) this.tank;
         if(capability == CapabilityEnergy.ENERGY)
-            return (T) this.storage;
+            return (T) this.battery;
         return super.getCapability(capability, facing);
     }
 
@@ -248,7 +243,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return false;
     }
 
-    private void populateToolList()  {
+    private void populateToolList() {
         validToolList.add(ModItems.forcePickaxe);
         validToolList.add(ModItems.forceAxe);
         validToolList.add(ModItems.forceShovel);

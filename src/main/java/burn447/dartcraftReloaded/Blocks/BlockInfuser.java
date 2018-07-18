@@ -30,12 +30,15 @@ public class BlockInfuser extends BlockBase {
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
         TileEntityInfuser te = (TileEntityInfuser) world.getTileEntity(pos);
-        IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        for (int slot = 0; slot < handler.getSlots() - 1; slot++) {
-            ItemStack stack = handler.getStackInSlot(slot);
-            InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+        if (te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
+
+            IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+            for (int slot = 0; slot < handler.getSlots() - 1; slot++) {
+                ItemStack stack = handler.getStackInSlot(slot);
+                InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+            }
+            super.breakBlock(world, pos, state);
         }
-        super.breakBlock(world, pos, state);
     }
 
 
