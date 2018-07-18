@@ -10,6 +10,9 @@ import burn447.dartcraftReloaded.capablilities.ExperienceTome.IExperienceTome;
 import burn447.dartcraftReloaded.capablilities.ForceRod.ForceRodFactory;
 import burn447.dartcraftReloaded.capablilities.ForceRod.ForceRodStorage;
 import burn447.dartcraftReloaded.capablilities.ForceRod.IForceRodModifier;
+import burn447.dartcraftReloaded.capablilities.ForceWrench.ForceWrenchFactory;
+import burn447.dartcraftReloaded.capablilities.ForceWrench.ForceWrenchStorage;
+import burn447.dartcraftReloaded.capablilities.ForceWrench.IForceWrench;
 import burn447.dartcraftReloaded.capablilities.PlayerModifier.IPlayerModifier;
 import burn447.dartcraftReloaded.capablilities.Shearable.IShearableMob;
 import burn447.dartcraftReloaded.capablilities.Shearable.ShearableFactory;
@@ -52,12 +55,16 @@ public class DCRCapabilityHandler {
     @CapabilityInject(IShearableMob.class)
     public static Capability<IShearableMob> CAPABILITY_SHEARABLE = null;
 
+    @CapabilityInject(IForceWrench.class)
+    public static Capability<IForceWrench> CAPABILITY_FORCEWRENCH = null;
+
     public static void register(){
         CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), new ToolFactory());
         CapabilityManager.INSTANCE.register(IForceRodModifier.class, new ForceRodStorage(), new ForceRodFactory());
         CapabilityManager.INSTANCE.register(IExperienceTome.class, new ExperienceTomeStorage(), new ExperienceTomeFactory());
         CapabilityManager.INSTANCE.register(IBaneModifier.class, new BaneModifierStorage(), new BaneFactory());
         CapabilityManager.INSTANCE.register(IShearableMob.class, new ShearableStorage(), new ShearableFactory());
+        CapabilityManager.INSTANCE.register(IForceWrench.class, new ForceWrenchStorage(), new ForceWrenchFactory());
 
         MinecraftForge.EVENT_BUS.register(new DCRCapabilityHandler());
     }
