@@ -4,6 +4,7 @@ import net.minecraft.block.state.BlockStateBase;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 
 import java.util.concurrent.Callable;
 
@@ -17,6 +18,7 @@ public class ForceWrenchFactory implements Callable<IForceWrench> {
 
             NBTTagCompound storedBlockNBT = null;
             IBlockState storedBlockState = null;
+            String name = null;
 
 
             @Override
@@ -43,6 +45,11 @@ public class ForceWrenchFactory implements Callable<IForceWrench> {
             }
 
             @Override
+            public String getStoredName() {
+                return name;
+            }
+
+            @Override
             public void storeBlockNBT(NBTTagCompound nbt) {
                 storedBlockNBT = nbt;
             }
@@ -53,9 +60,15 @@ public class ForceWrenchFactory implements Callable<IForceWrench> {
             }
 
             @Override
+            public void setBlockName(String name) {
+                this.name = name;
+            }
+
+            @Override
             public void clearBlockStorage() {
                 storedBlockState = null;
                 storedBlockNBT = null;
+                name = null;
             }
         };
     }

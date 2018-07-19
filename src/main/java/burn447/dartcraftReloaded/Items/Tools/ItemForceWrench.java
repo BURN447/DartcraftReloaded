@@ -4,6 +4,7 @@ import burn447.dartcraftReloaded.Items.ItemBase;
 import burn447.dartcraftReloaded.capablilities.ForceWrench.ForceWrenchProvider;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,6 +18,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 
 import javax.annotation.Nullable;
+
+import java.util.List;
 
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_FORCEWRENCH;
 
@@ -58,18 +61,18 @@ public class ItemForceWrench extends ItemBase {
         IBlockState state = world.getBlockState(pos);
 
         if(heldWrench.hasCapability(CAPABILITY_FORCEWRENCH, null)) {
-            ResourceLocation blockName = state.getBlock().getRegistryName();
-            int metadata = state.getBlock().getMetaFromState(state);
+            String blockName = state.getBlock().getLocalizedName();
             TileEntity tileEntity = world.getTileEntity(pos);
             NBTTagCompound nbt = new NBTTagCompound();
 
             if(tileEntity != null){
                 tileEntity.writeToNBT(nbt);
-                //System.out.println(nbt + "\n" + world.getBlockState(pos));
                 heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).storeBlockNBT(nbt);
                 heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).storeBlockState(world.getBlockState(pos));
+                heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).setBlockName(blockName);
                 world.removeTileEntity(pos);
                 world.setBlockToAir(pos);
+                world.markBlockRangeForRenderUpdate(pos, pos);
             }
             return EnumActionResult.SUCCESS;
         }
@@ -89,5 +92,15 @@ public class ItemForceWrench extends ItemBase {
             System.out.println(tileCmp);
         }
         return EnumActionResult.SUCCESS;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+        if(stack.hasCapability(CAPABILITY_FORCEWRENCH, null)){
+            if(stack.getCapability(CAPABILITY_FORCEWRENCH, null).getStoredName() != null){
+                tooltip.add("Stored: " + stack.getCapability(CAPABILITY_FORCEWRENCH, null).getStoredName());
+            }
+        }
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }
