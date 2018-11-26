@@ -16,6 +16,7 @@ public class ModBlocks {
     public static BlockForceLeaves forceLeaves = new BlockForceLeaves("forceLeaves");
     public static BlockInfuser infuser = new BlockInfuser("infuser");
     public static BlockFluidForce blockFluidForce = new BlockFluidForce();
+    public static BlockForceBrick forceBrick = new BlockForceBrick();
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -24,7 +25,8 @@ public class ModBlocks {
                 forceLog,
                 forceLeaves,
                 infuser,
-                blockFluidForce
+                blockFluidForce,
+                forceBrick
         );
 
     }
@@ -35,7 +37,8 @@ public class ModBlocks {
                 forceSapling.createItemBlock(),
                 forceLog.createItemBlock(),
                 forceLeaves.createItemBlock(),
-                infuser.createItemBlock()
+                infuser.createItemBlock(),
+                forceBrick.createItemBlock()
         );
 
     }

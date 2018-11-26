@@ -47,6 +47,7 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
 
     //Luck Modifier
     boolean hasLuckLevel(int level);
+    boolean hasAnyLuck();
     void setLuckOne(boolean newVal);
     void setLuckTwo(boolean newVal);
     void setLuckThree(boolean newVal);
@@ -63,6 +64,7 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
 
     //Light
     boolean hasLightLevel(int level);
+    boolean hasAnyLight();
     void setLightOne(boolean newVal);
     void setLightTwo(boolean newVal);
     void setLightThree(boolean newVal);
@@ -96,6 +98,7 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
 
     //Sturdy
     boolean hasSturdyLevel(int level);
+    boolean hasAnySturdy();
     void setSturdy(int level, boolean newVal);
     void setSturdy(int level);
 
@@ -117,8 +120,18 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
     void setEnder(boolean newVal);
 
     boolean hasBleeding(int level);
+    boolean hasAnyBleeding();
     void setBleeding(int level);
     void setBleeding(int level, boolean newVal);
+
+    boolean hasCamo();
+    void setCamo(boolean newVal);
+
+    boolean hasSpeed();
+    void setSpeed(boolean newVal);
+
+    boolean hasDamage();
+    void setDamage(boolean newVal);
 
     boolean hasUpgrades(ItemStack stack);
 

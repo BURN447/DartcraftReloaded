@@ -7,4 +7,5 @@ public interface IPlayerModifier {
 
     float getAttackDamage();
     void setAttackDamage(float newDamage);
+
 }

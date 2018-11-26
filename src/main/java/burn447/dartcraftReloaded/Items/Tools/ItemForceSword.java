@@ -102,29 +102,9 @@ public class ItemForceSword extends ItemToolBase {
 
         double knockback = stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback();
 
+        MobUtil.addBleedingEffect(stack, target);
+
         target.addVelocity(look.x * knockback, look.y * knockback, look.z * knockback);
-
-        PotionEffect bleedingOne = new EffectBleeding(2);
-        PotionEffect bleedingTwo = new EffectBleeding(4);
-        PotionEffect bleedingThree = new EffectBleeding(5);
-        PotionEffect bleedingFour = new EffectBleeding(16);
-
-
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4)){
-            target.addPotionEffect(bleedingFour);
-        }
-
-        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3)){
-            target.addPotionEffect(bleedingThree);
-        }
-
-        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2)){
-            target.addPotionEffect(bleedingTwo);
-        }
-
-        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1)){
-            target.addPotionEffect(bleedingOne);
-        }
 
         if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBane()){
             if(target instanceof EntityCreeper){

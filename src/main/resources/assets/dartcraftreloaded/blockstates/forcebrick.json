@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "color=cyan": {"model": "dartcraftreloaded:brick_cyan"},
+    "color=white": {"model": "dartcraftreloaded:brick_white"}
+  }
+}

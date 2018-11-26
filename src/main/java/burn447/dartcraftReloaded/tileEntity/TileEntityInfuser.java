@@ -149,7 +149,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                         if (hasValidTool()) {
                             for (int i = 0; i < 8; i++) {
                                 if (hasValidModifer(i)) {
-                                    ItemStack mod = getModifer(i);
+                                    ItemStack mod = getModifier(i);
                                     ItemStack stack = handler.getStackInSlot(8);
                                     boolean success = applyModifier(stack, mod);
                                     if (success) {
@@ -265,7 +265,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validModifierList.add(ModItems.goldenPowerSource);
         validModifierList.add(ModItems.cookieFortune);
         validModifierList.add(Items.FLINT);
-        validModifierList.add(Items.DYE); //Needs to specify Lapis
+        validModifierList.add(Items.DYE);
         validModifierList.add(Items.EXPERIENCE_BOTTLE);
         validModifierList.add(Items.SPIDER_EYE);
         validModifierList.add(Items.ARROW);
@@ -282,7 +282,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validModifierList.add(Item.getItemFromBlock(Blocks.BRICK_BLOCK));
     }
 
-    private ItemStack getModifer(int slot) {
+    private ItemStack getModifier(int slot) {
         if (!handler.getStackInSlot(8).isEmpty()) {
             for (int j = 0; j < References.numModifiers - 1; j++) {
                 if (handler.getStackInSlot(slot).getItem() == validModifierList.get(j)) {
@@ -364,11 +364,21 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             }
             return false;
         }
+        if(stack.getItem() instanceof ItemArmor){
+            if(stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+                if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed())
+                    return false;
+                else {
+                    stack.getCapability(CAPABILITY_TOOLMOD, null).setSpeed(true);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
     private boolean addHeatModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemToolBase) {
+        if (stack.getItem() instanceof ItemToolBase || stack.getItem() instanceof ItemArmor) {
             if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setHeat(true);
                 return true;
@@ -417,6 +427,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return true;
             }
         }
+        else if(stack.getItem() instanceof ItemArmor){
+            if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasDamage()){
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setDamage(true);
+                return true;
+            }
+        }
         return false;
     }
 
@@ -462,6 +478,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 stack.addEnchantment(Enchantments.LOOTING, 4);
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(4);
                 return true;
+            }
+        } else if (stack.getItem() instanceof ItemArmor){
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1))
+                return false;
+            else if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1)){
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(1);
             }
         }
         return false;
@@ -550,6 +572,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private boolean addCamoModifier(ItemStack stack){
         if(stack.getItem() instanceof ItemForceRod){
             stack.getCapability(CAPABILITY_FORCEROD, null).setCamoModifier(true);
+            return true;
+        }
+        else if(stack.getItem() instanceof ItemArmor){
+            stack.getCapability(CAPABILITY_TOOLMOD, null).setCamo(true);
             return true;
         }
         return false;

@@ -1,0 +1,6 @@
+{
+  "parent": "block/all",
+  "textures": {
+    "all": "dartcraftreloaded:block/brick_white"
+  }
+}

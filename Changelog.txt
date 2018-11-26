@@ -7,3 +7,10 @@
     - Should work for all TE's, Not tested outside of Dev Environment or with other Mods
     - Errors when Picking up the infuser, no negative consequences yet
 * Added Force Wrench Capability to store the Data inside the Force Wrench ItemStack
+
+
+1.12.2-1.5.1-Alpha
+* Added Force Brick Textures
+* Added Modifiers to the Force Armor
+    - Bane Modifier: Only needs to be on one peice of armor
+    - 

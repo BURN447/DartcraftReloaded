@@ -38,6 +38,9 @@ public class ToolFactory implements Callable<IToolModifier> {
             boolean lumberjack = false;
             boolean ender = false;
             boolean rainbow = false;
+            boolean camo = false;
+            boolean speed = false;
+            boolean damage = false;
 
             boolean[] luck = {false, false, false, false};
             boolean[] light = {false, false, false, false, false};
@@ -104,6 +107,15 @@ public class ToolFactory implements Callable<IToolModifier> {
             @Override
             public boolean hasLuckLevel(int level) {
                 return luck[level - 1];
+            }
+
+            @Override
+            public boolean hasAnyLuck() {
+                for(boolean bool: bleeding){
+                    if(bool)
+                        return true;
+                }
+                return false;
             }
 
             @Override
@@ -178,8 +190,47 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
+            public boolean hasCamo() {
+                return camo;
+            }
+
+            @Override
+            public void setCamo(boolean newVal) {
+                camo = newVal;
+            }
+
+            @Override
+            public boolean hasSpeed() {
+                return speed;
+            }
+
+            @Override
+            public void setSpeed(boolean newVal) {
+                speed = newVal;
+            }
+
+            @Override
+            public boolean hasDamage() {
+                return damage;
+            }
+
+            @Override
+            public void setDamage(boolean newVal) {
+                damage = newVal;
+            }
+
+            @Override
             public boolean hasLightLevel(int level) {
                 return light[level - 1];
+            }
+
+            @Override
+            public boolean hasAnyLight() {
+                for(boolean bool: bleeding){
+                    if(bool)
+                        return true;
+                }
+                return false;
             }
 
             @Override
@@ -287,6 +338,15 @@ public class ToolFactory implements Callable<IToolModifier> {
             }
 
             @Override
+            public boolean hasAnySturdy() {
+                for(boolean bool: sturdy){
+                    if(bool)
+                        return true;
+                }
+                return false;
+            }
+
+            @Override
             public void setSturdy(int level, boolean newVal) {
                 sturdy[level - 1] = newVal;
             }
@@ -344,6 +404,15 @@ public class ToolFactory implements Callable<IToolModifier> {
             @Override
             public boolean hasBleeding(int level) {
                 return bleeding[level - 1];
+            }
+
+            @Override
+            public boolean hasAnyBleeding() {
+                for(boolean bool: bleeding){
+                    if(bool)
+                        return true;
+                }
+                return false;
             }
 
             @Override
