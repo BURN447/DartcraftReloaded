@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.Handlers;
 
-import burn447.dartcraftReloaded.client.gui.GUIInfuser;
+import burn447.dartcraftReloaded.client.gui.guide.GUIGuideBook;
+import burn447.dartcraftReloaded.client.gui.infuser.GUIInfuser;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,7 +27,7 @@ public class DCRGUIHandler implements IGuiHandler {
 
     @Override
     public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        if(ID == INFUSER){
+        if(ID == INFUSER) {
             return new ContainerBlockInfuser(player.inventory, (TileEntityInfuser) world.getTileEntity(new BlockPos(x, y, z)));
         }
         return null;

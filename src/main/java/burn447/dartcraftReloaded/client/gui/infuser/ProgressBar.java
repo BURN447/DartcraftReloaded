@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.client.gui;
+package burn447.dartcraftReloaded.client.gui.infuser;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;

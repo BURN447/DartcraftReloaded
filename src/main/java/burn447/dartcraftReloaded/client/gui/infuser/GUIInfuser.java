@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.client.gui;
+package burn447.dartcraftReloaded.client.gui.infuser;
 
 import burn447.dartcraftReloaded.Fluids.ModFluids;
 import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
@@ -6,25 +6,16 @@ import burn447.dartcraftReloaded.Networking.InfuserMessage;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexBuffer;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GLSync;
 
 import java.io.IOException;
 import java.util.ArrayList;

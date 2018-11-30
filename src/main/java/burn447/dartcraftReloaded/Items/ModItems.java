@@ -37,6 +37,9 @@ public class ModItems {
     //Experience Tome
     public static ItemExperienceTome experienceTome = new ItemExperienceTome("experienceTome");
 
+    //Guide Book
+    public static ItemGuideBook guideBook = new ItemGuideBook("guideBook");
+
     public static void register(IForgeRegistry<Item> registry) {
         registry.registerAll(
                 gemForceGem,
@@ -59,7 +62,8 @@ public class ModItems {
                 claw,
                 fortune,
                 forceShears,
-                experienceTome
+                experienceTome,
+                guideBook
         );
     }
 
@@ -85,5 +89,6 @@ public class ModItems {
         fortune.registerItemModel();
         forceShears.registerItemModel();
         experienceTome.registerItemModel();
+        guideBook.registerItemModel();
     }
 }
