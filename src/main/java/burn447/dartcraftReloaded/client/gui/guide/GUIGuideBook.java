@@ -85,6 +85,7 @@ public class GUIGuideBook extends GuiScreenAdvancements {
 
     private void renderInside(int p_191936_1_, int p_191936_2_, int p_191936_3_, int p_191936_4_)
     {
+
         drawRect(p_191936_3_ + 9, p_191936_4_ + 18, p_191936_3_ + 9 + 234, p_191936_4_ + 18 + 173, -16777216);
         GlStateManager.pushMatrix();
         GlStateManager.translate((float)(p_191936_3_ + 9), (float)(p_191936_4_ + 18), -400.0F);
@@ -92,5 +93,10 @@ public class GUIGuideBook extends GuiScreenAdvancements {
         GlStateManager.popMatrix();
         GlStateManager.depthFunc(515);
         GlStateManager.disableDepth();
+
+        String s = I18n.format("dartcraftReloaded.guideEmpty");
+        int i = this.fontRenderer.getStringWidth(s);
+        this.fontRenderer.drawString(s, p_191936_3_ + 9 + 117 - i / 2, p_191936_4_ + 18 + 56 - this.fontRenderer.FONT_HEIGHT / 2, -1);
+        this.fontRenderer.drawString(":(", p_191936_3_ + 9 + 117 - this.fontRenderer.getStringWidth(":(") / 2, p_191936_4_ + 18 + 113 - this.fontRenderer.FONT_HEIGHT, -1);
     }
 }

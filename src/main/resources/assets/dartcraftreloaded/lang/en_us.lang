@@ -30,3 +30,9 @@ tile.null.name=Force Infuser
 
 #Misc.
 itemGroup.dartcraftreloaded=Dartcraft Reloaded
+
+#Text
+dartcraftReloaded.guideEmpty=This is Broken. Report to Github Please.
+
+#GUI
+gui.guideBook=Book of Mudora
