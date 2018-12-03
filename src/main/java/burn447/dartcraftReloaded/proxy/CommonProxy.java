@@ -28,8 +28,4 @@ public class CommonProxy {
     public void preInit(){
         DCRCapabilityHandler.register();
     }
-
-    public void openGuideGUI(){
-
-    }
 }

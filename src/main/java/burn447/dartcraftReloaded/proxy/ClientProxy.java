@@ -1,8 +1,6 @@
 package burn447.dartcraftReloaded.proxy;
 
-import burn447.dartcraftReloaded.client.gui.guide.GUIGuideBook;
 import burn447.dartcraftReloaded.util.References;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.Item;
@@ -21,10 +19,5 @@ public class ClientProxy extends CommonProxy {
     @Override
     public String localize(String unlocalized, Object... args) {
         return I18n.format(unlocalized, args);
-    }
-
-    @Override
-    public void openGuideGUI() {
-        Minecraft.getMinecraft().displayGuiScreen(new GUIGuideBook());
     }
 }
