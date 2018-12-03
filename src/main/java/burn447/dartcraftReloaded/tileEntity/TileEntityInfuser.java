@@ -1,6 +1,6 @@
 package burn447.dartcraftReloaded.tileEntity;
 
-import burn447.dartcraftReloaded.Blocks.ModBlocks;
+import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Fluids.FluidForce;
 import burn447.dartcraftReloaded.Items.ItemArmor;

@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.Blocks;
+package burn447.dartcraftReloaded.blocks;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLeaves;

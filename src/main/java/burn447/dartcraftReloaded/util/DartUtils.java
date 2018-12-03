@@ -1,6 +1,6 @@
 package burn447.dartcraftReloaded.util;
 
-import burn447.dartcraftReloaded.Blocks.BlockForceLog;
+import burn447.dartcraftReloaded.blocks.BlockForceLog;
 import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;

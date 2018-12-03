@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.Blocks;
+package burn447.dartcraftReloaded.blocks;
 
 import burn447.dartcraftReloaded.Items.ModItems;
 import net.minecraft.block.material.Material;

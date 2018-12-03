@@ -1,7 +1,6 @@
 package burn447.dartcraftReloaded;
 
-import burn447.dartcraftReloaded.Blocks.ModBlocks;
-import burn447.dartcraftReloaded.Fluids.FluidForce;
+import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.Fluids.ModFluids;
 import burn447.dartcraftReloaded.Handlers.*;
 import burn447.dartcraftReloaded.Items.ModItems;
@@ -17,7 +16,6 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.common.util.ModFixs;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;

@@ -1,12 +1,11 @@
 package burn447.dartcraftReloaded.world;
 
-import burn447.dartcraftReloaded.Blocks.ModBlocks;
+import burn447.dartcraftReloaded.blocks.ModBlocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import net.minecraft.world.gen.feature.WorldGenTrees;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
 

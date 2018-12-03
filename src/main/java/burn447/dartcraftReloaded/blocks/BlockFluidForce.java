@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.Blocks;
+package burn447.dartcraftReloaded.blocks;
 
 import net.minecraftforge.fluids.BlockFluidClassic;
 
