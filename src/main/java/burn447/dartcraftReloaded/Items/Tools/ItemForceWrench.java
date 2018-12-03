@@ -89,7 +89,6 @@ public class ItemForceWrench extends ItemBase {
             world.setBlockState(pos.offset(EnumFacing.UP), state);
             world.setTileEntity(pos.offset(EnumFacing.UP), te);
             heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).clearBlockStorage();
-            System.out.println(tileCmp);
         }
         return EnumActionResult.SUCCESS;
     }
