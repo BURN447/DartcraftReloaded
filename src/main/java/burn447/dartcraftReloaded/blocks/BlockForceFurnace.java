@@ -1,9 +1,12 @@
 package burn447.dartcraftReloaded.blocks;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
+import burn447.dartcraftReloaded.tileEntity.TileEntityForceFurnace;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
 public class BlockForceFurnace extends BlockFurnace {
 
@@ -22,5 +25,8 @@ public class BlockForceFurnace extends BlockFurnace {
         return new ItemBlock(this).setRegistryName(getRegistryName());
     }
 
-
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityForceFurnace();
+    }
 }
