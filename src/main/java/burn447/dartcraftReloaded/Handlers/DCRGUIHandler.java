@@ -1,6 +1,9 @@
 package burn447.dartcraftReloaded.Handlers;
 
+<<<<<<< HEAD
 import burn447.dartcraftReloaded.client.gui.furnace.GUIFurnace;
+=======
+>>>>>>> master
 import burn447.dartcraftReloaded.client.gui.infuser.GUIInfuser;
 import burn447.dartcraftReloaded.container.ContainerBlockFurnace;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
