@@ -6,6 +6,7 @@ item.stick_force.name=Force Stick
 item.cookie_fortune.name=Fortune Cookie
 item.soul_wafer.name=Soul Wafer
 item.goldenPowerSource.name=Golden Power Source
+item.fortune.name=Fortune
 
 #Armor
 item.force_helmet.name=Force Cap
@@ -36,3 +37,26 @@ dartcraftReloaded.guideEmpty=This is Broken. Report to Github Please.
 
 #GUI
 gui.guideBook=Book of Mudora
+
+#Fortunes
+text.dartcraftReloaded.fortune0=Don't Stare Directly at the Potato
+text.dartcraftReloaded.fortune1=Always Edit out the Derps
+text.dartcraftReloaded.fortune2=Aww, you got blood all over my new sword!
+text.dartcraftReloaded.fortune3=Do you really need this many cookies?
+text.dartcraftReloaded.fortune4=I've burned everything that reminds me of you in a ritualistic bonfire
+text.dartcraftReloaded.fortune5=Hummus is something you eat when you want your inards to cry
+text.dartcraftReloaded.fortune6=PlaceHolder
+text.dartcraftReloaded.fortune7=PlaceHolder
+text.dartcraftReloaded.fortune8=PlaceHolder
+text.dartcraftReloaded.fortune9=PlaceHolder
+text.dartcraftReloaded.fortune10=PlaceHolder
+text.dartcraftReloaded.fortune11=PlaceHolder
+text.dartcraftReloaded.fortune12=PlaceHolder
+text.dartcraftReloaded.fortune13=PlaceHolder
+text.dartcraftReloaded.fortune14=PlaceHolder
+text.dartcraftReloaded.fortune15=PlaceHolder
+text.dartcraftReloaded.fortune16=PlaceHolder
+text.dartcraftReloaded.fortune17=PlaceHolder
+text.dartcraftReloaded.fortune18=PlaceHolder
+text.dartcraftReloaded.fortune19=PlaceHolder
+text.dartcraftReloaded.fortune20=PlaceHolder

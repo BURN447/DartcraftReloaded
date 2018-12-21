@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:paper",
+      "data": 0
+    },
+    {
+      "item": "minecraft:cookie",
+      "data": 0
+    }
+  ],
+  "result": {
+    "item": "dartcraftreloaded:cookie_fortune",
+    "data": 0
+  }
+}
