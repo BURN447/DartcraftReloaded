@@ -1,0 +1,9 @@
+{
+  "variants": {
+    "facing=north": { "model": "dartcraftreloaded:forcefurnace" },
+    "facing=south": { "model": "dartcraftreloaded:forcefurnace", "y": 180 },
+    "facing=west":  { "model": "dartcraftreloaded:forcefurnace", "y": 270 },
+    "facing=east":  { "model": "dartcraftreloaded:forcefurnace", "y": 90 },
+    "inventory":    { "model": "dartcraftreloaded:forcefurnace"}
+  }
+}

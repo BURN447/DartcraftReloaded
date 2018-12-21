@@ -333,4 +333,8 @@ public class BlockForceFurnace extends BlockContainer
     {
         return new BlockStateContainer(this, new IProperty[] {FACING});
     }
+    public void registerItemModel(Item itemBlock) {
+        dartcraftReloaded.proxy.registerItemRenderer(itemBlock, 0, "forceFurnace");
+    }
+
 }

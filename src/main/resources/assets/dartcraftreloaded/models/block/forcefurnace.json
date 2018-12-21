@@ -1,0 +1,8 @@
+{
+  "parent": "block/orientable",
+  "textures": {
+    "top": "dartcraftreloaded:block/furnacesides",
+    "front": "dartcraftreloaded:block/furnaceface",
+    "side": "dartcraftreloaded:block/furnacesides"
+  }
+}

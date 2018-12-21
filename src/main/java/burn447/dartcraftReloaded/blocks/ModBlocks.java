@@ -48,5 +48,6 @@ public class ModBlocks {
         orePower.registerItemModel(Item.getItemFromBlock(orePower));
         forceLog.registerItemModel(Item.getItemFromBlock(forceLog));
         infuser.registerItemModel(Item.getItemFromBlock(infuser));
+        forceFurnace.registerItemModel(Item.getItemFromBlock(forceFurnace));
     }
 }
