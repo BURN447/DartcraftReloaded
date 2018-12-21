@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.container;
 
 import burn447.dartcraftReloaded.container.Slot.SlotForceFuel;
+import burn447.dartcraftReloaded.tileEntity.TileEntityForceFurnace;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
@@ -10,16 +11,16 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-public class ContainerBlockFurnace extends Container {
-
+public class ContainerBlockFurnace extends Container
+{
     private final IInventory tileFurnace;
     private int cookTime;
     private int totalCookTime;
     private int furnaceBurnTime;
     private int currentItemBurnTime;
 
-
-    public ContainerBlockFurnace(InventoryPlayer playerInventory, IInventory furnaceInventory) {
+    public ContainerBlockFurnace(InventoryPlayer playerInventory, IInventory furnaceInventory)
+    {
         this.tileFurnace = furnaceInventory;
         this.addSlotToContainer(new Slot(furnaceInventory, 0, 56, 17));
         this.addSlotToContainer(new SlotForceFuel(furnaceInventory, 1, 56, 53));
@@ -45,6 +46,9 @@ public class ContainerBlockFurnace extends Container {
         listener.sendAllWindowProperties(this, this.tileFurnace);
     }
 
+    /**
+     * Looks for changes made in the container, sends them to every listener.
+     */
     public void detectAndSendChanges()
     {
         super.detectAndSendChanges();
@@ -86,11 +90,18 @@ public class ContainerBlockFurnace extends Container {
         this.tileFurnace.setField(id, data);
     }
 
-    @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
+    /**
+     * Determines whether supplied player can use this container
+     */
+    public boolean canInteractWith(EntityPlayer playerIn)
+    {
         return this.tileFurnace.isUsableByPlayer(playerIn);
     }
 
+    /**
+     * Handle when the stack in slot {@code index} is shift-clicked. Normally this moves the stack between the player
+     * inventory and the other inventory(s).
+     */
     public ItemStack transferStackInSlot(EntityPlayer playerIn, int index)
     {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -119,7 +130,7 @@ public class ContainerBlockFurnace extends Container {
                         return ItemStack.EMPTY;
                     }
                 }
-                else if (TileEntityFurnace.isItemFuel(itemstack1))
+                else if (TileEntityForceFurnace.isItemFuel(itemstack1))
                 {
                     if (!this.mergeItemStack(itemstack1, 1, 2, false))
                     {

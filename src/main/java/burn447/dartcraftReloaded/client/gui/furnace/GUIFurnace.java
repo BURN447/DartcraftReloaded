@@ -2,17 +2,16 @@ package burn447.dartcraftReloaded.client.gui.furnace;
 
 import burn447.dartcraftReloaded.container.ContainerBlockFurnace;
 import burn447.dartcraftReloaded.tileEntity.TileEntityForceFurnace;
+import burn447.dartcraftReloaded.util.References;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.ContainerFurnace;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ResourceLocation;
 
 public class GUIFurnace extends GuiContainer {
 
-    private static final ResourceLocation FURNACE_GUI_TEXTURES = new ResourceLocation("textures/gui/container/anvil.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(References.modId, "textures/gui/container/furnacegui.png");
     private final InventoryPlayer playerInventory;
     private final IInventory tileFurnace;
 
@@ -24,7 +23,7 @@ public class GUIFurnace extends GuiContainer {
     @Override
     protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
         GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(FURNACE_GUI_TEXTURES);
+        this.mc.getTextureManager().bindTexture(TEXTURE);
         int i = (this.width - this.xSize) / 2;
         int j = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);

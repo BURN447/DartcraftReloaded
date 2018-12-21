@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.proxy;
 
 import burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler;
+import burn447.dartcraftReloaded.tileEntity.TileEntityForceFurnace;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.item.Item;
@@ -22,6 +23,7 @@ public class CommonProxy {
 
     public void registerTileEntities() {
         GameRegistry.registerTileEntity(TileEntityInfuser.class, References.modId + ":blockInfuser");
+        GameRegistry.registerTileEntity(TileEntityForceFurnace.class, References.modId + ":blockFurnace");
     }
 
     @Mod.EventHandler
