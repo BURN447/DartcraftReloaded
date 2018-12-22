@@ -1,0 +1,32 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  F",
+    " S ",
+    "N  "  ],
+  "key": {
+    "F": [
+      {
+        "item": "dartcraftreloaded:ingot_force",
+        "data": 0
+      }
+    ],
+    "N": [
+      {
+        "item": "dartcraftreloaded:nugget_force",
+        "data": 0
+      }
+    ],
+    "S": [
+      {
+        "item": "minecraft:stick",
+        "data": 0
+      }
+    ]
+  },
+
+  "result": {
+    "item": "dartcraftreloaded:force_rod",
+    "data": 0
+  }
+}

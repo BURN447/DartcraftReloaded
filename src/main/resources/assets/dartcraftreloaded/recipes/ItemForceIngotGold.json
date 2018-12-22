@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:gold_ingot",
+      "data": 0,
+      "count": 2
+    },
+    {
+      "item": "dartcraftreloaded:gem_forcegem",
+      "data": 0
+    },
+    {
+      "item": "minecraft:gold_ingot",
+      "data": 0,
+      "count": 2
+    }
+  ],
+  "result": {
+    "item": "dartcraftreloaded:ingot_force",
+    "data": 0,
+    "count": 3
+  }
+}

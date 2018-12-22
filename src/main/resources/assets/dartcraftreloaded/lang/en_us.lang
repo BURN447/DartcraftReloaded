@@ -8,6 +8,8 @@ item.soul_wafer.name=Soul Wafer
 item.goldenPowerSource.name=Golden Power Source
 item.fortune.name=Fortune
 item.experienceTome.name=Experience Tome
+item.forceClaw.name=Claw
+item.gear_force.name=Force Gear
 
 #Armor
 item.force_helmet.name=Force Cap
@@ -41,6 +43,9 @@ dartcraftReloaded.guideEmpty=This is Broken. Report to Github Please.
 
 #GUI
 gui.guideBook=Book of Mudora
+
+#Fluid
+fluid.force=Liquid Force
 
 #Fortunes
 text.dartcraftReloaded.fortune0=Don't Stare Directly at the Potato

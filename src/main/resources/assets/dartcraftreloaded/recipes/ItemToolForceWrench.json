@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F F",
+    " G ",
+    " F "  ],
+  "key": {
+    "F": [
+      {
+        "item": "dartcraftreloaded:ingot_force",
+        "data": 0
+      }
+    ],
+    "G": [
+      {
+        "item": "dartcraftreloaded:gear_force",
+        "data": 0
+      }
+    ]
+  },
+
+  "result": {
+    "item": "dartcraftreloaded:force_wrench",
+    "data": 0
+  }
+}

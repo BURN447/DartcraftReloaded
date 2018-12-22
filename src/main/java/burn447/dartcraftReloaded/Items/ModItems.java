@@ -26,6 +26,7 @@ public class ModItems {
     public static ItemBase goldenPowerSource = new ItemBase("goldenPowerSource").setCreativeTab(dartcraftReloaded.creativeTab);
     public static ItemBase claw = new ItemBase("forceClaw").setCreativeTab(dartcraftReloaded.creativeTab);
     public static ItemFortune fortune = new ItemFortune("fortune");
+    public static ItemBase forceGear = new ItemBase("gear_force").setCreativeTab(dartcraftReloaded.creativeTab);
 
     //Tools
     public static ItemForcePickaxe forcePickaxe = new ItemForcePickaxe("forcePickaxe");
@@ -59,7 +60,8 @@ public class ModItems {
                 claw,
                 fortune,
                 forceShears,
-                experienceTome
+                experienceTome,
+                forceGear
         );
     }
 
@@ -85,5 +87,6 @@ public class ModItems {
         fortune.registerItemModel();
         forceShears.registerItemModel();
         experienceTome.registerItemModel();
+        forceGear.registerItemModel();
     }
 }

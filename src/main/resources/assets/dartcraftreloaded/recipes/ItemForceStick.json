@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "W",
+    "W"
+  ],
+  "key": {
+    "W": [
+      {
+        "item": "dartcraftreloaded:forceLog",
+        "data": 0
+      }
+    ]
+  },
+  "result": {
+    "item": "dartcraftreloaded:stick_force",
+    "data": 0,
+    "count": 4
+  }
+}
+

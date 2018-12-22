@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "dartcraftreloaded:ingot_force",
+      "data": 0
+    }
+  ],
+  "result": {
+    "item": "dartcraftreloaded:nugget_force",
+    "data": 0,
+    "count": 9
+  }
+}
