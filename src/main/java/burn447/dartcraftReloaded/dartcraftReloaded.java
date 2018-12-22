@@ -67,6 +67,7 @@ public class dartcraftReloaded {
         System.out.println("Dartcraft Reloaded Init");
         NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new DCRGUIHandler());
         GameRegistry.registerFuelHandler(new DCRFuelHandler());
+        proxy.registerSmeltingRecipes();
         DCREventHandler.init();
         DCRPacketHandler.init();
     }
