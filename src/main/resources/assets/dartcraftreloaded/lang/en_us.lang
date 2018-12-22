@@ -7,6 +7,7 @@ item.cookie_fortune.name=Fortune Cookie
 item.soul_wafer.name=Soul Wafer
 item.goldenPowerSource.name=Golden Power Source
 item.fortune.name=Fortune
+item.experienceTome.name=Experience Tome
 
 #Armor
 item.force_helmet.name=Force Cap
@@ -21,6 +22,7 @@ item.forceSword.name=Force Sword
 item.forceSpade.name=Force Shovel
 item.force_wrench.name=Force Wrench
 item.force_rod.name=Force Rod
+item.forceShears.name=Force Shears
 
 #Blocks
 tile.orePower.name=Power Ore

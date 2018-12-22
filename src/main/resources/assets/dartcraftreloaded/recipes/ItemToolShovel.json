@@ -1,9 +1,9 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    " F ",
-    "F F",
-    "IUI"  ],
+    "F",
+    "S",
+    "S"  ],
   "key": {
     "F": [
       {
@@ -11,21 +11,16 @@
         "data": 0
       }
     ],
-    "I": [
+    "S": [
       {
-        "item": "minecraft:iron_ingot",
-        "data": 0
-      }
-    ],
-    "U": [
-      {
-        "item": "minecraft:furnace",
+        "item": "dartcraftreloaded:stick_force",
         "data": 0
       }
     ]
   },
   "result": {
-    "item": "dartcraftreloaded:forcefurnace",
+    "item": "dartcraftreloaded:forceSpade",
     "data": 0
   }
 }
+
