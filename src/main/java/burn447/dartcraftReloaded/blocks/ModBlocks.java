@@ -54,6 +54,7 @@ public class ModBlocks {
         infuser.registerItemModel(Item.getItemFromBlock(infuser));
         forceFurnace.registerItemModel(Item.getItemFromBlock(forceFurnace));
         forcePlanks.registerItemModel(Item.getItemFromBlock(forcePlanks));
+        forceSapling.registerItemModel(Item.getItemFromBlock(forceSapling));
     }
 
     public static void registerNames() {

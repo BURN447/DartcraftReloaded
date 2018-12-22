@@ -1,6 +1,7 @@
 {
   "parent": "block/cross",
   "textures": {
-    "cross": "dartcraftreloaded:block/forcesapling"
+    "cross": "dartcraftreloaded:block/forcesapling",
+    "inventory": "dartcraftreloaded:block/planks"
   }
 }
