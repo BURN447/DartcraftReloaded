@@ -21,7 +21,7 @@ public class attachCapabilitiesEvent {
     @SubscribeEvent
     public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if(event.getObject() instanceof EntityEnderman && !event.getObject().hasCapability(CAPABILITY_BANE, null)){
-            event.addCapability(BANE_CAP, new BaneProvider(CAPABILITY_BANE, null));
+                event.addCapability(BANE_CAP, new BaneProvider(CAPABILITY_BANE, null));
         }
 
         if(event.getObject() instanceof EntityPlayer && event.getObject().hasCapability(CAPABILITY_PLAYERMOD, null)){

@@ -36,7 +36,6 @@ import static burn447.dartcraftReloaded.util.References.modId;
 @Mod(modid = modId, name = References.name, version = References.version)
 public class dartcraftReloaded {
 
-
     public static final tabDartcraft creativeTab = new tabDartcraft();
 
     @Mod.Instance(modId)
