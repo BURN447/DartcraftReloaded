@@ -12,5 +12,6 @@ public class BlockFluidForce extends BlockFluidClassic {
     public BlockFluidForce(){
         super(fluidForce, fluidForce.getMaterial());
         this.setRegistryName("fluidForce");
+        this.setTranslationKey("fluid_force");
     }
 }

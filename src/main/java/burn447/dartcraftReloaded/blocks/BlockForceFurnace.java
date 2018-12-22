@@ -50,7 +50,7 @@ public class BlockForceFurnace extends BlockContainer
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         this.isBurning = isBurning;
         this.setRegistryName("forceFurnace");
-        this.setUnlocalizedName("forceFurnace");
+        this.setTranslationKey("forceFurnace");
         this.setCreativeTab(dartcraftReloaded.creativeTab);
     }
 
@@ -288,17 +288,17 @@ public class BlockForceFurnace extends BlockContainer
     /**
      * Convert the given metadata into a BlockState for this Block
      */
-    public IBlockState getStateFromMeta(int meta)
-    {
-        EnumFacing enumfacing = EnumFacing.getFront(meta);
-
-        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
-        {
-            enumfacing = EnumFacing.NORTH;
-        }
-
-        return this.getDefaultState().withProperty(FACING, enumfacing);
-    }
+    //public IBlockState getStateFromMeta(int meta)
+    //{
+    //    EnumFacing enumfacing = EnumFacing.getFront(meta);
+//
+    //    if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+    //    {
+    //        enumfacing = EnumFacing.NORTH;
+    //    }
+//
+    //    return this.getDefaultState().withProperty(FACING, enumfacing);
+    //}
 
     /**
      * Convert the BlockState into the correct metadata value

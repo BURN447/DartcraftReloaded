@@ -36,7 +36,7 @@ public class ItemForceShears extends ItemShears {
     public ItemForceShears(String name){
         this.setRegistryName(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.name = name;
     }
 

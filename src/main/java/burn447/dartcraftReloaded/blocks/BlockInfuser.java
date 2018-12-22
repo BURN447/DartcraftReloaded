@@ -25,7 +25,7 @@ public class BlockInfuser extends BlockBase {
         super(Material.ROCK, name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
     }
 
     @Override

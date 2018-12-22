@@ -18,7 +18,7 @@ public class BlockForceOre extends BlockBase {
         setHardness(3f);
         setResistance(5f);
         this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
     }
 
     @Override

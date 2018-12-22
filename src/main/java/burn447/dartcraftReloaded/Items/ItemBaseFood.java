@@ -27,7 +27,7 @@ public class ItemBaseFood extends ItemFood {
 
     public ItemBaseFood(String name, int amount, float saturation, boolean isWolfFood){
         super(amount, saturation, isWolfFood);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
         setRegistryName(name);
         this.name = name;
         if(name == "cookie_fortune"){

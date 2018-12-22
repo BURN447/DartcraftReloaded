@@ -32,7 +32,7 @@ public class ItemExperienceTome extends Item {
 
     public ItemExperienceTome(String name){
         this.setCreativeTab(dartcraftReloaded.creativeTab);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.setRegistryName(name);
         this.name = name;
     }

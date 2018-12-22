@@ -29,7 +29,7 @@ public class BlockForceLeaves extends BlockLeaves {
     public BlockForceLeaves(String name) {
         this.setHardness(0.3f);
         this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
 
         this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, false).withProperty(DECAYABLE, false));
     }
@@ -50,12 +50,12 @@ public class BlockForceLeaves extends BlockLeaves {
         return Blocks.LEAVES.isOpaqueCube(state);
     }
 
-    @Nonnull
-    @SideOnly(Side.CLIENT)
-    @Override
-    public BlockRenderLayer getBlockLayer() {
-        return Blocks.LEAVES.getBlockLayer();
-    }
+    //@Nonnull
+    //@SideOnly(Side.CLIENT)
+    //@Override
+    //public BlockRenderLayer getBlockLayer() {
+    //    return Blocks.LEAVES.getBlockLayer();
+    //}
 
     @Override
     public boolean shouldSideBeRendered(@Nonnull IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {

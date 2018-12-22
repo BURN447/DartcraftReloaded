@@ -16,7 +16,7 @@ public class BlockForceBrick extends BlockColored {
         this.setHardness(50.0F);
         this.setResistance(200.0F);
         this.setRegistryName("forceBrick");
-        this.setUnlocalizedName("forceBrick");
+        //this.setUnlocalizedName("forceBrick");
         this.setCreativeTab(dartcraftReloaded.creativeTab);
     }
 

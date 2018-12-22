@@ -40,7 +40,7 @@ public class ItemForceRod extends ItemBase {
     public ItemForceRod(String name){
         super(name);
         setHasSubtypes(true);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
         setApplicableModifers();
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.setMaxDamage(100);

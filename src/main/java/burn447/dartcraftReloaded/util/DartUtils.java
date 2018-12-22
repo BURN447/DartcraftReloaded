@@ -136,7 +136,7 @@ public class DartUtils {
             TileEntity tileEntity = world.getTileEntity(pos);
             // ItemInWorldManager.removeBlock
             if(block.removedByPlayer(state, world, pos, player, true)) { // boolean is if block can be harvested, checked above
-                block.onBlockDestroyedByPlayer(world, pos, state);
+                block.onBlockHarvested(world, pos, state, player);
                 block.harvestBlock(world, player, pos, state, tileEntity, stack);
                 block.dropXpOnBlockBreak(world, pos, xp);
             }
@@ -152,7 +152,7 @@ public class DartUtils {
             // following code can be found in PlayerControllerMP.onPlayerDestroyBlock
             world.playBroadcastSound(2001, pos, Block.getStateId(state));
             if(block.removedByPlayer(state, world, pos, player, true)) {
-                block.onBlockDestroyedByPlayer(world, pos, state);
+                block.onBlockHarvested(world, pos, state, player);
             }
             // callback to the tool
             stack.onBlockDestroyed(world, state, pos, player);
@@ -199,7 +199,7 @@ public class DartUtils {
         if(player.capabilities.isCreativeMode) {
             block.onBlockHarvested(world, pos, state, player);
             if(block.removedByPlayer(state, world, pos, player, false)) {
-                block.onBlockDestroyedByPlayer(world, pos, state);
+                block.onBlockHarvested(world, pos, state, player);
             }
 
             // send update to client

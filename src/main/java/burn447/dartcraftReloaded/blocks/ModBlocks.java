@@ -59,6 +59,6 @@ public class ModBlocks {
 
     public static void registerNames() {
         forcePlanks.setRegistryName("forcePlanks");
-        forcePlanks.setUnlocalizedName("forcePlanks");
+        //forcePlanks.setUnlocalizedName("forcePlanks");
     }
 }

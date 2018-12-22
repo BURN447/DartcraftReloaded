@@ -36,7 +36,7 @@ public class ItemToolBase extends Item {
 
     public ItemToolBase(String name, Set<Block> effectiveBlocksIn) {
         this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
         this.maxStackSize = 1;

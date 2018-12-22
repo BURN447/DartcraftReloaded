@@ -14,7 +14,7 @@ public class BlockForceLog extends BlockBase {
         setHardness(2.5f);
         setResistance(12.5f);
         this.setRegistryName(name);
-        this.setUnlocalizedName(name);
+        this.setTranslationKey(name);
     }
 
     @Override

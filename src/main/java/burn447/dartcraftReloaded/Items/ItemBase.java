@@ -13,7 +13,7 @@ public class ItemBase extends Item {
 
     public ItemBase(String name) {
         this.name = name;
-        setUnlocalizedName(name);
+        setTranslationKey(name);
         setRegistryName(name);
     }
 

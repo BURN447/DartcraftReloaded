@@ -34,7 +34,7 @@ public class BlockForceSapling extends BlockBush implements IGrowable {
     public BlockForceSapling(String name){
         setTickRandomly(true);
         setCreativeTab(dartcraftReloaded.creativeTab);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
         setRegistryName("forceSapling");
     }
 

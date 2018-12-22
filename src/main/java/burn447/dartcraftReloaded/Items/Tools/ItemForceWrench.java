@@ -30,7 +30,7 @@ public class ItemForceWrench extends ItemBase {
 
     public ItemForceWrench(String name){
         super(name);
-        setUnlocalizedName(name);
+        setTranslationKey(name);
         setCreativeTab(dartcraftReloaded.creativeTab);
     }
 
