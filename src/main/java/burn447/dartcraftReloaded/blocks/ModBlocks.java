@@ -2,6 +2,7 @@ package burn447.dartcraftReloaded.blocks;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -18,6 +19,7 @@ public class ModBlocks {
     public static BlockFluidForce blockFluidForce = new BlockFluidForce();
     public static BlockForceBrick forceBrick = new BlockForceBrick();
     public static BlockForceFurnace forceFurnace = new BlockForceFurnace(false);
+    public static BlockBase forcePlanks = new BlockBase(Material.WOOD, "forcePlanks").setCreativeTab(dartcraftReloaded.creativeTab);
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -27,7 +29,8 @@ public class ModBlocks {
                 forceLeaves,
                 infuser,
                 blockFluidForce,
-                forceFurnace
+                forceFurnace,
+                forcePlanks
         );
 
     }
@@ -39,7 +42,8 @@ public class ModBlocks {
                 forceLog.createItemBlock(),
                 forceLeaves.createItemBlock(),
                 infuser.createItemBlock(),
-                forceFurnace.createItemBlock()
+                forceFurnace.createItemBlock(),
+                forcePlanks.createItemBlock()
         );
 
     }
@@ -49,5 +53,11 @@ public class ModBlocks {
         forceLog.registerItemModel(Item.getItemFromBlock(forceLog));
         infuser.registerItemModel(Item.getItemFromBlock(infuser));
         forceFurnace.registerItemModel(Item.getItemFromBlock(forceFurnace));
+        forcePlanks.registerItemModel(Item.getItemFromBlock(forcePlanks));
+    }
+
+    public static void registerNames() {
+        forcePlanks.setRegistryName("forcePlanks");
+        forcePlanks.setUnlocalizedName("forcePlanks");
     }
 }

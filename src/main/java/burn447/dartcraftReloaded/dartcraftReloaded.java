@@ -85,6 +85,7 @@ public class dartcraftReloaded {
         }
         @SubscribeEvent
         public static void registerBlocks(RegistryEvent.Register<Block> event) {
+            ModBlocks.registerNames();
             ModBlocks.register(event.getRegistry());
             ModBlocks.registerModels();
         }

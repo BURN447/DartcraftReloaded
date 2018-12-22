@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "dartcraftreloaded:forcelog",
+      "data": 0
+    }
+  ],
+  "result": {
+    "item": "dartcraftreloaded:forceplanks",
+    "data": 0,
+    "count": 4
+  }
+}

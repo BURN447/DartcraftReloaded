@@ -29,6 +29,7 @@ tile.forceLog.name=Force Log
 tile.forceLeaves.name=Force Leaves
 tile.infuser.name=Force Infuser
 tile.forceFurnace.name=Force Furnace
+tile.forcePlanks.name=Force Planks
 
 #Misc.
 itemGroup.dartcraftreloaded=Dartcraft Reloaded
