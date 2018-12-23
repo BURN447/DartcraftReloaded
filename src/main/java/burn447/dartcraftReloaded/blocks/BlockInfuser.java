@@ -29,6 +29,27 @@ public class BlockInfuser extends BlockBase {
     }
 
     @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public boolean isFullBlock(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
+
+    @Override
+    public boolean isBlockNormalCube(IBlockState state) {
+        return false;
+    }
+    
+
+    @Override
     public void breakBlock(World world, BlockPos pos, IBlockState state) {
         TileEntityInfuser te = (TileEntityInfuser) world.getTileEntity(pos);
         if (te.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
