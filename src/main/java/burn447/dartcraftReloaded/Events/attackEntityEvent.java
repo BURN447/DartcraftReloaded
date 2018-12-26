@@ -50,14 +50,17 @@ public class attackEntityEvent {
                     }
                 }
 
-                //Bleeding
-                MobUtil.addBleedingEffect(bleedLevel, (EntityLivingBase) event.getTarget());
 
-                //Heat
-                event.getTarget().setFire(heatLevel * 10);
+                if (event.getTarget() instanceof EntityLivingBase) {
+                    //Bleeding
+                    MobUtil.addBleedingEffect(bleedLevel, (EntityLivingBase) event.getTarget());
 
-                //Damage
-                event.getTarget().attackEntityFrom(DamageSource.GENERIC, damageLevel);
+                    //Heat
+                    event.getTarget().setFire(heatLevel * 10);
+
+                    //Damage
+                    event.getTarget().attackEntityFrom(DamageSource.GENERIC, damageLevel);
+                }
             }
         }
     }
