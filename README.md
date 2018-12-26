@@ -7,7 +7,7 @@ I plan of creating a mod that is very similar to the original, however not an ex
 This mod is in early beta, so there is much still being worked on. There is a lot of progress being made and I hope to bring a lot of hours of play to many people.
 
 
-#To Compile
+# To Compile
 1. Download the Source as a Zip
 2. Extract Source to a directory of your choice
 3. Open a CMD or Terminal window and navigate to the top level of the source
