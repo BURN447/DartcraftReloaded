@@ -1,11 +1,11 @@
 package burn447.dartcraftReloaded.tileEntity;
 
-import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Fluids.FluidForce;
 import burn447.dartcraftReloaded.Items.ItemArmor;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
+import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.ITileEntityProvider;
@@ -29,7 +29,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -55,7 +58,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public final ItemStackHandler bookSlotHandler;
     public final ItemStackHandler forceSlotHandler;
     public FluidTank tank;
-    public DCREnergyStorage battery;
 
     private NonNullList<ItemStack> infuserContents = NonNullList.create();
 
@@ -66,7 +68,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public int processTime = 0;
     public int maxProcessTime = 17;
 
+    public static int MAX_POWER = 1000000;
+    public static int RF_PER_TICK = 20;
+    public static int PR_PER_TICK_INPUT = 200;
+
     public int fluidContained;
+    public int energyStored;
+
+    public DCREnergyStorage energyStorage = new DCREnergyStorage(MAX_POWER, 1000);
 
 
     public TileEntityInfuser() {
@@ -88,8 +97,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
         this.forceSlotHandler = new ItemStackHandler(1);
 
-        this.battery = new DCREnergyStorage(500000, 512, 512);
-
         tank = new FluidTank(50000);
     }
 
@@ -100,9 +107,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         bookSlotHandler.deserializeNBT(nbt.getCompoundTag("BookSlotHandler"));
         forceSlotHandler.deserializeNBT(nbt.getCompoundTag("ForceSlotHandler"));
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
-        //Energy
-        //battery.readFromNBT(nbt);
-        //Fluids
+        energyStorage.setEnergy(nbt.getInteger("EnergyHandler"));
         tank.readFromNBT(nbt);
 
         super.markDirty();
@@ -115,15 +120,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
         nbt.setTag("ForceSlotHandler", forceSlotHandler.serializeNBT());
         nbt.setTag("BookSlotHandler", bookSlotHandler.serializeNBT());
+        nbt.setInteger("EnergyHandler", energyStorage.getEnergyStored());
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
-        //Energy
-        //battery.writeToNBT(nbt);
-        //Fluids
         tank.writeToNBT(nbt);
 
         return super.writeToNBT(nbt);
     }
 
+    /*
     @Override
     public void update() {
         fluidContained = tank.getFluidAmount();
@@ -145,28 +149,96 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 }
                 if (canWork) {
                     if (processTime == maxProcessTime) {
-                        this.markDirty();
-                        if (hasValidTool()) {
-                            for (int i = 0; i < 8; i++) {
-                                if (hasValidModifer(i)) {
-                                    ItemStack mod = getModifier(i);
-                                    ItemStack stack = handler.getStackInSlot(8);
-                                    boolean success = applyModifier(stack, mod);
-                                    if (success) {
-                                        handler.setStackInSlot(i, ItemStack.EMPTY);
-                                        tank.drain(1000, true);
-                                        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
+                        if (energyStorage.getEnergyStored() > RF_PER_TICK * maxProcessTime) {
+                            this.markDirty();
+                            if (hasValidTool()) {
+                                for (int i = 0; i < 8; i++) {
+                                    if (hasValidModifer(i)) {
+                                        ItemStack mod = getModifier(i);
+                                        ItemStack stack = handler.getStackInSlot(8);
+                                        boolean success = applyModifier(stack, mod);
+                                        if (success) {
+                                            handler.setStackInSlot(i, ItemStack.EMPTY);
+                                            tank.drain(1000, true);
+                                            energyStorage.consumePower(RF_PER_TICK);
+                                            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
+                                        }
                                     }
                                 }
                             }
+                            canWork = false;
+                            processTime = 0;
                         }
-                        canWork = false;
-                        processTime = 0;
+                        processTime++;
                     }
-                    processTime++;
                 }
             }
         }
+    }
+    */
+
+    @Override
+    public void update() {
+        //Variables of amounts stored
+        fluidContained = tank.getFluidAmount();
+        energyStored = energyStorage.getEnergyStored();
+
+        //World Exists
+        if(world != null) {
+            //World !remote
+            if(!world.isRemote) {
+                //Force Gem Slot
+                processForceGems();
+
+                if(canWork) {
+                    if(processTime == maxProcessTime) {
+                        if(energyStored > RF_PER_TICK * maxProcessTime) {
+                            this.markDirty();
+                            processTool();
+                            processTime++;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //Processes force Gems in the force infuser slot
+    private void processForceGems() {
+        if(forceSlotHandler.getStackInSlot(0).getItem() == ModItems.gemForceGem){
+            FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 500);
+
+            if(tank.getFluidAmount() < tank.getCapacity() - 100) {
+                fill(force, true);
+                if(forceSlotHandler.getStackInSlot(0).getCount() > 1) {
+                    forceSlotHandler.getStackInSlot(0).setCount(forceSlotHandler.getStackInSlot(0).getCount() - 1);
+                } else
+                    forceSlotHandler.setStackInSlot(0, ItemStack.EMPTY);
+            }
+
+            markDirty();
+            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
+        }
+    }
+
+    private void processTool() {
+        if(hasValidTool()) {
+            for(int i = 0; i < 8; i++) {
+                if(hasValidModifer(i)) {
+                    ItemStack mod = getModifier(i);
+                    ItemStack stack = handler.getStackInSlot(8);
+                    boolean success = applyModifier(stack, mod);
+                    if(success) {
+                        handler.setStackInSlot(i, ItemStack.EMPTY);
+                        tank.drain(1000, true);
+                        energyStorage.consumePower(RF_PER_TICK * maxProcessTime);
+                        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
+                    }
+                }
+            }
+        }
+        canWork = false;
+        processTime = 0;
     }
 
     @Override
@@ -210,7 +282,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         if(capability == FLUID_HANDLER_CAPABILITY)
             return (T) this.tank;
         if(capability == CapabilityEnergy.ENERGY)
-            return (T) this.battery;
+            return CapabilityEnergy.ENERGY.cast(energyStorage);
+
         return super.getCapability(capability, facing);
     }
 

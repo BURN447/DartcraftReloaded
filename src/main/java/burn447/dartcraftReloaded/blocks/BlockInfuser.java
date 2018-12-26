@@ -47,7 +47,7 @@ public class BlockInfuser extends BlockBase {
     public boolean isBlockNormalCube(IBlockState state) {
         return false;
     }
-    
+
 
     @Override
     public void breakBlock(World world, BlockPos pos, IBlockState state) {

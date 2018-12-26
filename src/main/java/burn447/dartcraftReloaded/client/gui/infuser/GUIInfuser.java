@@ -97,7 +97,7 @@ public class GUIInfuser extends GuiContainer {
 
         if(isPointInRegion(152, 11, 12, 106, mouseX, mouseY)){
             List<String> text = new ArrayList<>();
-            text.add(Integer.toString(te.battery.getEnergyStored()) + " FE");
+            text.add(Integer.toString(te.energyStorage.getEnergyStored()) + " FE");
 
             this.drawHoveringText(text, actualMouseX, actualMouseY);
         }
@@ -109,7 +109,7 @@ public class GUIInfuser extends GuiContainer {
             this.actionPerformed(startButton);
         }
         if (isPointInRegion(123, 16, 12, 12, mouseX, mouseY) && te.handler.getStackInSlot(9).isEmpty()){
-            System.out.println(te.battery.getEnergyStored());
+            System.out.println(te.energyStorage.getEnergyStored());
         }
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
