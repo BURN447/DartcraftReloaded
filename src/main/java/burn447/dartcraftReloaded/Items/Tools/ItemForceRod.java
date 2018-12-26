@@ -54,13 +54,13 @@ public class ItemForceRod extends ItemBase {
             }
         }
 
-        return EnumActionResult.PASS;
+        return EnumActionResult.SUCCESS;
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
 
-        ItemStack stack = playerIn.getHeldItemMainhand();
+        ItemStack stack = playerIn.getHeldItem(handIn);
         PotionEffect regenOne = new PotionEffect(MobEffects.REGENERATION, 100, 0);
         PotionEffect regenTwo = new PotionEffect(MobEffects.REGENERATION, 100, 1);
         PotionEffect regenThree = new PotionEffect(MobEffects.REGENERATION, 100, 2);
