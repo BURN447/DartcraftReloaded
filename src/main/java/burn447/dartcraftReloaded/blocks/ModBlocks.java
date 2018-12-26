@@ -44,6 +44,7 @@ public class ModBlocks {
                 infuser.createItemBlock(),
                 forceFurnace.createItemBlock(),
                 forcePlanks.createItemBlock()
+                //forceLeaves.createItemBlock()
         );
 
     }
@@ -55,10 +56,11 @@ public class ModBlocks {
         forceFurnace.registerItemModel(Item.getItemFromBlock(forceFurnace));
         forcePlanks.registerItemModel(Item.getItemFromBlock(forcePlanks));
         forceSapling.registerItemModel(Item.getItemFromBlock(forceSapling));
+        forceLeaves.registerItemModel(Item.getItemFromBlock(forceLeaves));
     }
 
     public static void registerNames() {
         forcePlanks.setRegistryName("forcePlanks");
-        //forcePlanks.setUnlocalizedName("forcePlanks");
+        forcePlanks.setTranslationKey("forcePlanks");
     }
 }
