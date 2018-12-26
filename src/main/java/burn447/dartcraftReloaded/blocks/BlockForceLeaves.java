@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.blocks;
 
+import burn447.dartcraftReloaded.dartcraftReloaded;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
@@ -26,10 +27,14 @@ import java.util.Random;
 
 public class BlockForceLeaves extends BlockLeaves {
 
+    public String name;
+
     public BlockForceLeaves(String name) {
         this.setHardness(0.3f);
         this.setRegistryName(name);
         this.setTranslationKey(name);
+        this.name = name;
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
 
         this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, false).withProperty(DECAYABLE, false));
     }
@@ -44,6 +49,11 @@ public class BlockForceLeaves extends BlockLeaves {
     public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 
     }
+
+    public void registerItemModel(Item itemBlock) {
+        dartcraftReloaded.proxy.registerItemRenderer(itemBlock, 0, name);
+    }
+
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {
