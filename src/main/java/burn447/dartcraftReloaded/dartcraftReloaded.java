@@ -41,7 +41,7 @@ public class dartcraftReloaded {
     @Mod.Instance(modId)
     public static dartcraftReloaded instance;
 
-    @SidedProxy(serverSide = "burn447.dartcraftreloaded.proxy.CommonProxy", clientSide = "burn447.dartcraftReloaded.proxy.ClientProxy")
+    @SidedProxy(serverSide = "burn447.dartcraftReloaded.proxy.CommonProxy", clientSide = "burn447.dartcraftReloaded.proxy.ClientProxy")
     public static CommonProxy proxy;
 
     public static final ItemArmor.ArmorMaterial forceArmorMaterial = EnumHelper.addArmorMaterial("FORCE", modId + ":force", 15, new int[]{1, 2, 3, 1}, 0, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
