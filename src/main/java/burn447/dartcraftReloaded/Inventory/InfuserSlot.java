@@ -1,7 +1,7 @@
 package burn447.dartcraftReloaded.Inventory;
 
-import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.blocks.ModBlocks;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

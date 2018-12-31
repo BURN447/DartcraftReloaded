@@ -1,7 +1,6 @@
 package burn447.dartcraftReloaded.container.Slot;
 
 import burn447.dartcraftReloaded.Items.ModItems;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;

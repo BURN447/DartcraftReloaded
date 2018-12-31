@@ -1,7 +1,6 @@
 package burn447.dartcraftReloaded.capablilities.PlayerModifier;
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.concurrent.Callable;
 

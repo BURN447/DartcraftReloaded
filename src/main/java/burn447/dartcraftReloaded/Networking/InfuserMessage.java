@@ -1,12 +1,10 @@
 package burn447.dartcraftReloaded.Networking;
 
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
-import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.inventory.Container;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 
 /**

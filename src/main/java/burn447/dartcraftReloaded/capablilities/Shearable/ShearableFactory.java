@@ -1,8 +1,6 @@
 package burn447.dartcraftReloaded.capablilities.Shearable;
 
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.concurrent.Callable;
 

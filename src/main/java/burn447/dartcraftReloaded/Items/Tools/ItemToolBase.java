@@ -2,7 +2,6 @@ package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModProvider;
 import burn447.dartcraftReloaded.dartcraftReloaded;
-import burn447.dartcraftReloaded.util.StringHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;

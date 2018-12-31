@@ -1,7 +1,6 @@
 package burn447.dartcraftReloaded.util;
 
 import burn447.dartcraftReloaded.Potion.Effects.EffectBleeding;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.*;
 import net.minecraft.entity.monster.EntityCreeper;

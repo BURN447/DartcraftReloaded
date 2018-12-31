@@ -1,11 +1,9 @@
 package burn447.dartcraftReloaded.Fluids;
 
-import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumRarity;
-import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.fluids.Fluid;

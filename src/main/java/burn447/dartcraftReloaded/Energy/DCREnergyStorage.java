@@ -1,6 +1,5 @@
 package burn447.dartcraftReloaded.Energy;
 
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.energy.EnergyStorage;
 
 /**

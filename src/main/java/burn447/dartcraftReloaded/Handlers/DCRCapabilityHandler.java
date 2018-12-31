@@ -2,7 +2,6 @@ package burn447.dartcraftReloaded.Handlers;
 
 import burn447.dartcraftReloaded.capablilities.BaneModifier.BaneFactory;
 import burn447.dartcraftReloaded.capablilities.BaneModifier.BaneModifierStorage;
-import burn447.dartcraftReloaded.capablilities.BaneModifier.BaneProvider;
 import burn447.dartcraftReloaded.capablilities.BaneModifier.IBaneModifier;
 import burn447.dartcraftReloaded.capablilities.ExperienceTome.ExperienceTomeFactory;
 import burn447.dartcraftReloaded.capablilities.ExperienceTome.ExperienceTomeStorage;
@@ -21,15 +20,11 @@ import burn447.dartcraftReloaded.capablilities.ToolModifier.IToolModifier;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolFactory;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModStorage;
 import burn447.dartcraftReloaded.util.References;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DCRCapabilityHandler {
 

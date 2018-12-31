@@ -2,7 +2,6 @@ package burn447.dartcraftReloaded.Handlers;
 
 import burn447.dartcraftReloaded.Events.*;
 import burn447.dartcraftReloaded.util.PlayerUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 
 /**
