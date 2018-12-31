@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.blocks;
 
+import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLeaves;
@@ -35,6 +36,7 @@ public class BlockForceLeaves extends BlockLeaves {
         this.setTranslationKey(name);
         this.name = name;
         this.setCreativeTab(dartcraftReloaded.creativeTab);
+        this.createItemBlock();
 
         this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, false).withProperty(DECAYABLE, false));
     }
@@ -54,18 +56,10 @@ public class BlockForceLeaves extends BlockLeaves {
         dartcraftReloaded.proxy.registerItemRenderer(itemBlock, 0, name);
     }
 
-
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return Blocks.LEAVES.isOpaqueCube(state);
     }
-
-    //@Nonnull
-    //@SideOnly(Side.CLIENT)
-    //@Override
-    //public BlockRenderLayer getBlockLayer() {
-    //    return Blocks.LEAVES.getBlockLayer();
-    //}
 
     @Override
     public boolean shouldSideBeRendered(@Nonnull IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
@@ -88,7 +82,6 @@ public class BlockForceLeaves extends BlockLeaves {
 
     @Override
     protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
-
     }
 
     // sapling meta
@@ -142,4 +135,6 @@ public class BlockForceLeaves extends BlockLeaves {
     public Item createItemBlock() {
         return new ItemBlock(this).setRegistryName(getRegistryName());
     }
+
+
 }

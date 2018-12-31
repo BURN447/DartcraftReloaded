@@ -44,7 +44,6 @@ public class ModBlocks {
                 infuser.createItemBlock(),
                 forceFurnace.createItemBlock(),
                 forcePlanks.createItemBlock()
-                //forceLeaves.createItemBlock()
         );
 
     }
