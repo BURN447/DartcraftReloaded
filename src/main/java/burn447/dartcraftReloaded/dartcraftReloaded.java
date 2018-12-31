@@ -1,9 +1,9 @@
 package burn447.dartcraftReloaded;
 
-import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.Fluids.ModFluids;
 import burn447.dartcraftReloaded.Handlers.*;
 import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.client.tabDartcraft;
 import burn447.dartcraftReloaded.proxy.CommonProxy;
 import burn447.dartcraftReloaded.util.References;
@@ -88,6 +88,7 @@ public class dartcraftReloaded {
             ModBlocks.registerNames();
             ModBlocks.register(event.getRegistry());
             ModBlocks.registerModels();
+            ModBlocks.registerOreDict();
         }
 
         @SubscribeEvent

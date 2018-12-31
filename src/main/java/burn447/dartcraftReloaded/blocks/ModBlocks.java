@@ -12,14 +12,14 @@ import net.minecraftforge.registries.IForgeRegistry;
 public class ModBlocks {
 
     public static BlockForceOre orePower = new BlockForceOre("orePower").setCreativeTab(dartcraftReloaded.creativeTab);
-    public static BlockForceSapling forceSapling = new BlockForceSapling(("forceSapling"));
-    public static BlockForceLog forceLog = new BlockForceLog("forceLog").setCreativeTab(dartcraftReloaded.creativeTab);
+    public static BlockForceSapling forceSapling = new BlockForceSapling();
+    public static BlockForceLog forceLog = new BlockForceLog("forceLog", "logWood").setCreativeTab(dartcraftReloaded.creativeTab);
     public static BlockForceLeaves forceLeaves = new BlockForceLeaves("forceLeaves");
     public static BlockInfuser infuser = new BlockInfuser("infuser");
     public static BlockFluidForce blockFluidForce = new BlockFluidForce();
     public static BlockForceBrick forceBrick = new BlockForceBrick();
     public static BlockForceFurnace forceFurnace = new BlockForceFurnace(false);
-    public static BlockBase forcePlanks = new BlockBase(Material.WOOD, "forcePlanks").setCreativeTab(dartcraftReloaded.creativeTab);
+    public static BlockBase forcePlanks = new BlockBase(Material.WOOD, "forcePlanks", "plankWood").setCreativeTab(dartcraftReloaded.creativeTab);
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -61,5 +61,10 @@ public class ModBlocks {
     public static void registerNames() {
         forcePlanks.setRegistryName("forcePlanks");
         forcePlanks.setTranslationKey("forcePlanks");
+    }
+
+    public static void registerOreDict() {
+        forcePlanks.initOreDict();
+        forceLog.initOreDict();
     }
 }
