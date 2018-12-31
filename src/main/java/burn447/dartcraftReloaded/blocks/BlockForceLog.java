@@ -17,6 +17,16 @@ public class BlockForceLog extends BlockBase {
         this.setTranslationKey(name);
     }
 
+    public BlockForceLog(String name, String oreName) {
+        super(Material.WOOD, name);
+        setHardness(2.5f);
+        setResistance(12.5f);
+        this.oreName = oreName;
+        this.setRegistryName(name);
+        this.setTranslationKey(name);
+        super.initOreDict();
+    }
+
     @Override
     public BlockForceLog setCreativeTab(CreativeTabs tab) {
         super.setCreativeTab(tab);
