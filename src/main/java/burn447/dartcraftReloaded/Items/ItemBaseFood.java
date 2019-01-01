@@ -29,6 +29,7 @@ public class ItemBaseFood extends ItemFood {
         setTranslationKey(name);
         setRegistryName(name);
         this.name = name;
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
         if(name == "cookie_fortune"){
             this.setAlwaysEdible();
             this.maxStackSize = 1;
@@ -64,12 +65,6 @@ public class ItemBaseFood extends ItemFood {
 
     public void registerItemModel() {
         dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
-    }
-
-    @Override
-    public ItemBaseFood setCreativeTab(CreativeTabs tab) {
-        super.setCreativeTab(tab);
-        return this;
     }
 
     public ItemBaseFood randPotionEffect(EntityLivingBase entityLiving){
