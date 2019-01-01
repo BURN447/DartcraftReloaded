@@ -13,6 +13,8 @@ import burn447.dartcraftReloaded.capablilities.ForceWrench.ForceWrenchFactory;
 import burn447.dartcraftReloaded.capablilities.ForceWrench.ForceWrenchStorage;
 import burn447.dartcraftReloaded.capablilities.ForceWrench.IForceWrench;
 import burn447.dartcraftReloaded.capablilities.PlayerModifier.IPlayerModifier;
+import burn447.dartcraftReloaded.capablilities.PlayerModifier.PlayerModifierFactory;
+import burn447.dartcraftReloaded.capablilities.PlayerModifier.PlayerModifierStorage;
 import burn447.dartcraftReloaded.capablilities.Shearable.IShearableMob;
 import burn447.dartcraftReloaded.capablilities.Shearable.ShearableFactory;
 import burn447.dartcraftReloaded.capablilities.Shearable.ShearableStorage;
@@ -60,6 +62,7 @@ public class DCRCapabilityHandler {
         CapabilityManager.INSTANCE.register(IBaneModifier.class, new BaneModifierStorage(), new BaneFactory());
         CapabilityManager.INSTANCE.register(IShearableMob.class, new ShearableStorage(), new ShearableFactory());
         CapabilityManager.INSTANCE.register(IForceWrench.class, new ForceWrenchStorage(), new ForceWrenchFactory());
+        CapabilityManager.INSTANCE.register(IPlayerModifier.class, new PlayerModifierStorage(), new PlayerModifierFactory());
 
         MinecraftForge.EVENT_BUS.register(new DCRCapabilityHandler());
     }

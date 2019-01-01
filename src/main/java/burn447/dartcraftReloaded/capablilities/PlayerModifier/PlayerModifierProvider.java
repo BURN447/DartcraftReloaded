@@ -17,13 +17,13 @@ import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY
 public class PlayerModifierProvider implements ICapabilitySerializable<NBTBase>, ICapabilityProvider {
 
     private EnumFacing facing = null;
-    private IPlayerModifier instacne = null;
+    private IPlayerModifier instance = null;
 
     public PlayerModifierProvider(Capability<IPlayerModifier> capability, EnumFacing facing){
         if(capability != null){
             CAPABILITY_PLAYERMOD = capability;
             this.facing = facing;
-            this.instacne = CAPABILITY_PLAYERMOD.getDefaultInstance();
+            this.instance = CAPABILITY_PLAYERMOD.getDefaultInstance();
         }
     }
 
@@ -38,17 +38,17 @@ public class PlayerModifierProvider implements ICapabilitySerializable<NBTBase>,
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        return capability == CAPABILITY_PLAYERMOD ? CAPABILITY_PLAYERMOD.<T> cast(instacne) : null;
+        return capability == CAPABILITY_PLAYERMOD ? CAPABILITY_PLAYERMOD.<T> cast(instance) : null;
     }
 
     @Override
     public NBTBase serializeNBT() {
-        return CAPABILITY_PLAYERMOD.getStorage().writeNBT(CAPABILITY_PLAYERMOD, instacne, null);
+        return CAPABILITY_PLAYERMOD.getStorage().writeNBT(CAPABILITY_PLAYERMOD, instance, null);
     }
 
     @Override
     public void deserializeNBT(NBTBase nbt) {
-        CAPABILITY_PLAYERMOD.getStorage().readNBT(CAPABILITY_PLAYERMOD, instacne, null, nbt);
+        CAPABILITY_PLAYERMOD.getStorage().readNBT(CAPABILITY_PLAYERMOD, instance, null, nbt);
     }
 
     public final Capability<IPlayerModifier> getCapability(){

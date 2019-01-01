@@ -24,7 +24,7 @@ public class attachCapabilitiesEvent {
                 event.addCapability(BANE_CAP, new BaneProvider(CAPABILITY_BANE, null));
         }
 
-        if(event.getObject() instanceof EntityPlayer && event.getObject().hasCapability(CAPABILITY_PLAYERMOD, null)){
+        if(event.getObject() instanceof EntityPlayer && !event.getObject().hasCapability(CAPABILITY_PLAYERMOD, null)){
             event.addCapability(PLAYER_CAP, new PlayerModifierProvider(CAPABILITY_PLAYERMOD, null));
         }
 

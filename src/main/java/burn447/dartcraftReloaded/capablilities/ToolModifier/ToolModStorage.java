@@ -31,6 +31,7 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
         nbt.setBoolean("camo", instance.hasCamo());
         nbt.setBoolean("speed", instance.hasSpeed());
         nbt.setBoolean("damageMod", instance.hasDamage());
+        nbt.setBoolean("wing", instance.hasWing());
 
         //Luck
         nbt.setBoolean("luckOne", instance.hasLuckLevel(1));            nbt.setBoolean("luckTwo", instance.hasLuckLevel(2));
@@ -69,6 +70,7 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
             instance.setCamo(nbt.getBoolean("camo"));
             instance.setSpeed(nbt.getBoolean("speed"));
             instance.setDamage(nbt.getBoolean("damageMod"));
+            instance.setWing(nbt.getBoolean("wing"));
 
             //Luck
             instance.setLuckOne(nbt.getBoolean("luckOne"));     instance.setLuckTwo(nbt.getBoolean("luckTwo"));

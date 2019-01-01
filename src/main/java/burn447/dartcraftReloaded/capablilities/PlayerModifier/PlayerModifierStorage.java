@@ -17,6 +17,8 @@ public class PlayerModifierStorage implements Capability.IStorage<IPlayerModifie
         NBTTagCompound nbt = new NBTTagCompound();
 
         nbt.setFloat("damage", instance.getAttackDamage());
+        nbt.setFloat("wingPower", instance.getWingPower());
+        nbt.setFloat("flightCounter", instance.getFlightTimer());
 
         return nbt;
     }
@@ -27,6 +29,8 @@ public class PlayerModifierStorage implements Capability.IStorage<IPlayerModifie
             NBTTagCompound nbt = ((NBTTagCompound) nbtIn);
 
             instance.setAttackDamage(nbt.getFloat("damage"));
+            instance.setWingPower(nbt.getFloat("wingPower"));
+            instance.setFlightTimer(nbt.getFloat("flightCounter"));
         }
     }
 }

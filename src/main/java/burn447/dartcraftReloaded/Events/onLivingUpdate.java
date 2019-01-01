@@ -7,8 +7,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_SHEARABLE;
-import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.*;
 
 /**
  * Created by BURN447 on 7/6/2018.
@@ -21,11 +20,12 @@ public class onLivingUpdate {
             event.getEntityLiving().getCapability(CAPABILITY_SHEARABLE, null).update();
         }
 
-        if(event.getEntityLiving() instanceof EntityPlayer){
+        if(event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = ((EntityPlayer) event.getEntityLiving());
             Iterable<ItemStack> armor = player.getArmorInventoryList();
-            for(ItemStack slotSelected : armor){
-                if(slotSelected.getItem() instanceof burn447.dartcraftReloaded.Items.ItemArmor){
+            int wings = 0;
+            for(ItemStack slotSelected : armor) {
+                if(slotSelected.getItem() instanceof burn447.dartcraftReloaded.Items.ItemArmor && slotSelected.hasCapability(CAPABILITY_TOOLMOD, null)){
                     //Camo
                     if(slotSelected.getCapability(CAPABILITY_TOOLMOD, null).hasCamo()){
                         PotionEffect invisibility = new PotionEffect(MobEffects.INVISIBILITY, 20);
@@ -36,7 +36,15 @@ public class onLivingUpdate {
                         PotionEffect speed = new PotionEffect(MobEffects.SPEED, 20);
                         player.addPotionEffect(speed);
                     }
+                    //Wing
+                    if(slotSelected.getCapability(CAPABILITY_TOOLMOD, null).hasWing()) {
+                        wings++;
+                    }
                 }
+            }
+
+            if(wings == 4) {
+                player.capabilities.allowFlying = true;
             }
         }
     }

@@ -87,7 +87,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return 1;
             }
         };
-        this.bookSlotHandler = new ItemStackHandler(1){
+        this.bookSlotHandler = new ItemStackHandler(1) {
             @Nonnull
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
@@ -127,11 +127,11 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return super.writeToNBT(nbt);
     }
 
-    /*
+
     @Override
     public void update() {
         fluidContained = tank.getFluidAmount();
-        if(world != null) {
+        if (world != null) {
             if (!world.isRemote) {
                 if (forceSlotHandler.getStackInSlot(0).getItem() == ModItems.gemForceGem) {
                     FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 500);
@@ -149,55 +149,26 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 }
                 if (canWork) {
                     if (processTime == maxProcessTime) {
-                        if (energyStorage.getEnergyStored() > RF_PER_TICK * maxProcessTime) {
-                            this.markDirty();
-                            if (hasValidTool()) {
-                                for (int i = 0; i < 8; i++) {
-                                    if (hasValidModifer(i)) {
-                                        ItemStack mod = getModifier(i);
-                                        ItemStack stack = handler.getStackInSlot(8);
-                                        boolean success = applyModifier(stack, mod);
-                                        if (success) {
-                                            handler.setStackInSlot(i, ItemStack.EMPTY);
-                                            tank.drain(1000, true);
-                                            energyStorage.consumePower(RF_PER_TICK);
-                                            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
-                                        }
+                        this.markDirty();
+                        if (hasValidTool()) {
+                            for (int i = 0; i < 8; i++) {
+                                if (hasValidModifer(i)) {
+                                    ItemStack mod = getModifier(i);
+                                    ItemStack stack = handler.getStackInSlot(8);
+                                    boolean success = applyModifier(stack, mod);
+                                    if (success) {
+                                        handler.setStackInSlot(i, ItemStack.EMPTY);
+                                        tank.drain(1000, true);
+                                        energyStorage.consumePower(RF_PER_TICK);
+                                        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
                                     }
                                 }
                             }
-                            canWork = false;
-                            processTime = 0;
                         }
-                        processTime++;
+                        canWork = false;
+                        processTime = 0;
                     }
-                }
-            }
-        }
-    }
-    */
-
-    @Override
-    public void update() {
-        //Variables of amounts stored
-        fluidContained = tank.getFluidAmount();
-        energyStored = energyStorage.getEnergyStored();
-
-        //World Exists
-        if(world != null) {
-            //World !remote
-            if(!world.isRemote) {
-                //Force Gem Slot
-                processForceGems();
-
-                if(canWork) {
-                    if(processTime == maxProcessTime) {
-                        if(energyStored > RF_PER_TICK * maxProcessTime) {
-                            this.markDirty();
-                            processTool();
-                            processTime++;
-                        }
-                    }
+                    processTime++;
                 }
             }
         }
@@ -205,12 +176,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     //Processes force Gems in the force infuser slot
     private void processForceGems() {
-        if(forceSlotHandler.getStackInSlot(0).getItem() == ModItems.gemForceGem){
+        if (forceSlotHandler.getStackInSlot(0).getItem() == ModItems.gemForceGem) {
             FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 500);
 
-            if(tank.getFluidAmount() < tank.getCapacity() - 100) {
+            if (tank.getFluidAmount() < tank.getCapacity() - 100) {
                 fill(force, true);
-                if(forceSlotHandler.getStackInSlot(0).getCount() > 1) {
+                if (forceSlotHandler.getStackInSlot(0).getCount() > 1) {
                     forceSlotHandler.getStackInSlot(0).setCount(forceSlotHandler.getStackInSlot(0).getCount() - 1);
                 } else
                     forceSlotHandler.setStackInSlot(0, ItemStack.EMPTY);
@@ -222,13 +193,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private void processTool() {
-        if(hasValidTool()) {
-            for(int i = 0; i < 8; i++) {
-                if(hasValidModifer(i)) {
+        if (hasValidTool()) {
+            for (int i = 0; i < 8; i++) {
+                if (hasValidModifer(i)) {
                     ItemStack mod = getModifier(i);
                     ItemStack stack = handler.getStackInSlot(8);
                     boolean success = applyModifier(stack, mod);
-                    if(success) {
+                    if (success) {
                         handler.setStackInSlot(i, ItemStack.EMPTY);
                         tank.drain(1000, true);
                         energyStorage.consumePower(RF_PER_TICK * maxProcessTime);
@@ -279,9 +250,9 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return (T) this.handler;
-        if(capability == FLUID_HANDLER_CAPABILITY)
+        if (capability == FLUID_HANDLER_CAPABILITY)
             return (T) this.tank;
-        if(capability == CapabilityEnergy.ENERGY)
+        if (capability == CapabilityEnergy.ENERGY)
             return CapabilityEnergy.ENERGY.cast(energyStorage);
 
         return super.getCapability(capability, facing);
@@ -361,8 +332,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 if (handler.getStackInSlot(slot).getItem() == validModifierList.get(j)) {
                     return handler.getStackInSlot(slot);
                 }
-                }
             }
+        }
         return null;
     }
 
@@ -398,23 +369,25 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addHealingModifier(stack);
         if (modifier == Items.ENDER_PEARL)
             return addEnderModifier(stack);
-        if(modifier == Items.ARROW)
+        if (modifier == Items.ARROW)
             return addBleedingModifier(stack);
-        if(modifier == Items.SPIDER_EYE)
+        if (modifier == Items.SPIDER_EYE)
             return addBaneModifier(stack);
-        if (modifier == Items.POTIONITEM){
+        if (modifier == Items.FEATHER)
+            return addWingModifier(stack);
+        if (modifier == Items.POTIONITEM) {
             List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
-                for(PotionEffect e : effects){
-                    if(e.getPotion() == MobEffects.NIGHT_VISION){
-                        return addSightModifier(stack);
-                    }
-                    if(e.getPotion() == MobEffects.INVISIBILITY){
-                        return addCamoModifier(stack);
-                    }
+            for (PotionEffect e : effects) {
+                if (e.getPotion() == MobEffects.NIGHT_VISION) {
+                    return addSightModifier(stack);
+                }
+                if (e.getPotion() == MobEffects.INVISIBILITY) {
+                    return addCamoModifier(stack);
+                }
             }
         }
-        if(modifier == Items.DYE){
-            if(mod.getMetadata() == 4){
+        if (modifier == Items.DYE) {
+            if (mod.getMetadata() == 4) {
                 return addRainbowModifier(stack);
             }
         }
@@ -437,8 +410,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             }
             return false;
         }
-        if(stack.getItem() instanceof ItemArmor){
-            if(stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+        if (stack.getItem() instanceof ItemArmor) {
+            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
                 if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed())
                     return false;
                 else {
@@ -499,9 +472,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setAttackDamage(16.0F);
                 return true;
             }
-        }
-        else if(stack.getItem() instanceof ItemArmor){
-            if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasDamage()){
+        } else if (stack.getItem() instanceof ItemArmor) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasDamage()) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setDamage(true);
                 return true;
             }
@@ -552,10 +524,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(4);
                 return true;
             }
-        } else if (stack.getItem() instanceof ItemArmor){
-            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1))
+        } else if (stack.getItem() instanceof ItemArmor) {
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1))
                 return false;
-            else if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1)){
+            else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(1);
             }
         }
@@ -615,26 +587,23 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return false;
     }
 
-    private boolean addLumberjackModifier(ItemStack stack){
-        if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()){
+    private boolean addLumberjackModifier(ItemStack stack) {
+        if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()) {
             stack.getCapability(CAPABILITY_TOOLMOD, null).setLumberJack(true);
             return true;
-        }
-        else
+        } else
             return false;
     }
 
-    private boolean addHealingModifier(ItemStack stack){
-        if(stack.getItem() instanceof ItemForceRod){
-            if(!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
+    private boolean addHealingModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceRod) {
+            if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
                 stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 1);
                 return true;
-            }
-            else if(!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)){
+            } else if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
                 stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 2);
                 return true;
-            }
-            else if(!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(3) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)){
+            } else if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(3) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
                 stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 3);
                 return true;
             }
@@ -642,61 +611,56 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return false;
     }
 
-    private boolean addCamoModifier(ItemStack stack){
-        if(stack.getItem() instanceof ItemForceRod){
+    private boolean addCamoModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceRod) {
             stack.getCapability(CAPABILITY_FORCEROD, null).setCamoModifier(true);
             return true;
-        }
-        else if(stack.getItem() instanceof ItemArmor){
+        } else if (stack.getItem() instanceof ItemArmor) {
             stack.getCapability(CAPABILITY_TOOLMOD, null).setCamo(true);
             return true;
         }
         return false;
     }
 
-    private boolean addEnderModifier(ItemStack stack){
-        if(stack.getItem() instanceof ItemForceRod){
+    private boolean addEnderModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceRod) {
             stack.getCapability(CAPABILITY_FORCEROD, null).setEnderModifier(true);
             return true;
-        }
-        else if(stack.getItem() instanceof ItemForceSword){
+        } else if (stack.getItem() instanceof ItemForceSword) {
             stack.getCapability(CAPABILITY_TOOLMOD, null).setEnder(true);
             return true;
         }
         return false;
     }
 
-    private boolean addSightModifier(ItemStack stack){
-        if(stack.getItem() instanceof ItemForceRod){
+    private boolean addSightModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceRod) {
             stack.getCapability(CAPABILITY_FORCEROD, null).setSightModifier(true);
             return true;
         }
         return false;
     }
 
-    private boolean addRainbowModifier(ItemStack stack){
-        if(stack.getItem() instanceof ItemForceShears){
+    private boolean addRainbowModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceShears) {
             stack.getCapability(CAPABILITY_TOOLMOD, null).setRainbow(true);
             return true;
         }
         return false;
     }
 
-    private boolean addBleedingModifier(ItemStack stack){
-        if(stack.getItem() instanceof ItemForceSword){
-            if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1)){
+    private boolean addBleedingModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceSword) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(1);
                 return true;
-            }
-            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2)){
+            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(2);
                 return true;
-            }
-            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3)){
+            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(3);
                 return true;
-            }
-            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4)){
+            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(4);
                 return true;
             }
@@ -704,7 +668,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return false;
     }
 
-    private boolean addBaneModifier(ItemStack stack){
+    private boolean addBaneModifier(ItemStack stack) {
         if (stack.getItem() instanceof ItemToolBase || stack.getItem() instanceof ItemArmor) {
             if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setBane(true);
@@ -712,6 +676,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             }
         }
 
+        return false;
+    }
+
+    private boolean addWingModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemArmor) {
+            stack.getCapability(CAPABILITY_TOOLMOD, null).setWing(true);
+            return true;
+        }
         return false;
     }
 
@@ -729,7 +701,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 tank.fill(resourceCopy, true);
             }
         }
-        if(tank.getFluid() == null){
+        if (tank.getFluid() == null) {
             tank.fill(resourceCopy, true);
         }
         return resource.amount;
@@ -738,9 +710,9 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     @Nullable
     @Override
     public FluidStack drain(FluidStack resource, boolean doDrain) {
-        if(!isFluidEqual(resource))
+        if (!isFluidEqual(resource))
             return null;
-        if(!doDrain){
+        if (!doDrain) {
             int amount = tank.getFluidAmount() - resource.amount < 0 ? tank.getFluidAmount() : resource.amount;
             return new FluidStack(tank.getFluid(), amount);
         }
@@ -753,23 +725,19 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return this.tank.drain(maxDrain, doDrain);
     }
 
-    public float getFluidPercentage()
-    {
+    public float getFluidPercentage() {
         return (float) tank.getFluidAmount() / (float) tank.getCapacity();
     }
 
-    public int getFluidGuiHeight(int maxHeight)
-    {
+    public int getFluidGuiHeight(int maxHeight) {
         return (int) Math.ceil(getFluidPercentage() * (float) maxHeight);
     }
 
-    protected boolean isFluidEqual(FluidStack fluid)
-    {
+    protected boolean isFluidEqual(FluidStack fluid) {
         return isFluidEqual(fluid.getFluid());
     }
 
-    protected boolean isFluidEqual(Fluid fluid)
-    {
+    protected boolean isFluidEqual(Fluid fluid) {
         return tank.getFluid().equals(fluid);
     }
 

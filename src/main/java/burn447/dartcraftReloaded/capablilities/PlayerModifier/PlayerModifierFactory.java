@@ -13,6 +13,8 @@ public class PlayerModifierFactory implements Callable<IPlayerModifier> {
         return new IPlayerModifier() {
 
             private float attackDamage = ((float) SharedMonsterAttributes.ATTACK_DAMAGE.getDefaultValue());
+            private float wingPower = 0.0f;
+            private float flightCounter = wingPower;
 
             @Override
             public float getAttackDamage() {
@@ -22,6 +24,31 @@ public class PlayerModifierFactory implements Callable<IPlayerModifier> {
             @Override
             public void setAttackDamage(float newDamage) {
                 attackDamage = newDamage;
+            }
+
+            @Override
+            public float getWingPower() {
+                return wingPower;
+            }
+
+            @Override
+            public void setWingPower(float newWingPower) {
+                wingPower = newWingPower;
+            }
+
+            @Override
+            public float getFlightTimer() {
+                return flightCounter;
+            }
+
+            @Override
+            public void subtractFlightTimer() {
+                flightCounter--;
+            }
+
+            @Override
+            public void setFlightTimer(float newFlightCounter) {
+                flightCounter = newFlightCounter;
             }
         };
     }
