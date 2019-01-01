@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.blocks;
 
+import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLeaves;
@@ -11,13 +12,16 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.core.config.Order;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -36,35 +40,11 @@ public class BlockForceLeaves extends BlockLeaves {
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.createItemBlock();
 
-        this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, false).withProperty(DECAYABLE, false));
-    }
-
-    @Override
-    public void updateTick(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
-        super.updateTick(worldIn, pos, state, rand);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-
+        this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
     }
 
     public void registerItemModel(Item itemBlock) {
         dartcraftReloaded.proxy.registerItemRenderer(itemBlock, 0, name);
-    }
-
-    @Override
-    public boolean isOpaqueCube(IBlockState state) {
-        return Blocks.LEAVES.isOpaqueCube(state);
-    }
-
-    @Override
-    public boolean shouldSideBeRendered(@Nonnull IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
-        // isOpaqueCube returns !leavesFancy to us. We have to fix the variable before calling super
-        this.leavesFancy = !Blocks.LEAVES.isOpaqueCube(blockState);
-
-        return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
 
     @Override
@@ -80,15 +60,10 @@ public class BlockForceLeaves extends BlockLeaves {
 
     @Override
     protected void dropApple(World worldIn, BlockPos pos, IBlockState state, int chance) {
+        if (worldIn.rand.nextInt(chance) == 0) {
+            spawnAsEntity(worldIn, pos, new ItemStack(ModItems.nuggetForce, 1, 0));
+        }
     }
-
-    // sapling meta
-    @Override
-    public int damageDropped(IBlockState state) {
-        return 1;
-    }
-
-    // item dropped on silktouching
 
     @Nonnull
     @Override
@@ -105,12 +80,25 @@ public class BlockForceLeaves extends BlockLeaves {
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState();
+        return this.getDefaultState().withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return 1;
+        byte b0 = 0;
+        int i = b0;
+
+        if (!(Boolean) state.getValue(DECAYABLE))
+        {
+            i |= 4;
+        }
+
+        if ((Boolean) state.getValue(CHECK_DECAY))
+        {
+            i |= 8;
+        }
+
+        return i;
     }
 
     @Nonnull
@@ -134,5 +122,16 @@ public class BlockForceLeaves extends BlockLeaves {
         return new ItemBlock(this).setRegistryName(getRegistryName());
     }
 
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return Blocks.LEAVES.isOpaqueCube(state);
+    }
 
+    @Override
+    public boolean shouldSideBeRendered(@Nonnull IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
+        // isOpaqueCube returns !leavesFancy to us. We have to fix the variable before calling super
+        this.leavesFancy = !Blocks.LEAVES.isOpaqueCube(blockState);
+
+        return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+    }
 }
