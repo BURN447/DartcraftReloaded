@@ -45,6 +45,8 @@ public class onLivingUpdate {
 
             if(wings == 4) {
                 player.capabilities.allowFlying = true;
+            } else {
+                player.capabilities.allowFlying = false;
             }
         }
     }
