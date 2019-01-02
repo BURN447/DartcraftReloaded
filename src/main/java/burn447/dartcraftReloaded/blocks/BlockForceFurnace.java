@@ -40,6 +40,8 @@ public class BlockForceFurnace extends BlockContainer
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         this.isBurning = isBurning;
+        this.setHardness(4.0F);
+        this.blockResistance = 18.0F;
         this.setRegistryName("forceFurnace");
         this.setTranslationKey("forceFurnace");
         this.setCreativeTab(dartcraftReloaded.creativeTab);
@@ -54,7 +56,7 @@ public class BlockForceFurnace extends BlockContainer
      */
     public Item getItemDropped(IBlockState state, Random rand, int fortune)
     {
-        return Item.getItemFromBlock(Blocks.FURNACE);
+        return Item.getItemFromBlock(ModBlocks.forceFurnace);
     }
 
     /**
@@ -328,4 +330,8 @@ public class BlockForceFurnace extends BlockContainer
         dartcraftReloaded.proxy.registerItemRenderer(itemBlock, 0, "forceFurnace");
     }
 
+    @Override
+    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
+        super.onPlayerDestroy(worldIn, pos, state);
+    }
 }
