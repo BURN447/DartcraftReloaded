@@ -4,6 +4,7 @@ import burn447.dartcraftReloaded.Fluids.ModFluids;
 import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
 import burn447.dartcraftReloaded.Networking.InfuserMessage;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
+import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.client.gui.GuiButton;
@@ -97,9 +98,9 @@ public class GUIInfuser extends GuiContainer {
 
         if(isPointInRegion(152, 11, 12, 106, mouseX, mouseY)){
             List<String> text = new ArrayList<>();
-            text.add(Integer.toString(te.energyStorage.getEnergyStored()) + " FE");
+            text.add(te.energyStorage.getEnergyStored() + " FE");
 
-            this.drawHoveringText(text, actualMouseX, actualMouseY);
+            //this.drawHoveringText(text, actualMouseX, actualMouseY);
         }
     }
 
@@ -109,7 +110,7 @@ public class GUIInfuser extends GuiContainer {
             this.actionPerformed(startButton);
         }
         if (isPointInRegion(123, 16, 12, 12, mouseX, mouseY) && te.handler.getStackInSlot(9).isEmpty()){
-            System.out.println(te.energyStorage.getEnergyStored());
+            //dartcraftReloaded.proxy.openGuideGUI();
         }
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -120,6 +121,9 @@ public class GUIInfuser extends GuiContainer {
         if(button.id == 0){
             DCRPacketHandler.sendToServer(new InfuserMessage(true));
             te.canWork = true;
+        }
+        if(button.id == 1) {
+            dartcraftReloaded.proxy.openGuideGUI();
         }
     }
 

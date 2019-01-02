@@ -40,4 +40,6 @@ public class CommonProxy {
         DCRCapabilityHandler.register();
         DCROreDictionaryHandler.registerOreDictionary();
     }
+
+    public void openGuideGUI(){}
 }

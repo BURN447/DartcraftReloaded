@@ -650,7 +650,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean addBleedingModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceSword) {
+        if (stack.getItem() instanceof ItemForceSword || stack.getItem() instanceof ItemArmor) {
             if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1)) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(1);
                 return true;
