@@ -14,6 +14,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Random;
 
@@ -54,7 +56,7 @@ public class ItemBaseFood extends ItemFood {
             if(name == "cookie_fortune"){
                 entityplayer.addItemStackToInventory(new ItemStack(ModItems.fortune));
             }
-            if(name == "soul_wafer"){
+            if(name == "soul_wafer" && !worldIn.isRemote){
                 this.randPotionEffect(entityplayer);
             }
 
