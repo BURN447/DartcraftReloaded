@@ -18,7 +18,8 @@ public class ModBlocks {
     public static BlockInfuser infuser = new BlockInfuser("infuser");
     public static BlockFluidForce blockFluidForce = new BlockFluidForce();
     public static BlockForceBrick forceBrick = new BlockForceBrick();
-    public static BlockForceFurnace forceFurnace = new BlockForceFurnace(false);
+    public static BlockForceFurnace forceFurnace = new BlockForceFurnace(false, "forceFurnace");
+    public static BlockForceFurnace LIT_FORCEFURNACE = new BlockForceFurnace(true, "litforceFurnace");
     public static BlockBase forcePlanks = new BlockBase(Material.WOOD, "forcePlanks", "plankWood").setCreativeTab(dartcraftReloaded.creativeTab);
 
     public static void register(IForgeRegistry<Block> registry) {

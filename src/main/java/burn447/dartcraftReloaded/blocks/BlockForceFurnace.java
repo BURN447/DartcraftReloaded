@@ -35,15 +35,15 @@ public class BlockForceFurnace extends BlockContainer
     private final boolean isBurning;
     private static boolean keepInventory;
 
-    protected BlockForceFurnace(boolean isBurning)
+    protected BlockForceFurnace(boolean isBurning, String name)
     {
         super(Material.ROCK);
         this.setDefaultState(this.blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
         this.isBurning = isBurning;
         this.setHardness(4.0F);
         this.blockResistance = 18.0F;
-        this.setRegistryName("forceFurnace");
-        this.setTranslationKey("forceFurnace");
+        this.setRegistryName(name);
+        this.setTranslationKey(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
     }
 
@@ -173,13 +173,13 @@ public class BlockForceFurnace extends BlockContainer
 
         if (active)
         {
-            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState()); //Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState()); //Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
         }
         else
         {
-            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState()); //Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState()); //Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModBlocks.LIT_FORCEFURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModBlocks.LIT_FORCEFURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
         }
 
         keepInventory = false;
@@ -281,17 +281,17 @@ public class BlockForceFurnace extends BlockContainer
     /**
      * Convert the given metadata into a BlockState for this Block
      */
-    //public IBlockState getStateFromMeta(int meta)
-    //{
-    //    EnumFacing enumfacing = EnumFacing.getFront(meta);
-//
-    //    if (enumfacing.getAxis() == EnumFacing.Axis.Y)
-    //    {
-    //        enumfacing = EnumFacing.NORTH;
-    //    }
-//
-    //    return this.getDefaultState().withProperty(FACING, enumfacing);
-    //}
+    public IBlockState getStateFromMeta(int meta)
+    {
+        EnumFacing enumfacing = EnumFacing.byIndex(meta);
+
+        if (enumfacing.getAxis() == EnumFacing.Axis.Y)
+        {
+            enumfacing = EnumFacing.NORTH;
+        }
+
+        return this.getDefaultState().withProperty(FACING, enumfacing);
+    }
 
     /**
      * Convert the BlockState into the correct metadata value
