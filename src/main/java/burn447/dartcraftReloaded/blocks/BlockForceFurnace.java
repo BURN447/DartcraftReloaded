@@ -173,13 +173,13 @@ public class BlockForceFurnace extends BlockContainer
 
         if (active)
         {
-            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModBlocks.LIT_FORCEFURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModBlocks.LIT_FORCEFURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.LIT_FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
         }
         else
         {
-            worldIn.setBlockState(pos, ModBlocks.LIT_FORCEFURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
-            worldIn.setBlockState(pos, ModBlocks.LIT_FORCEFURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
+            worldIn.setBlockState(pos, ModBlocks.forceFurnace.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3); //Blocks.FURNACE.getDefaultState().withProperty(FACING, iblockstate.getValue(FACING)), 3);
         }
 
         keepInventory = false;
