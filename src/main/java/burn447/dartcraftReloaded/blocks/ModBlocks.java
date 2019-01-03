@@ -2,6 +2,7 @@ package burn447.dartcraftReloaded.blocks;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -20,7 +21,7 @@ public class ModBlocks {
     public static BlockForceBrick forceBrick = new BlockForceBrick();
     public static BlockForceFurnace forceFurnace = new BlockForceFurnace(false, "forceFurnace");
     public static BlockForceFurnace LIT_FORCEFURNACE = new BlockForceFurnace(true, "litforceFurnace");
-    public static BlockBase forcePlanks = new BlockBase(Material.WOOD, "forcePlanks", "plankWood").setCreativeTab(dartcraftReloaded.creativeTab);
+    public static BlockBase forcePlanks = new BlockBase(Material.WOOD, "forcePlanks", "plankWood", SoundType.WOOD).setCreativeTab(dartcraftReloaded.creativeTab);
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(

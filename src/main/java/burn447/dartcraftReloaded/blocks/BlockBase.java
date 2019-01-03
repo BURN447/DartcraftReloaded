@@ -2,6 +2,7 @@ package burn447.dartcraftReloaded.blocks;
 
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.creativetab.CreativeTabs;
@@ -21,6 +22,13 @@ public class BlockBase extends Block {
         super(material);
         this.name = name;
         this.oreName = oreName;
+    }
+
+    public BlockBase(Material material, String name, String oreName, SoundType sound) {
+        super(material);
+        this.name = name;
+        this.oreName = oreName;
+        this.setSoundType(sound);
     }
 
     public BlockBase(Material material, String name) {
