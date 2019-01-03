@@ -4,6 +4,7 @@ package burn447.dartcraftReloaded.blocks;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
@@ -94,4 +95,11 @@ public class BlockForceSapling extends BlockBush implements IGrowable, IPlantabl
     public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
         this.grow(world, pos, state, rand);
     }
+
+    @Override
+    public Material getMaterial(IBlockState state) {
+        return Material.PLANTS;
+    }
+
+
 }

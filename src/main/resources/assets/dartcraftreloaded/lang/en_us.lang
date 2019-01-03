@@ -29,7 +29,7 @@ item.forceShears.name=Force Shears
 
 #Blocks
 tile.orePower.name=Power Ore
-tile.forceSapling.name=Force Sapling
+tile.force_sapling.name=Force Sapling
 tile.forceLog.name=Force Log
 tile.forceLeaves.name=Force Leaves
 tile.infuser.name=Force Infuser
