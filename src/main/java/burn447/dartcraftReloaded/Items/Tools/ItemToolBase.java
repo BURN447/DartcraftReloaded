@@ -38,7 +38,7 @@ public class ItemToolBase extends Item {
         this.setTranslationKey(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
-        this.maxStackSize = 1;
+        this.setMaxStackSize(1);
         this.effectiveBlocks = effectiveBlocksIn;
         this.showDurabilityBar(this.getDefaultInstance());
         this.isDamageable();

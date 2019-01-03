@@ -30,6 +30,7 @@ public class ItemForceWrench extends ItemBase {
         super(name);
         setTranslationKey(name);
         setCreativeTab(dartcraftReloaded.creativeTab);
+        this.setMaxStackSize(1);
     }
 
     @Override
