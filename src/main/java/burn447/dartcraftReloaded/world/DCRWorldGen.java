@@ -3,6 +3,7 @@ package burn447.dartcraftReloaded.world;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -41,11 +42,13 @@ public class DCRWorldGen implements IWorldGenerator {
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider){
-        switch(world.provider.getDimension()){
+        switch(world.provider.getDimension()) {
             //Overworld
             case 0:
-                this.runGenerator(forceTree, world, random, chunkX, chunkZ, 10, 4, 256);
-                this.runGenerator(forceOre, world, random, chunkX, chunkZ, 5, 0, 64);
+                if (!(world.getWorldType() == WorldType.FLAT)) {
+                    this.runGenerator(forceTree, world, random, chunkX, chunkZ, 10, 4, 256);
+                    this.runGenerator(forceOre, world, random, chunkX, chunkZ, 5, 0, 64);
+                }
         }
     }
 }
