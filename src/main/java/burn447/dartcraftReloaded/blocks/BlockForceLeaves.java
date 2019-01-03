@@ -40,7 +40,7 @@ public class BlockForceLeaves extends BlockLeaves {
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.createItemBlock();
 
-        this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, true).withProperty(DECAYABLE, true));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, false).withProperty(DECAYABLE, true));
     }
 
     public void registerItemModel(Item itemBlock) {
@@ -128,6 +128,7 @@ public class BlockForceLeaves extends BlockLeaves {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(@Nonnull IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
         // isOpaqueCube returns !leavesFancy to us. We have to fix the variable before calling super
         this.leavesFancy = !Blocks.LEAVES.isOpaqueCube(blockState);
