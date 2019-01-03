@@ -7,12 +7,18 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.*;
 
 /**
  * Created by BURN447 on 7/6/2018.
  */
 public class onLivingUpdate {
+
+    public static List<EntityPlayer> flightList = new ArrayList<EntityPlayer>();
 
     @SubscribeEvent
     public void onLivingUpdate(LivingEvent.LivingUpdateEvent event){
@@ -45,9 +51,13 @@ public class onLivingUpdate {
             if (!player.isCreative()) {
                 if (wings == 4) {
                     player.capabilities.allowFlying = true;
-                } else {
+                    flightList.add(player);
+                } else if(flightList.contains(player)){
                     player.capabilities.allowFlying = false;
+                    flightList.remove(player);
                 }
+
+                player.sendPlayerAbilities();
             }
         }
     }
