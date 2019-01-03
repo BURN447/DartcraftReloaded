@@ -2,7 +2,7 @@
   "variants": {
     "stage=0": { "model": "dartcraftreloaded:force_sapling" },
     "stage=1": { "model": "dartcraftreloaded:force_sapling" },
-    "normal": { "model": "dartcraftreloaded:items/force_sapling" },
+    "normal": { "model": "dartcraftreloaded:force_sapling" },
     "inventory": { "model": "dartcraftreloaded:items/force_sapling" },
     "force_sapling": { "model": "dartcraftreloaded:force_sapling" }
   }
