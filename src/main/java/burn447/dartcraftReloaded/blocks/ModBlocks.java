@@ -68,6 +68,6 @@ public class ModBlocks {
 
     public static void registerOreDict() {
         forcePlanks.initOreDict();
-        forceLog.initOreDict();
+        //forceLog.initOreDict();
     }
 }
