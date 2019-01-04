@@ -71,4 +71,8 @@ public class ModBlocks {
         forcePlanks.initOreDict();
         //forceLog.initOreDict();
     }
+
+    public static void registerFlamability() {
+
+    }
 }

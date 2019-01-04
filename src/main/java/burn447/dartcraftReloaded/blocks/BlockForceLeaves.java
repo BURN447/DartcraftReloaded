@@ -139,4 +139,11 @@ public class BlockForceLeaves extends BlockLeaves {
     public BlockRenderLayer getRenderLayer() {
         return Blocks.LEAVES.getRenderLayer();
     }
+
+    @Override
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
+        return 60;
+    }
+
+
 }

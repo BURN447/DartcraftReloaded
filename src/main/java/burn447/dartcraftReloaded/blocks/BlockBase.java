@@ -8,6 +8,9 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
@@ -58,5 +61,18 @@ public class BlockBase extends Block {
 
     public void initOreDict() {
         OreDictionary.registerOre(oreName, this);
+    }
+
+    @Override
+    public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
+        if(this.name == "forcePlanks") {
+            return 30;
+        }
+        return super.getFlammability(world, pos, face);
+    }
+
+    @Override
+    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
+        return true;
     }
 }
