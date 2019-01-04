@@ -128,11 +128,15 @@ public class BlockForceLeaves extends BlockLeaves {
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(@Nonnull IBlockState blockState, @Nonnull IBlockAccess blockAccess, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
-        // isOpaqueCube returns !leavesFancy to us. We have to fix the variable before calling super
-        this.leavesFancy = !Blocks.LEAVES.isOpaqueCube(blockState);
+    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess access, BlockPos pos, EnumFacing side) {
+        BlockPos neighborPos = pos.offset(side);
+        if (isOpaqueCube(state) && access.getBlockState(neighborPos).getBlock() == this) {
+            return false;
+        }
+        return !access.getBlockState(neighborPos).doesSideBlockRendering(access, neighborPos, side.getOpposite());
+    }
 
-        return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+    public BlockRenderLayer getRenderLayer() {
+        return Blocks.LEAVES.getRenderLayer();
     }
 }
