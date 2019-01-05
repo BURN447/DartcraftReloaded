@@ -40,9 +40,13 @@ public class ItemToolBase extends Item {
         this.name = name;
         this.setMaxStackSize(1);
         this.effectiveBlocks = effectiveBlocksIn;
-        this.showDurabilityBar(this.getDefaultInstance());
         this.isDamageable();
         this.setMaxDamage(dartcraftReloaded.forceToolMaterial.getMaxUses());
+    }
+
+    @SideOnly(Side.CLIENT)
+    protected void showDurabilityBar() {
+        this.showDurabilityBar(this.getDefaultInstance());
     }
 
     public void registerItemModel() {

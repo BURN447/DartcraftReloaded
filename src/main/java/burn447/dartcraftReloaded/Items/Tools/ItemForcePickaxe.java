@@ -37,6 +37,7 @@ public class ItemForcePickaxe extends ItemToolBase {
         super(name, EFFECTIVE_ON);
         setApplicableModifers();
         this.name = name;
+        this.setHarvestLevel("pickaxe", 8);
     }
 
     @Override
