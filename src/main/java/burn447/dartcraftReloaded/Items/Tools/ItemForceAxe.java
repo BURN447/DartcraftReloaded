@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
+import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
