@@ -14,7 +14,7 @@ public class ModBlocks {
 
     public static BlockForceOre orePower = new BlockForceOre("orePower").setCreativeTab(dartcraftReloaded.creativeTab);
     public static BlockForceSapling forceSapling = new BlockForceSapling();
-    public static BlockForceLog forceLog = new BlockForceLog("forceLog", "logWood").setCreativeTab(dartcraftReloaded.creativeTab);
+    public static BlockForceLog forceLog = new BlockForceLog("forceLog", "logWood");
     public static BlockForceLeaves forceLeaves = new BlockForceLeaves("forceLeaves");
     public static BlockInfuser infuser = new BlockInfuser("infuser");
     public static BlockFluidForce blockFluidForce = new BlockFluidForce();

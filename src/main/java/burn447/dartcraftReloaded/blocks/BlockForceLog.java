@@ -23,6 +23,7 @@ public class BlockForceLog extends BlockRotatedPillar {
 
     public BlockForceLog(String name) {
         super(Material.WOOD);
+        this.setHarvestLevel("axe", 0);
         setHardness(2.5f);
         setResistance(12.5f);
         this.setRegistryName(name);
