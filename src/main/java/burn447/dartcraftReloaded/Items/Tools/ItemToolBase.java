@@ -93,7 +93,7 @@ public class ItemToolBase extends Item {
     @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair)
     {
-        return false;
+        return true;
     }
 
     @Nullable
@@ -108,58 +108,8 @@ public class ItemToolBase extends Item {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn) {
-        if (stack.getCapability(CAPABILITY_TOOLMOD, null) != null) {
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 12.0F) {
-                lores.add("Speed I");
-            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 16.0F) {
-                lores.add("Speed II");
-            }
-
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasHeat()) {
-                lores.add("Heat");
-            }
-
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 1.5F) {
-                lores.add("Force I");
-            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 2.0F) {
-                lores.add("Force II");
-            }
-
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasGrinding()) {
-                lores.add("Grinding");
-            }
-
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasTouch()) {
-                lores.add("Silk Touch");
-            }
-
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 12.0F) {
-                lores.add("Damage I");
-            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 16.0F) {
-                lores.add("Damage II");
-            }
-
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()) {
-                lores.add("LumberJack");
-            }
-
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasEnder()) {
-                lores.add("Ender");
-            }
-
-            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4))
-                lores.add("Bleeding IV");
-            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3))
-                lores.add("Bleeding III");
-            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2))
-                lores.add("Bleeding II");
-            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1))
-                lores.add("Bleeding I");
-
-            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBane())
-                lores.add("Bane - Does not prevent teleportaion in rain currently - Bug? Not sure why");
-            }
-            super.addInformation(stack, worldIn, lores, flagIn);
+        ItemForceAxe.attatchInformation(stack, lores);
+        super.addInformation(stack, worldIn, lores, flagIn);
     }
 
     @Override
