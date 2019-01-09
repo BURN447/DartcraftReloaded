@@ -62,8 +62,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     private NonNullList<ItemStack> infuserContents = NonNullList.create();
 
-    private static List<Item> validToolList = new ArrayList<>();
-    private static List<Item> validModifierList = new ArrayList<>();
+    public static List<Item> validToolList = new ArrayList<>();
+    public static List<Item> validModifierList = new ArrayList<>();
     public boolean canWork = false;
 
     public int processTime = 0;

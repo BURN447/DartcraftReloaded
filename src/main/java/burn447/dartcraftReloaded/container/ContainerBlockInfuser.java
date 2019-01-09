@@ -22,6 +22,7 @@ public class ContainerBlockInfuser extends Container {
 
     public ContainerBlockInfuser(IInventory playerInv, TileEntityInfuser te) {
 
+        //Modifier Slots
         this.addSlotToContainer(new SlotItemHandler(te.handler, 0, 80, 20));
         this.addSlotToContainer(new SlotItemHandler(te.handler, 1, 104, 32));
         this.addSlotToContainer(new SlotItemHandler(te.handler, 2, 116, 57));
@@ -30,6 +31,8 @@ public class ContainerBlockInfuser extends Container {
         this.addSlotToContainer(new SlotItemHandler(te.handler, 5, 56, 81));
         this.addSlotToContainer(new SlotItemHandler(te.handler, 6, 44, 57));
         this.addSlotToContainer(new SlotItemHandler(te.handler, 7, 56, 32));
+
+        //Tools Slot
         this.addSlotToContainer(new SlotItemHandler(te.handler, 8, 80, 57));
 
         //Force Book Slot
