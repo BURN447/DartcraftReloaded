@@ -53,6 +53,8 @@ public class ItemForceAxe extends ItemAxe {
         this.setTranslationKey(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
+        this.attackSpeed = -2.0F;
+        this.attackDamage = 8.0F;
     }
 
     public void registerItemModel() {

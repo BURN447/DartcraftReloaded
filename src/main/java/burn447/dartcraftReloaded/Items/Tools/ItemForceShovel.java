@@ -9,6 +9,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
@@ -29,7 +30,7 @@ import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 /**
  * Created by BURN447 on 5/13/2018.
  */
-public class ItemForceShovel extends ItemToolBase {
+public class ItemForceShovel extends ItemSpade {
 
     private static String name;
 
@@ -38,9 +39,13 @@ public class ItemForceShovel extends ItemToolBase {
     public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
 
     public ItemForceShovel(String name) {
-        super(name, EFFECTIVE_ON);
+        super(dartcraftReloaded.forceToolMaterial);
         setApplicableModifers();
+        this.setRegistryName(name);
+        this.setTranslationKey(name);
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
+        this.attackDamage = 2.5F;
     }
 
     public void registerItemModel() {

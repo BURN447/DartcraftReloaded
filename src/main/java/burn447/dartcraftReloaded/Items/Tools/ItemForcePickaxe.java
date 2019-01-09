@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -23,7 +24,7 @@ import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 /**
  * Created by BURN447 on 5/13/2018.
  */
-public class ItemForcePickaxe extends ItemToolBase {
+public class ItemForcePickaxe extends ItemPickaxe {
 
     private static String name;
 
@@ -34,10 +35,12 @@ public class ItemForcePickaxe extends ItemToolBase {
     private Item.ToolMaterial toolMaterial = dartcraftReloaded.forceToolMaterial;
 
     public ItemForcePickaxe(String name) {
-        super(name, EFFECTIVE_ON);
+        super(dartcraftReloaded.forceToolMaterial);
         setApplicableModifers();
+        this.setRegistryName(name);
+        this.setTranslationKey(name);
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
-        this.setHarvestLevel("pickaxe", 8);
     }
 
     @Override
@@ -46,7 +49,6 @@ public class ItemForcePickaxe extends ItemToolBase {
         return material != Material.IRON && material != Material.ANVIL && material != Material.ROCK ? super.getDestroySpeed(stack, state) : stack.getCapability(CAPABILITY_TOOLMOD,null).getDestroySpeed(stack, state);
     }
 
-    @Override
     public void registerItemModel() {
         dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
     }

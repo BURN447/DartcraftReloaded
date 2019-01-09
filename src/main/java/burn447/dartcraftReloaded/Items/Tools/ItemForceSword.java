@@ -17,6 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
@@ -36,15 +37,18 @@ import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 /**
  * Created by BURN447 on 5/13/2018.
  */
-public class ItemForceSword extends ItemToolBase {
+public class ItemForceSword extends ItemSword {
 
     private static String name;
 
     public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
 
     public ItemForceSword(String name) {
-        super(name, null);
+        super(dartcraftReloaded.forceToolMaterial);
         setApplicableModifers();
+        this.setRegistryName(name);
+        this.setTranslationKey(name);
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
     }
 
