@@ -20,27 +20,29 @@ import net.minecraft.world.World;
 public class BlockForceLog extends BlockRotatedPillar {
 
     private String name;
+    private String oreName;
 
     public BlockForceLog(String name) {
         super(Material.WOOD);
+        this.setHardness(2.0F);
         this.setHarvestLevel("axe", 0);
-        setHardness(2.5f);
-        setResistance(12.5f);
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.setRegistryName(name);
         this.setTranslationKey(name);
-        this.setSoundType(SoundType.WOOD);
+        this.setLightOpacity(1);
+        this.name = name;
     }
 
     public BlockForceLog(String name, String oreName) {
         super(Material.WOOD);
-        setHardness(2.5f);
-        setResistance(12.5f);
-        this.name = name;
-        //this.oreName = oreName;
+        this.setHardness(1.5F);
+        this.setHarvestLevel("axe", 0);
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.setRegistryName(name);
         this.setTranslationKey(name);
-        //super.initOreDict();
-        this.setSoundType(SoundType.WOOD);
+        this.setLightOpacity(1);
+        this.name = name;
+        this.oreName = oreName;
     }
 
     public void registerItemModel(Item itemBlock) {
