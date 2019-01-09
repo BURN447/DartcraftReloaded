@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.blocks.ModBlocks;
+import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModProvider;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
@@ -8,8 +9,10 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import gnu.trove.set.hash.THashSet;
 import net.minecraft.block.Block;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -19,6 +22,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -33,7 +38,7 @@ import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 /**
  * Created by BURN447 on 5/13/2018.
  */
-public class ItemForceAxe extends ItemToolBase {
+public class ItemForceAxe extends ItemAxe {
 
     private static String name;
 
@@ -42,8 +47,11 @@ public class ItemForceAxe extends ItemToolBase {
     private static final Set<Block> EFFECTIVE_ON = Sets.newHashSet(Blocks.PLANKS, Blocks.BOOKSHELF, Blocks.LOG, Blocks.LOG2, Blocks.CHEST, Blocks.PUMPKIN, Blocks.LIT_PUMPKIN, Blocks.MELON_BLOCK, Blocks.LADDER, Blocks.WOODEN_BUTTON, Blocks.WOODEN_PRESSURE_PLATE);
 
     public ItemForceAxe(String name) {
-        super(name, EFFECTIVE_ON);
+        super(dartcraftReloaded.forceToolMaterial, 8.0F, 8.0F);
         setApplicableModifers();
+        this.setRegistryName(name);
+        this.setTranslationKey(name);
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
     }
 
@@ -67,7 +75,10 @@ public class ItemForceAxe extends ItemToolBase {
     @Nullable
     @Override
     public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable NBTTagCompound nbt) {
-        return super.initCapabilities(stack, nbt);
+        if(!stack.hasCapability(CAPABILITY_TOOLMOD, null))
+            return new ToolModProvider(CAPABILITY_TOOLMOD, null);
+        else
+            return null;
     }
 
     @Override
@@ -168,6 +179,67 @@ public class ItemForceAxe extends ItemToolBase {
         private void finish() {
             // goodbye cruel world
             MinecraftForge.EVENT_BUS.unregister(this);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn) {
+        attatchInformation(stack, lores);
+        super.addInformation(stack, worldIn, lores, flagIn);
+    }
+
+    static void attatchInformation(ItemStack stack, List lores) {
+        if (stack.getCapability(CAPABILITY_TOOLMOD, null) != null) {
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 12.0F) {
+                lores.add("Speed I");
+            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 16.0F) {
+                lores.add("Speed II");
+            }
+
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasHeat()) {
+                lores.add("Heat");
+            }
+
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 1.5F) {
+                lores.add("Force I");
+            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 2.0F) {
+                lores.add("Force II");
+            }
+
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasGrinding()) {
+                lores.add("Grinding");
+            }
+
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasTouch()) {
+                lores.add("Silk Touch");
+            }
+
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 12.0F) {
+                lores.add("Damage I");
+            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 16.0F) {
+                lores.add("Damage II");
+            }
+
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()) {
+                lores.add("LumberJack");
+            }
+
+            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasEnder()) {
+                lores.add("Ender");
+            }
+
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4))
+                lores.add("Bleeding IV");
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3))
+                lores.add("Bleeding III");
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2))
+                lores.add("Bleeding II");
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1))
+                lores.add("Bleeding I");
+
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBane())
+                lores.add("Bane - Does not prevent teleportaion in rain currently - Bug? Not sure why");
         }
     }
 }
