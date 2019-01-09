@@ -24,7 +24,7 @@ public class BlockForceLog extends BlockRotatedPillar {
 
     public BlockForceLog(String name) {
         super(Material.WOOD);
-        this.setHardness(2.0F);
+        this.setHardness(1.0F);
         this.setHarvestLevel("axe", 0);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.setRegistryName(name);
@@ -35,7 +35,7 @@ public class BlockForceLog extends BlockRotatedPillar {
 
     public BlockForceLog(String name, String oreName) {
         super(Material.WOOD);
-        this.setHardness(1.5F);
+        this.setHardness(1.0F);
         this.setHarvestLevel("axe", 0);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.setRegistryName(name);
