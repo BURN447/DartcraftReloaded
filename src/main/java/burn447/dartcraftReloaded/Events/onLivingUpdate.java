@@ -21,12 +21,12 @@ public class onLivingUpdate {
     public static List<EntityPlayer> flightList = new ArrayList<EntityPlayer>();
 
     @SubscribeEvent
-    public void onLivingUpdate(LivingEvent.LivingUpdateEvent event){
-        if(event.getEntityLiving().hasCapability(CAPABILITY_SHEARABLE, null)){
+    public void onLivingUpdate(LivingEvent.LivingUpdateEvent event) {
+        if (event.getEntityLiving().hasCapability(CAPABILITY_SHEARABLE, null)) {
             event.getEntityLiving().getCapability(CAPABILITY_SHEARABLE, null).update();
         }
 
-        if(event.getEntityLiving() instanceof EntityPlayer) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = ((EntityPlayer) event.getEntityLiving());
             Iterable<ItemStack> armor = player.getArmorInventoryList();
             int wings = 0;
@@ -49,15 +49,22 @@ public class onLivingUpdate {
                 }
             }
             if (!player.isCreative()) {
-                if (wings == 4) {
-                    player.capabilities.allowFlying = true;
-                    flightList.add(player);
-                } else if(flightList.contains(player)){
-                    player.capabilities.allowFlying = false;
-                    flightList.remove(player);
+                if (!player.world.isRemote) {
+                    if (wings == 4) {
+                        if (!player.isSpectator() && !player.capabilities.allowFlying) {
+                            player.capabilities.allowFlying = true;
+                            player.sendPlayerAbilities();
+                            flightList.add(player);
+                        }
+                    } else {
+                        if (flightList.contains(player)) {
+                            player.capabilities.allowFlying = false;
+                            player.capabilities.isFlying = false;
+                            player.sendPlayerAbilities();
+                            flightList.remove(player);
+                        }
+                    }
                 }
-
-                player.sendPlayerAbilities();
             }
         }
     }
