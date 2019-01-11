@@ -64,8 +64,8 @@ public class ModItems {
                 forceShears,
                 experienceTome,
                 forceGear,
-                snowCookie
-                //forceMitt
+                snowCookie,
+                forceMitt
         );
     }
 
@@ -93,6 +93,6 @@ public class ModItems {
         experienceTome.registerItemModel();
         forceGear.registerItemModel();
         snowCookie.registerItemModel();
-        //forceMitt.registerItemModel();
+        forceMitt.registerItemModel();
     }
 }
