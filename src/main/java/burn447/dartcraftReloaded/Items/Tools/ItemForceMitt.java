@@ -2,9 +2,11 @@ package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.Items.ItemBase;
 import burn447.dartcraftReloaded.dartcraftReloaded;
+import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirt;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -13,27 +15,37 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemPickaxe;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeHooks;
 
-public class ItemForceMitt extends ItemBase {
+import java.util.Collections;
+import java.util.Set;
+
+public class ItemForceMitt extends ItemTool {
 
     private final float attackDamage;
+    private String name;
     ToolMaterial material = dartcraftReloaded.forceToolMaterial;
 
     public ItemForceMitt(String name) {
-        super(name);
-        this.setHarvestLevel("axe", 2);
-        this.setHarvestLevel("pickaxe", 2);
-        this.setHarvestLevel("shovel", 2);
+        super(8.0F, 8.0F, dartcraftReloaded.forceToolMaterial, Collections.emptySet());
+        setHarvestLevel("pickaxe", toolMaterial.getHarvestLevel());
+        setHarvestLevel("axe", toolMaterial.getHarvestLevel());
+        setHarvestLevel("shovel", toolMaterial.getHarvestLevel());
+        setHarvestLevel("sword", toolMaterial.getHarvestLevel());
         this.attackDamage = 3.0F;
         this.setMaxDamage(1000);
-
+        this.name = name;
+        this.setRegistryName(name);
+        this.setTranslationKey(name);
     }
 
     @Override
@@ -79,6 +91,18 @@ public class ItemForceMitt extends ItemBase {
             return EnumActionResult.PASS;
         }
     }
+    private static final Set<Material> EFFECTIVE_MATERIALS = ImmutableSet.of(
+            // Pickaxe
+            Material.ROCK, Material.IRON, Material.ICE, Material.GLASS, Material.PISTON, Material.ANVIL, Material.CIRCUITS,
+
+            // Axe
+            Material.WOOD, Material.GOURD, Material.PLANTS, Material.VINE,
+
+            // Shovel
+            Material.GRASS, Material.GROUND, Material.SAND, Material.SNOW, Material.CRAFTED_SNOW, Material.CLAY
+    );
+
+
 
     protected void setBlock(ItemStack stack, EntityPlayer player, World worldIn, BlockPos pos, IBlockState state)
     {
@@ -117,5 +141,12 @@ public class ItemForceMitt extends ItemBase {
         return multimap;
     }
 
+    public void registerItemModel() {
+        dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
+    }
 
+    @Override
+    public boolean canHarvestBlock(IBlockState blockIn) {
+        return EFFECTIVE_MATERIALS.contains(blockIn.getMaterial()) || blockIn == Blocks.WEB;
+    }
 }
