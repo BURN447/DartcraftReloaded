@@ -1,6 +1,16 @@
 {
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "all": "dartcraftreloaded:block/brickWhite"
+    }
+  },
   "variants": {
-    "color=cyan": {"model": "dartcraftreloaded:brick_cyan"},
-    "color=white": {"model": "dartcraftreloaded:brick_white"}
+    "normal": {
+      "model": "cube_all"
+    },
+    "inventory": {
+      "model": "cube_all"
+    }
   }
 }

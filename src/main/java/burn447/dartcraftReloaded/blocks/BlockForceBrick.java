@@ -9,15 +9,18 @@ import net.minecraft.item.ItemBlock;
 /**
  * Created by BURN447 on 7/23/2018.
  */
-public class BlockForceBrick extends BlockColored {
+public class BlockForceBrick extends BlockBase {
 
-    public BlockForceBrick(){
-        super(Material.ROCK);
+    private String name;
+
+    public BlockForceBrick(String name){
+        super(Material.ROCK, name);
         this.setHardness(50.0F);
         this.setResistance(200.0F);
-        this.setRegistryName("forceBrick");
-        //this.setUnlocalizedName("forceBrick");
+        this.setRegistryName(name);
+        this.setTranslationKey(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
+        this.name = name;
     }
 
     public Item createItemBlock() {
@@ -25,6 +28,6 @@ public class BlockForceBrick extends BlockColored {
     }
 
     public void registerItemModel(Item itemBlock) {
-        dartcraftReloaded.proxy.registerItemRenderer(itemBlock, 0, "forceBrick");
+        dartcraftReloaded.proxy.registerItemRenderer(itemBlock, 0, name);
     }
 }
