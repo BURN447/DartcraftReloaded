@@ -111,7 +111,7 @@ public class ToolFactory implements Callable<IToolModifier> {
 
             @Override
             public boolean hasAnyLuck() {
-                for(boolean bool: bleeding){
+                for(boolean bool: luck){
                     if(bool)
                         return true;
                 }
@@ -148,6 +148,19 @@ public class ToolFactory implements Callable<IToolModifier> {
                     luck[2] = true;
                 else if(level == 4 && luck[0] && luck[1] && luck[2])
                     luck[3] = true;
+            }
+
+            @Override
+            public int luckLevel() {
+                if(luck[3])
+                    return 4;
+                else if (luck[2])
+                    return 3;
+                else if (luck[1])
+                    return 2;
+                else if (luck[0])
+                    return 1;
+                else return 0;
             }
 
             @Override

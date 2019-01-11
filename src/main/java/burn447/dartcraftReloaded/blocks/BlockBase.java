@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -12,6 +13,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.Random;
 
 /**
  * Created by BURN447 on 2/4/2018.
@@ -75,4 +78,5 @@ public class BlockBase extends Block {
     public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return true;
     }
+
 }

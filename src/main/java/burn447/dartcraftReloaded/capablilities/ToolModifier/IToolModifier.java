@@ -53,6 +53,7 @@ public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
     void setLuckThree(boolean newVal);
     void setLuckFour(boolean newVal);
     void setLuck(int level);
+    int luckLevel();
 
     //Wing Modifier
     boolean hasWing();
