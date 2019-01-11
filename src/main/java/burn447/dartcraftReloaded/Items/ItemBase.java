@@ -18,6 +18,7 @@ public class ItemBase extends Item {
         this.oreName = oreName;
         setTranslationKey(name);
         setRegistryName(name);
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
     }
 
     public ItemBase(String name) {
@@ -25,6 +26,7 @@ public class ItemBase extends Item {
         this.oreName = name;
         setTranslationKey(name);
         setRegistryName(name);
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
     }
 
     public void registerItemModel() {

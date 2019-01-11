@@ -35,6 +35,7 @@ public class ModItems {
     public static ItemForceSword forceSword = new ItemForceSword("forceSword");
     public static ItemForceShovel forceShovel = new ItemForceShovel("forceSpade");
     public static ItemForceShears forceShears = new ItemForceShears("forceShears");
+    public static ItemForceMitt forceMitt = new ItemForceMitt("forceMitt");
 
     //Experience Tome
     public static ItemExperienceTome experienceTome = new ItemExperienceTome("experienceTome");
@@ -63,7 +64,8 @@ public class ModItems {
                 forceShears,
                 experienceTome,
                 forceGear,
-                snowCookie
+                snowCookie,
+                forceMitt
         );
     }
 
@@ -91,5 +93,6 @@ public class ModItems {
         experienceTome.registerItemModel();
         forceGear.registerItemModel();
         snowCookie.registerItemModel();
+        forceMitt.registerItemModel();
     }
 }
