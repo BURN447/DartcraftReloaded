@@ -1,5 +1,8 @@
 package burn447.dartcraftReloaded.Events;
 
+import burn447.dartcraftReloaded.Handlers.DCRPotionHandler;
+import burn447.dartcraftReloaded.Items.Tools.ItemMagnetGlove;
+import burn447.dartcraftReloaded.Potion.Effects.EffectMagnet;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
@@ -45,6 +48,15 @@ public class onLivingUpdate {
                     //Wing
                     if (slotSelected.getCapability(CAPABILITY_TOOLMOD, null).hasWing()) {
                         wings++;
+                    }
+                }
+            }
+            Iterable<ItemStack> hotBar = player.getHeldEquipment();
+            for(ItemStack slotSelected : hotBar) {
+                if(slotSelected.getItem() instanceof ItemMagnetGlove && slotSelected.hasCapability(CAPABILITY_MAGNET, null)) {
+                    if(slotSelected.getCapability(CAPABILITY_MAGNET, null).isActivated()) {
+                        PotionEffect magnet = new EffectMagnet(20);
+                        player.addPotionEffect(magnet);
                     }
                 }
             }
