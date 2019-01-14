@@ -22,6 +22,7 @@ public class BlockForceBrick extends BlockBase {
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
         this.oreName = "forceBrick";
+        this.setHarvestLevel("pickaxe", 3);
     }
 
     public Item createItemBlock() {
