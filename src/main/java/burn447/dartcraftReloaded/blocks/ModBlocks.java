@@ -39,6 +39,7 @@ public class ModBlocks {
     public static BlockForceBrick forceBrickCyan = new BlockForceBrick("forceBrickCyan");
     public static BlockForceBrick forceBrickPurple = new BlockForceBrick("forceBrickPurple");
     public static BlockForceBrick forceBrickGray = new BlockForceBrick("forceBrickGray");
+    public static BlockForceBrick forceBrick = new BlockForceBrick("forceBrick");
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -66,7 +67,8 @@ public class ModBlocks {
                 forceBrickLime,
                 forceBrickCyan,
                 forceBrickPurple,
-                forceBrickGray
+                forceBrickGray,
+                forceBrick
         );
 
     }
@@ -89,10 +91,14 @@ public class ModBlocks {
                 forceBrickBrown.createItemBlock(),
                 forceBrickOrange.createItemBlock(),
                 forceBrickLightBlue.createItemBlock(),
+                forceBrickMagenta.createItemBlock(),
+                forceBrickPink.createItemBlock(),
+                forceBrickLightGray.createItemBlock(),
                 forceBrickLime.createItemBlock(),
                 forceBrickCyan.createItemBlock(),
                 forceBrickPurple.createItemBlock(),
-                forceBrickGray.createItemBlock()
+                forceBrickGray.createItemBlock(),
+                forceBrick.createItemBlock()
         );
 
     }
@@ -107,6 +113,25 @@ public class ModBlocks {
         forceLeaves.registerItemModel(Item.getItemFromBlock(forceLeaves));
         LIT_FORCEFURNACE.registerItemModel(Item.getItemFromBlock(LIT_FORCEFURNACE));
         forceBrickWhite.registerItemModel(Item.getItemFromBlock(forceBrickWhite));
+        forceBrickBlack.registerItemModel(Item.getItemFromBlock(forceBrickBlack));
+        forceBrickBlue.registerItemModel(Item.getItemFromBlock(forceBrickBlue));
+        forceBrickBrown.registerItemModel(Item.getItemFromBlock(forceBrickBrown));
+        forceBrickCyan.registerItemModel(Item.getItemFromBlock(forceBrickCyan));
+        forceBrickGray.registerItemModel(Item.getItemFromBlock(forceBrickGray));
+        forceBrickGreen.registerItemModel(Item.getItemFromBlock(forceBrickGreen));
+        forceBrickLightBlue.registerItemModel(Item.getItemFromBlock(forceBrickLightBlue));
+        forceBrickLightGray.registerItemModel(Item.getItemFromBlock(forceBrickLightGray));
+        forceBrickLime.registerItemModel(Item.getItemFromBlock(forceBrickLime));
+        forceBrickMagenta.registerItemModel(Item.getItemFromBlock(forceBrickMagenta));
+        forceBrickOrange.registerItemModel(Item.getItemFromBlock(forceBrickOrange));
+        forceBrickPink.registerItemModel(Item.getItemFromBlock(forceBrickPink));
+        forceBrickPurple.registerItemModel(Item.getItemFromBlock(forceBrickPurple));
+        forceBrickRed.registerItemModel(Item.getItemFromBlock(forceBrickRed));
+        forceBrickWhite.registerItemModel(Item.getItemFromBlock(forceBrickWhite));
+        forceBrickYellow.registerItemModel(Item.getItemFromBlock(forceBrickYellow));
+        forceBrick.registerItemModel(Item.getItemFromBlock(forceBrick));
+
+
     }
 
     public static void registerNames() {
@@ -116,6 +141,25 @@ public class ModBlocks {
 
     public static void registerOreDict() {
         forcePlanks.initOreDict();
-        //forceLog.initOreDict();
+        forceLog.initOreDict();
+        forceBrick.initOreDict();
+        forceBrickBlack.initOreDict();
+        forceBrickBlue.initOreDict();
+        forceBrickBrown.initOreDict();
+        forceBrickCyan.initOreDict();
+        forceBrickGray.initOreDict();
+        forceBrickGreen.initOreDict();
+        forceBrickLightBlue.initOreDict();
+        forceBrickLightGray.initOreDict();
+        forceBrickLime.initOreDict();
+        forceBrickMagenta.initOreDict();
+        forceBrickOrange.initOreDict();
+        forceBrickPink.initOreDict();
+        forceBrickPurple.initOreDict();
+        forceBrickRed.initOreDict();
+        forceBrickWhite.initOreDict();
+        forceBrickYellow.initOreDict();
+
+
     }
 }

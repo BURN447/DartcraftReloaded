@@ -35,6 +35,23 @@ tile.forceLeaves.name=Force Leaves
 tile.infuser.name=Force Infuser
 tile.forceFurnace.name=Force Furnace
 tile.forcePlanks.name=Force Planks
+tile.forceBrickBlack.name=Black Force Brick
+tile.forceBrickBlue.name=Blue Force Brick
+tile.forceBrickBrown.name=Brown Force Brick
+tile.forceBrickCyan.name=Cyan Force Brick
+tile.forceBrickGray.name=Gray Force Brick
+tile.forceBrickGreen.name=Green Force Brick
+tile.forceBrickLightBlue.name=Light Blue Force Brick
+tile.forceBrickLightGray.name=Light Gray Force Brick
+tile.forceBrickLime.name=Lime Force Brick
+tile.forceBrickMagenta.name=Magenta Force Brick
+tile.forceBrickOrange.name=Orange Force Brick
+tile.forceBrickPink.name=Pink Force Brick
+tile.forceBrickPurple.name=Purple Force Brick
+tile.forceBrickRed.name=Red Force Brick
+tile.forceBrickWhite.name=White Force Brick
+tile.forceBrickYellow.name=Yellow Force Brick
+tile.forceBrick.name=Force Brick
 
 #Misc.
 itemGroup.dartcraftreloaded=Dartcraft Reloaded

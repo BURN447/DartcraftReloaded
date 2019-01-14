@@ -21,6 +21,7 @@ public class BlockForceBrick extends BlockBase {
         this.setTranslationKey(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.name = name;
+        this.oreName = "forceBrick";
     }
 
     public Item createItemBlock() {

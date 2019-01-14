@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BDB",
+    "BBB" ],
+  "key": {
+    "B": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "forceBrick"
+      }
+    ],
+    "D": [
+      {
+        "item": "minecraft:dye",
+        "data": 1
+      }
+    ]
+  },
+  "result": {
+    "item": "dartcraftreloaded:forceBrickRed",
+    "data": 0
+  }
+}

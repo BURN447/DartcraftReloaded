@@ -13,6 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Created by BURN447 on 2/14/2018.
@@ -94,5 +95,9 @@ public class BlockForceLog extends BlockRotatedPillar {
     @Override
     public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return true;
+    }
+
+    public void initOreDict() {
+        OreDictionary.registerOre(oreName, this);
     }
 }

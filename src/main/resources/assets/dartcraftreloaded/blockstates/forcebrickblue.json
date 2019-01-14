@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "dartcraftreloaded:block/forcebrick"
+      "all": "dartcraftreloaded:block/forcebrickblue"
     }
   },
   "variants": {

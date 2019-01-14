@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BBB",
+    "BFB",
+    "BBB" ],
+  "key": {
+    "B": [
+      {
+        "item": "minecraft:stonebrick",
+        "data": 0
+      }
+    ],
+    "F": [
+      {
+        "item": "dartcraftReloaded:gem_forcegem",
+        "data": 0
+      }
+    ]
+  },
+  "result": {
+    "item": "dartcraftreloaded:forceBrick",
+    "data": 0
+  }
+}

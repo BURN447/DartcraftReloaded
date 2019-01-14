@@ -70,6 +70,7 @@ public class dartcraftReloaded {
         proxy.registerSmeltingRecipes();
         DCREventHandler.init();
         DCRPacketHandler.init();
+        ModBlocks.registerOreDict();
     }
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e){
@@ -88,7 +89,6 @@ public class dartcraftReloaded {
             ModBlocks.registerNames();
             ModBlocks.register(event.getRegistry());
             ModBlocks.registerModels();
-            ModBlocks.registerOreDict();
         }
 
         @SubscribeEvent
