@@ -12,6 +12,9 @@ import burn447.dartcraftReloaded.capablilities.ForceRod.IForceRodModifier;
 import burn447.dartcraftReloaded.capablilities.ForceWrench.ForceWrenchFactory;
 import burn447.dartcraftReloaded.capablilities.ForceWrench.ForceWrenchStorage;
 import burn447.dartcraftReloaded.capablilities.ForceWrench.IForceWrench;
+import burn447.dartcraftReloaded.capablilities.Magnet.IMagnet;
+import burn447.dartcraftReloaded.capablilities.Magnet.MagnetFactory;
+import burn447.dartcraftReloaded.capablilities.Magnet.MagnetStorage;
 import burn447.dartcraftReloaded.capablilities.PlayerModifier.IPlayerModifier;
 import burn447.dartcraftReloaded.capablilities.PlayerModifier.PlayerModifierFactory;
 import burn447.dartcraftReloaded.capablilities.PlayerModifier.PlayerModifierStorage;
@@ -55,6 +58,9 @@ public class DCRCapabilityHandler {
     @CapabilityInject(IForceWrench.class)
     public static Capability<IForceWrench> CAPABILITY_FORCEWRENCH = null;
 
+    @CapabilityInject(IMagnet.class)
+    public static Capability<IMagnet> CAPABILITY_MAGNET = null;
+
     public static void register(){
         CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), new ToolFactory());
         CapabilityManager.INSTANCE.register(IForceRodModifier.class, new ForceRodStorage(), new ForceRodFactory());
@@ -63,6 +69,7 @@ public class DCRCapabilityHandler {
         CapabilityManager.INSTANCE.register(IShearableMob.class, new ShearableStorage(), new ShearableFactory());
         CapabilityManager.INSTANCE.register(IForceWrench.class, new ForceWrenchStorage(), new ForceWrenchFactory());
         CapabilityManager.INSTANCE.register(IPlayerModifier.class, new PlayerModifierStorage(), new PlayerModifierFactory());
+        CapabilityManager.INSTANCE.register(IMagnet.class, new MagnetStorage(), new MagnetFactory());
 
         MinecraftForge.EVENT_BUS.register(new DCRCapabilityHandler());
     }
