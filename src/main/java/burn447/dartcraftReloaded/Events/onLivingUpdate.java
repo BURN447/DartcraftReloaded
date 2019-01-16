@@ -55,7 +55,7 @@ public class onLivingUpdate {
             for(ItemStack slotSelected : hotBar) {
                 if(slotSelected.getItem() instanceof ItemMagnetGlove && slotSelected.hasCapability(CAPABILITY_MAGNET, null)) {
                     if(slotSelected.getCapability(CAPABILITY_MAGNET, null).isActivated()) {
-                        PotionEffect magnet = new EffectMagnet(20);
+                        PotionEffect magnet = new EffectMagnet(40);
                         player.addPotionEffect(magnet);
                     }
                 }

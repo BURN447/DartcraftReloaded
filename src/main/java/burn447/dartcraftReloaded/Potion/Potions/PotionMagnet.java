@@ -7,17 +7,7 @@ public class PotionMagnet extends Potion {
     public PotionMagnet() {
         super(false, 0);
         this.setRegistryName("magnet");
-        this.setPotionName("magnet");
-    }
-
-    @Override
-    public boolean shouldRender(PotionEffect effect) {
-        return false;
-    }
-
-    @Override
-    public boolean shouldRenderHUD(PotionEffect effect) {
-        return false;
+        this.setPotionName("Magnet");
     }
 
     @Override
@@ -38,5 +28,10 @@ public class PotionMagnet extends Potion {
     @Override
     public boolean isReady(int duration, int amplifier) {
         return true;
+    }
+
+    @Override
+    public boolean shouldRender(PotionEffect effect) {
+        return false;
     }
 }
