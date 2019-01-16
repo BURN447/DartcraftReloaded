@@ -3,14 +3,22 @@ package burn447.dartcraftReloaded.Items.Tools;
 import burn447.dartcraftReloaded.Items.ItemBase;
 import burn447.dartcraftReloaded.capablilities.Magnet.MagnetProvider;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModProvider;
+import burn447.dartcraftReloaded.dartcraftReloaded;
+import burn447.dartcraftReloaded.util.References;
+import net.minecraft.client.renderer.ItemMeshDefinition;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 
@@ -19,7 +27,7 @@ import java.util.List;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_MAGNET;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
-public class ItemMagnetGlove extends ItemBase {
+public class ItemMagnetGlove extends ItemBase implements ItemMeshDefinition {
 
     public ItemMagnetGlove(String name) {
         super(name);
@@ -38,11 +46,13 @@ public class ItemMagnetGlove extends ItemBase {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         if(playerIn.isSneaking()) {
             if(playerIn.getHeldItem(handIn).hasCapability(CAPABILITY_MAGNET, null)) {
-                if(playerIn.getHeldItem(handIn).getCapability(CAPABILITY_MAGNET, null).isActivated()){
+                if (playerIn.getHeldItem(handIn).getCapability(CAPABILITY_MAGNET, null).isActivated()) {
                     playerIn.getHeldItem(handIn).getCapability(CAPABILITY_MAGNET, null).deactivate();
-                }
-                else
+                    this.setDamage(playerIn.getHeldItem(handIn), 0);
+                } else {
                     playerIn.getHeldItem(handIn).getCapability(CAPABILITY_MAGNET, null).activate();
+                    this.setDamage(playerIn.getHeldItem(handIn), 1);
+                }
             }
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -55,5 +65,21 @@ public class ItemMagnetGlove extends ItemBase {
         }
         else
             tooltip.add("Deactivated");
+    }
+
+    @Override
+    public ModelResourceLocation getModelLocation(ItemStack stack) {
+        if(stack.hasCapability(CAPABILITY_MAGNET, null)) {
+            if(stack.getCapability(CAPABILITY_MAGNET, null).isActivated()) {
+                return new ModelResourceLocation(References.modId + ":magnetglove", "active");
+            }
+        }
+        return new ModelResourceLocation(References.modId + ":magnetglove", "deactivated");
+    }
+
+    @Override
+    public void registerItemModel() {
+        dartcraftReloaded.proxy.registerItemRenderer(this, 1, name + "active");
+        dartcraftReloaded.proxy.registerItemRenderer(this, 0, name + "deactivated");
     }
 }
