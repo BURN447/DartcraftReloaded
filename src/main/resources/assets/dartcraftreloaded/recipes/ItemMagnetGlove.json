@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " N ",
+    "FCF",
+    " F "  ],
+  "key": {
+    "F": [
+      {
+        "item": "dartcraftreloaded:ingot_force",
+        "data": 0
+      }
+    ],
+    "C": [
+      {
+      "item": "minecraft:compass",
+        "data": 0
+      }
+    ],
+    "N": [
+      {
+        "item": "minecraft:nether_star",
+        "data": 0
+      }
+    ]
+  },
+  "result": {
+    "item": "dartcraftreloaded:magnetglove",
+    "data": 0
+  }
+}

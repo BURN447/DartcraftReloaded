@@ -31,6 +31,7 @@ public class ItemMagnetGlove extends ItemBase implements ItemMeshDefinition {
 
     public ItemMagnetGlove(String name) {
         super(name);
+        this.setMaxStackSize(1);
     }
 
     @Nullable
