@@ -51,11 +51,12 @@ public class onLivingUpdate {
                     }
                 }
             }
-            Iterable<ItemStack> hotBar = player.getHeldEquipment();
+            //Checks Hotbar
+            Iterable<ItemStack> hotBar = player.inventoryContainer.inventoryItemStacks.subList(36,45);
             for(ItemStack slotSelected : hotBar) {
                 if(slotSelected.getItem() instanceof ItemMagnetGlove && slotSelected.hasCapability(CAPABILITY_MAGNET, null)) {
                     if(slotSelected.getCapability(CAPABILITY_MAGNET, null).isActivated()) {
-                        PotionEffect magnet = new EffectMagnet(40);
+                        PotionEffect magnet = new EffectMagnet(20);
                         player.addPotionEffect(magnet);
                     }
                 }
