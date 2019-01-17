@@ -32,6 +32,7 @@ public class BlockForceLog extends BlockRotatedPillar {
         this.setTranslationKey(name);
         this.setLightOpacity(1);
         this.name = name;
+        this.getDefaultState().withProperty(AXIS, EnumFacing.Axis.Y);
     }
 
     public BlockForceLog(String name, String oreName) {
@@ -44,7 +45,10 @@ public class BlockForceLog extends BlockRotatedPillar {
         this.setLightOpacity(1);
         this.name = name;
         this.oreName = oreName;
+        this.getDefaultState().withProperty(AXIS, EnumFacing.Axis.Y);
     }
+
+
 
     public void registerItemModel(Item itemBlock) {
         dartcraftReloaded.proxy.registerItemRenderer(itemBlock, 0, name);

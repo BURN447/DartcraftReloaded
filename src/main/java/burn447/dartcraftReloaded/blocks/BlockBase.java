@@ -28,6 +28,7 @@ public class BlockBase extends Block {
         super(material);
         this.name = name;
         this.oreName = oreName;
+        this.setHardness(2.0F);
     }
 
     public BlockBase(Material material, String name, String oreName, SoundType sound) {
@@ -35,12 +36,14 @@ public class BlockBase extends Block {
         this.name = name;
         this.oreName = oreName;
         this.setSoundType(sound);
+        this.setHardness(2.0F);
     }
 
     public BlockBase(Material material, String name) {
         super(material);
         this.name = name;
         this.oreName = name;
+        this.setHardness(2.0F);
     }
 
     public void registerItemModel(Item itemBlock) {
