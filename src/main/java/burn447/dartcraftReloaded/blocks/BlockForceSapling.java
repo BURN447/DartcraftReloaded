@@ -72,7 +72,7 @@ public class BlockForceSapling extends BlockBush implements IGrowable, IPlantabl
         if (!net.minecraftforge.event.terraingen.TerrainGen.saplingGrowTree(world, rand, pos))
             return;
 
-        WorldGenerator worldgenerator = new WorldGenTrees(true, 5, ModBlocks.forceLog.getDefaultState(), ModBlocks.forceLeaves.getDefaultState(), false);
+        WorldGenerator worldgenerator = new WorldGenTrees(true, 5, ModBlocks.forceLog.getStateFromMeta(0), ModBlocks.forceLeaves.getDefaultState(), false);
 
         world.setBlockToAir(pos);
 

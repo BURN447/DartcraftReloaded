@@ -23,7 +23,7 @@ public class DCRWorldGen implements IWorldGenerator {
     private WorldGenerator forceOre;
 
     public DCRWorldGen(){
-        forceTree = new WorldGenTrees(false, 4, ModBlocks.forceLog.getDefaultState(), ModBlocks.forceLeaves.getDefaultState(), false);
+        forceTree = new WorldGenTrees(false, 4, ModBlocks.forceLog.getStateFromMeta(0), ModBlocks.forceLeaves.getDefaultState(), false);
         forceOre = new WorldGenMinable(ModBlocks.orePower.getDefaultState(), 6);
     }
 
