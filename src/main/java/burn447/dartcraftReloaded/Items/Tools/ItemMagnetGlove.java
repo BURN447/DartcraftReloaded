@@ -27,7 +27,7 @@ import java.util.List;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_MAGNET;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
-public class ItemMagnetGlove extends ItemBase implements ItemMeshDefinition {
+public class ItemMagnetGlove extends ItemBase {
 
     public ItemMagnetGlove(String name) {
         super(name);
@@ -47,7 +47,7 @@ public class ItemMagnetGlove extends ItemBase implements ItemMeshDefinition {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
         if(playerIn.isSneaking()) {
             if(playerIn.getHeldItem(handIn).hasCapability(CAPABILITY_MAGNET, null)) {
-                if (playerIn.getHeldItem(handIn).getCapability(CAPABILITY_MAGNET, null).isActivated()) {
+                if (this.getDamage(playerIn.getHeldItem(handIn)) == 1) {
                     playerIn.getHeldItem(handIn).getCapability(CAPABILITY_MAGNET, null).deactivate();
                     this.setDamage(playerIn.getHeldItem(handIn), 0);
                 } else {
@@ -59,16 +59,19 @@ public class ItemMagnetGlove extends ItemBase implements ItemMeshDefinition {
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(stack.getCapability(CAPABILITY_MAGNET, null).isActivated()) {
+        if(this.getDamage(stack) == 1) {
             tooltip.add("Active");
         }
-        else
+        else {
             tooltip.add("Deactivated");
+        }
     }
 
-    @Override
+    @SideOnly(Side.CLIENT)
+    //@Override
     public ModelResourceLocation getModelLocation(ItemStack stack) {
         if(stack.hasCapability(CAPABILITY_MAGNET, null)) {
             if(stack.getCapability(CAPABILITY_MAGNET, null).isActivated()) {
@@ -78,6 +81,7 @@ public class ItemMagnetGlove extends ItemBase implements ItemMeshDefinition {
         return new ModelResourceLocation(References.modId + ":magnetglove", "deactivated");
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void registerItemModel() {
         dartcraftReloaded.proxy.registerItemRenderer(this, 1, name + "active");
