@@ -29,6 +29,7 @@ public class GUIInfuser extends GuiContainer {
 
     private TileEntityInfuser te;
     private GuiButton startButton = new GuiButton(0, 39, 101, 12, 12, "Start Button");
+    private GuiButton guideButton = new GuiButton(1, 123, 17, 12, 12, "Open Guide GUI");
     private ProgressBar infuserProgress;
 
     private ResourceLocation TEXTURE = new ResourceLocation(References.modId, "textures/gui/container/forceinfuser.png");
@@ -43,6 +44,7 @@ public class GUIInfuser extends GuiContainer {
         this.te = te;
 
         this.addButton(startButton);
+        this.addButton(guideButton);
 
         this.infuserProgress = new ProgressBar(TEXTURE, ProgressBar.ProgressBarDirection.DOWN_TO_UP, 2, 20, 134, 93, 176, 0);
 
@@ -110,7 +112,7 @@ public class GUIInfuser extends GuiContainer {
             this.actionPerformed(startButton);
         }
         if (isPointInRegion(123, 16, 12, 12, mouseX, mouseY) && te.handler.getStackInSlot(9).isEmpty()){
-            //dartcraftReloaded.proxy.openGuideGUI();
+            this.actionPerformed(guideButton);
         }
         super.mouseClicked(mouseX, mouseY, mouseButton);
     }
@@ -122,6 +124,7 @@ public class GUIInfuser extends GuiContainer {
             DCRPacketHandler.sendToServer(new InfuserMessage(true));
             te.canWork = true;
         }
+        //Open Guide
         if(button.id == 1) {
             dartcraftReloaded.proxy.openGuideGUI();
         }
