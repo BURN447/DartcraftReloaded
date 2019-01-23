@@ -4,21 +4,31 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerItemForcePack extends Container {
+
+    int numRows = 5;
+
     @Override
     public boolean canInteractWith(EntityPlayer playerIn) {
         return !playerIn.isSpectator();
     }
 
-    public ContainerItemForcePack(IInventory playerInv) {
+    public ContainerItemForcePack(IInventory playerInv, ItemStack fp) {
 
         int xPosC = 17;
         int yPosC = 20;
+        int counter = 0;
 
-        for(int i = 0; i < 5; i++) {
-            for(int j = 0; j < 8; j++) {
-                this.addSlotToContainer(new Slot(playerInv, i * j, xPosC + j * 18, yPosC + i * 18 ));
+        for (int j = 0; j < this.numRows; ++j)
+        {
+            for (int k = 0; k < 8; ++k)
+            {
+                this.addSlotToContainer(new SlotItemHandler(fp.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), counter, 8 + k * 18, 18 + j * 18));
+                counter++;
             }
         }
 

@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.proxy;
 
 import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.client.gui.furnace.GUIFurnace;
 import burn447.dartcraftReloaded.client.gui.infuser.GUIGuideScreen;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.client.Minecraft;
