@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.text.TextComponentString;
@@ -43,9 +44,11 @@ public class ItemForcePack extends ItemBase {
         if(playerIn.getHeldItem(handIn).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)){
             //x,y,z coordinates are not important afaik
             playerIn.openGui(dartcraftReloaded.instance, DCRGUIHandler.PACK, worldIn, 0, 0, 0);
+            return new ActionResult<ItemStack>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
         }
         //If it doesn't nothing bad happens
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        //return super.onItemRightClick(worldIn, playerIn, handIn);
+        return new ActionResult<>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
     }
 
 
