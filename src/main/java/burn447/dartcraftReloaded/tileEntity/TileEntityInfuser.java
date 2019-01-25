@@ -56,8 +56,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
 
     public final ItemStackHandler handler;
-    public final ItemStackHandler bookSlotHandler;
-    public final ItemStackHandler forceSlotHandler;
     public FluidTank tank;
 
     private NonNullList<ItemStack> infuserContents = NonNullList.create();
@@ -88,15 +86,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return 1;
             }
         };
-        this.bookSlotHandler = new ItemStackHandler(1) {
-            @Nonnull
-            @Override
-            public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-                return super.insertItem(slot, stack, simulate);
-            }
-        };
-
-        this.forceSlotHandler = new ItemStackHandler(1);
 
         tank = new FluidTank(50000);
     }
@@ -105,8 +94,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public void readFromNBT(NBTTagCompound nbt) {
         //Items
         handler.deserializeNBT(nbt.getCompoundTag("ItemStackHandler"));
-        bookSlotHandler.deserializeNBT(nbt.getCompoundTag("BookSlotHandler"));
-        forceSlotHandler.deserializeNBT(nbt.getCompoundTag("ForceSlotHandler"));
         ItemStackHelper.loadAllItems(nbt, this.infuserContents);
         energyStorage.setEnergy(nbt.getInteger("EnergyHandler"));
         tank.readFromNBT(nbt);
@@ -119,8 +106,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         //Items
         nbt.setTag("ItemStackHandler", handler.serializeNBT());
-        nbt.setTag("ForceSlotHandler", forceSlotHandler.serializeNBT());
-        nbt.setTag("BookSlotHandler", bookSlotHandler.serializeNBT());
         nbt.setInteger("EnergyHandler", energyStorage.getEnergyStored());
         ItemStackHelper.saveAllItems(nbt, this.infuserContents);
         tank.writeToNBT(nbt);
@@ -134,20 +119,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         fluidContained = tank.getFluidAmount();
         if (world != null) {
             if (!world.isRemote) {
-                if (forceSlotHandler.getStackInSlot(0).getItem() == ModItems.gemForceGem) {
-                    FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 500);
-
-                    if (tank.getFluidAmount() < tank.getCapacity() - 100) {
-                        fill(force, true);
-                        if (forceSlotHandler.getStackInSlot(0).getCount() > 1) {
-                            forceSlotHandler.getStackInSlot(0).setCount(forceSlotHandler.getStackInSlot(0).getCount() - 1);
-                        } else
-                            forceSlotHandler.setStackInSlot(0, ItemStack.EMPTY);
-
-                        markDirty();
-                        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
-                    }
-                }
+                processForceGems();
                 if (canWork) {
                     if (processTime == maxProcessTime) {
                         this.markDirty();
@@ -177,19 +149,19 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     //Processes force Gems in the force infuser slot
     private void processForceGems() {
-        if (forceSlotHandler.getStackInSlot(0).getItem() == ModItems.gemForceGem) {
+        if (handler.getStackInSlot(10).getItem() == ModItems.gemForceGem) {
             FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 500);
 
             if (tank.getFluidAmount() < tank.getCapacity() - 100) {
                 fill(force, true);
-                if (forceSlotHandler.getStackInSlot(0).getCount() > 1) {
-                    forceSlotHandler.getStackInSlot(0).setCount(forceSlotHandler.getStackInSlot(0).getCount() - 1);
+                if (handler.getStackInSlot(10).getCount() > 1) {
+                    handler.getStackInSlot(10).setCount(handler.getStackInSlot(10).getCount() - 1);
                 } else
-                    forceSlotHandler.setStackInSlot(0, ItemStack.EMPTY);
-            }
+                    handler.setStackInSlot(10, ItemStack.EMPTY);
 
-            markDirty();
-            world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
+                markDirty();
+                world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
+            }
         }
     }
 
