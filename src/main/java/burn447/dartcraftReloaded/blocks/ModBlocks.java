@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.blocks;
 
 import burn447.dartcraftReloaded.blocks.torch.BlockForceTorch;
+import burn447.dartcraftReloaded.blocks.torch.BlockTimetorch;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -41,6 +42,7 @@ public class ModBlocks {
     public static BlockForceBrick forceBrickPurple = new BlockForceBrick("forceBrickPurple");
     public static BlockForceBrick forceBrickGray = new BlockForceBrick("forceBrickGray");
     public static BlockForceBrick forceBrick = new BlockForceBrick("forceBrick");
+    public static BlockTimetorch timetorch = new BlockTimetorch("timeTorch");
 
     //Torches
     public static BlockForceTorch forceTorch = new BlockForceTorch("forceTorch");
@@ -73,7 +75,8 @@ public class ModBlocks {
                 forceBrickPurple,
                 forceBrickGray,
                 forceBrick,
-                forceTorch
+                forceTorch,
+                timetorch
         );
 
     }
@@ -104,7 +107,8 @@ public class ModBlocks {
                 forceBrickPurple.createItemBlock(),
                 forceBrickGray.createItemBlock(),
                 forceBrick.createItemBlock(),
-                forceTorch.createItemBlock()
+                forceTorch.createItemBlock(),
+                timetorch.createItemBlock()
         );
 
     }
@@ -137,6 +141,7 @@ public class ModBlocks {
         forceBrickYellow.registerItemModel(Item.getItemFromBlock(forceBrickYellow));
         forceBrick.registerItemModel(Item.getItemFromBlock(forceBrick));
         forceTorch.registerItemModel(Item.getItemFromBlock(forceTorch));
+        timetorch.registerItemModel(Item.getItemFromBlock(timetorch));
 
 
     }
