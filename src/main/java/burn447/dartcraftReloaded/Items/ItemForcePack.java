@@ -37,6 +37,7 @@ public class ItemForcePack extends ItemBase {
     public ItemForcePack(String name){
         super(name);
         handler = new ItemStackHandler(40);
+        this.setMaxStackSize(1);
     }
 
     @Override

@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "FLF",
+    "LCL",
+    "FLF"  ],
+  "key": {
+    "F": [
+      {
+        "item": "dartcraftreloaded:ingot_force",
+        "data": 0
+      }
+    ],
+    "L": [
+      {
+        "item": "minecraft:leather",
+        "data": 0
+      }
+    ],
+    "C": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "chestWood"
+      }
+    ]
+  },
+  "result": {
+    "item": "dartcraftreloaded:forcepack",
+    "data": 0
+  }
+}
