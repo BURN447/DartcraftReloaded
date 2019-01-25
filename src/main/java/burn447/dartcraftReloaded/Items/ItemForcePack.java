@@ -3,6 +3,7 @@ package burn447.dartcraftReloaded.Items;
 import burn447.dartcraftReloaded.Handlers.DCRGUIHandler;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -13,6 +14,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -45,13 +47,22 @@ public class ItemForcePack extends ItemBase {
         if(playerIn.getHeldItem(handIn).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)){
             //x,y,z coordinates are not important afaik
             playerIn.openGui(dartcraftReloaded.instance, DCRGUIHandler.PACK, worldIn, 0, 0, 0);
-            return new ActionResult<ItemStack>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
+            return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
         }
         //If it doesn't nothing bad happens
-        //return super.onItemRightClick(worldIn, playerIn, handIn);
-        return new ActionResult<>(EnumActionResult.FAIL, playerIn.getHeldItem(handIn));
+        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
+    @Override
+    public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if(player.getHeldItem(hand).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)){
+            //x,y,z coordinates are not important afaik
+            player.openGui(dartcraftReloaded.instance, DCRGUIHandler.PACK, worldIn, 0, 0, 0);
+            return EnumActionResult.PASS;
+        }
+        //If it doesn't nothing bad happens
+        return super.onItemUse(player, worldIn, pos, hand, facing, hitX, hitY, hitZ);
+    }
 
     //Inspired by Botaina's Code
 
