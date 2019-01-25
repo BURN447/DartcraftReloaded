@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.blocks;
 
+import burn447.dartcraftReloaded.blocks.torch.BlockForceTorch;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -41,6 +42,9 @@ public class ModBlocks {
     public static BlockForceBrick forceBrickGray = new BlockForceBrick("forceBrickGray");
     public static BlockForceBrick forceBrick = new BlockForceBrick("forceBrick");
 
+    //Torches
+    public static BlockForceTorch forceTorch = new BlockForceTorch("forceTorch");
+
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
                 orePower,
@@ -68,7 +72,8 @@ public class ModBlocks {
                 forceBrickCyan,
                 forceBrickPurple,
                 forceBrickGray,
-                forceBrick
+                forceBrick,
+                forceTorch
         );
 
     }
@@ -98,7 +103,8 @@ public class ModBlocks {
                 forceBrickCyan.createItemBlock(),
                 forceBrickPurple.createItemBlock(),
                 forceBrickGray.createItemBlock(),
-                forceBrick.createItemBlock()
+                forceBrick.createItemBlock(),
+                forceTorch.createItemBlock()
         );
 
     }
@@ -130,6 +136,7 @@ public class ModBlocks {
         forceBrickWhite.registerItemModel(Item.getItemFromBlock(forceBrickWhite));
         forceBrickYellow.registerItemModel(Item.getItemFromBlock(forceBrickYellow));
         forceBrick.registerItemModel(Item.getItemFromBlock(forceBrick));
+        forceTorch.registerItemModel(Item.getItemFromBlock(forceTorch));
 
 
     }
