@@ -2,11 +2,14 @@ package burn447.dartcraftReloaded.blocks;
 
 import burn447.dartcraftReloaded.blocks.torch.BlockForceTorch;
 import burn447.dartcraftReloaded.blocks.torch.BlockTimetorch;
+import burn447.dartcraftReloaded.config.ConfigHandler;
 import burn447.dartcraftReloaded.dartcraftReloaded;
+import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraftforge.common.config.Config;
 import net.minecraftforge.registries.IForgeRegistry;
 
 /**
