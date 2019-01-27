@@ -6,9 +6,11 @@ import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.tileEntity.TileEntityForceFurnace;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
+import burn447.dartcraftReloaded.tileEntity.TileEntityTimeTorch;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -28,6 +30,7 @@ public class CommonProxy {
     public void registerTileEntities() {
         GameRegistry.registerTileEntity(TileEntityInfuser.class, References.modId + ":blockInfuser");
         GameRegistry.registerTileEntity(TileEntityForceFurnace.class, References.modId + ":blockFurnace");
+        GameRegistry.registerTileEntity(TileEntityTimeTorch.class, References.modId + ":torchTime");
     }
 
     public void registerSmeltingRecipes() {

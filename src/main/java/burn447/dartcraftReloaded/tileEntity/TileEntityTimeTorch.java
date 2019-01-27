@@ -1,14 +1,22 @@
 package burn447.dartcraftReloaded.tileEntity;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 
-//All Code Heavily inspired by Torcherino. Credit to Moze_Inte, Sci4me and NinjaPhenix
-public class TileEntityTimeTorch extends TileEntity implements ITickable {
+import javax.annotation.Nullable;
+import java.util.Random;
+
+//All Code Heavily inspired by Torcherino. Credit to Moze_Intel, Sci4me and NinjaPhenix
+public class TileEntityTimeTorch extends TileEntity implements ITickable, ITileEntityProvider {
 
     private int xMin;
     private int yMin;
@@ -22,13 +30,19 @@ public class TileEntityTimeTorch extends TileEntity implements ITickable {
 
     private byte speed;
 
+    private Random rand;
+
     public TileEntityTimeTorch() {
-        this.speed = 3;
+        this.speed = 100;
+        this.rand = new Random();
+        System.out.println("TIME TORCH MADE");
     }
 
     @Override
     public void update() {
-
+        if(this.world.isRemote) return;
+        this.updateCachedMode();
+        this.tickNeighbor();
     }
 
     protected int speed(int base) { return base; }
@@ -89,5 +103,45 @@ public class TileEntityTimeTorch extends TileEntity implements ITickable {
                 }
             }
         }
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
+        super.writeToNBT(nbt);
+        nbt.setByte("Speed", this.speed);
+        nbt.setByte("Mode", this.mode);
+        return nbt;
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound nbt) {
+        super.readFromNBT(nbt);
+        this.speed = nbt.getByte("Speed");
+        this.mode = nbt.getByte("Mode");
+    }
+
+    @Nullable
+    @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        this.writeToNBT(nbt);
+        return new SPacketUpdateTileEntity(getPos(), -999, nbt);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        super.onDataPacket(net, pkt);
+        this.readFromNBT(pkt.getNbtCompound());
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+        return oldState.getBlock() != newSate.getBlock();
+    }
+
+    @Nullable
+    @Override
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
+        return new TileEntityTimeTorch();
     }
 }
