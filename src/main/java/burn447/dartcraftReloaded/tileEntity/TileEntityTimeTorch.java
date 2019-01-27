@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 //All Code Heavily inspired by Torcherino. Credit to Moze_Intel, Sci4me and NinjaPhenix
-public class TileEntityTimeTorch extends TileEntity implements ITickable, ITileEntityProvider {
+public class TileEntityTimeTorch extends TileEntity implements ITickable {
 
     private int xMin;
     private int yMin;
@@ -137,11 +137,5 @@ public class TileEntityTimeTorch extends TileEntity implements ITickable, ITileE
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
         return oldState.getBlock() != newSate.getBlock();
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityTimeTorch();
     }
 }
