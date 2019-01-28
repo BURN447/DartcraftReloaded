@@ -54,6 +54,8 @@ tile.forceBrickRed.name=Red Force Brick
 tile.forceBrickWhite.name=White Force Brick
 tile.forceBrickYellow.name=Yellow Force Brick
 tile.forceBrick.name=Force Brick
+tile.timeTorch.name=§bTime Torch
+tile.forceTorch.name=Force Torch
 
 #Misc.
 itemGroup.dartcraftreloaded=Dartcraft Reloaded
