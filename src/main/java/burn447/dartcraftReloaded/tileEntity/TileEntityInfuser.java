@@ -6,8 +6,10 @@ import burn447.dartcraftReloaded.Items.ItemArmor;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
+import burn447.dartcraftReloaded.blocks.torch.BlockForceTorch;
 import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
+import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
@@ -123,23 +125,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 if (canWork) {
                     if (processTime == maxProcessTime) {
                         this.markDirty();
-                        if (hasValidTool()) {
-                            for (int i = 0; i < 8; i++) {
-                                if (hasValidModifer(i)) {
-                                    ItemStack mod = getModifier(i);
-                                    ItemStack stack = handler.getStackInSlot(8);
-                                    boolean success = applyModifier(stack, mod);
-                                    if (success) {
-                                        handler.setStackInSlot(i, ItemStack.EMPTY);
-                                        tank.drain(1000, true);
-                                        energyStorage.consumePower(RF_PER_TICK);
-                                        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
-                                    }
-                                }
-                            }
-                        }
-                        canWork = false;
-                        processTime = 0;
+                        processTool();
                     }
                     processTime++;
                 }
@@ -175,7 +161,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                     if (success) {
                         handler.setStackInSlot(i, ItemStack.EMPTY);
                         tank.drain(1000, true);
-                        energyStorage.consumePower(RF_PER_TICK * maxProcessTime);
+                        energyStorage.consumePower(RF_PER_TICK);
                         world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
                     }
                 }
@@ -271,6 +257,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validToolList.add(ModItems.forceChest);
         validToolList.add(ModItems.forceLegs);
         validToolList.add(ModItems.forceBoots);
+        validToolList.add(Item.getItemFromBlock(ModBlocks.forceTorch));
     }
 
     private void populateModiferList() {
@@ -292,6 +279,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         validModifierList.add(Items.ENDER_PEARL);
         validModifierList.add(Items.GLOWSTONE_DUST);
         validModifierList.add(Items.POTIONITEM);
+        validModifierList.add(Items.CLOCK);
         validModifierList.add(Item.getItemFromBlock(Blocks.CRAFTING_TABLE));
         validModifierList.add(Item.getItemFromBlock(ModBlocks.forceLog));
         validModifierList.add(Item.getItemFromBlock(Blocks.WEB));
@@ -364,6 +352,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return addRainbowModifier(stack);
             }
         }
+        if(modifier == Items.CLOCK)
+            return addTimeModifier(stack);
 
         return false;
     }
@@ -655,6 +645,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private boolean addWingModifier(ItemStack stack) {
         if (stack.getItem() instanceof ItemArmor) {
             stack.getCapability(CAPABILITY_TOOLMOD, null).setWing(true);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean addTimeModifier(ItemStack stack) {
+        if(Block.getBlockFromItem(stack.getItem()) instanceof BlockForceTorch) {
+            handler.setStackInSlot(8, new ItemStack(ModBlocks.timetorch, 1));
             return true;
         }
         return false;

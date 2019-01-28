@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "G",
+    "S"
+  ],
+  "key": {
+    "G": [
+      {
+        "item": "dartcraftreloaded:goldenPowerSource",
+        "data": 0
+      }
+    ],
+    "S": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "stickWood"
+      }
+    ]
+  },
+  "result": {
+    "item": "dartcraftreloaded:forceTorch",
+    "data": 0,
+    "count": 4
+  }
+}
+
