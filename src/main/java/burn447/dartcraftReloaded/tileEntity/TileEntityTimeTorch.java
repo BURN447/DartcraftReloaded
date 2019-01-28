@@ -1,8 +1,10 @@
 package burn447.dartcraftReloaded.tileEntity;
 
+import burn447.dartcraftReloaded.blocks.torch.BlockTimetorch;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -25,22 +27,19 @@ public class TileEntityTimeTorch extends TileEntity implements ITickable {
     private int yMax;
     private int zMax;
 
-    private byte mode;
-    private byte cachedMode;
-
     private byte speed;
 
     private Random rand;
 
     public TileEntityTimeTorch() {
-        this.speed = 100;
+        this.speed = 3;
         this.rand = new Random();
-        System.out.println("TIME TORCH MADE");
     }
 
     @Override
     public void update() {
         if(this.world.isRemote) return;
+        //if(this.mode == 0 || this.speed == 0) return;
         this.updateCachedMode();
         this.tickNeighbor();
     }
@@ -61,26 +60,24 @@ public class TileEntityTimeTorch extends TileEntity implements ITickable {
     }
 
     private void updateCachedMode() {
-        if(cachedMode != mode) {
-            this.xMin = this.pos.getX() - this.mode;
-            this.yMin = this.pos.getY() - 1;
-            this.zMin = this.pos.getZ() - this.mode;
-            this.xMax = this.pos.getX() + this.mode;
-            this.yMax = this.pos.getY() + 1;
-            this.zMax = this.pos.getZ() + this.mode;
-            this.cachedMode = this.mode;
-        }
+        this.xMin = this.pos.getX() - 1;
+        this.yMin = this.pos.getY() - 1;
+        this.zMin = this.pos.getZ() - 1;
+        this.xMax = this.pos.getX() + 1;
+        this.yMax = this.pos.getY() + 1;
+        this.zMax = this.pos.getZ() + 1;
     }
+
 
     private void tickBlock(BlockPos pos) {
         IBlockState blockState = this.world.getBlockState(pos);
         Block block = blockState.getBlock();
 
-        if(block == null || block instanceof BlockFluidBase)
+        if(block == null || block instanceof BlockFluidBase || block instanceof BlockTimetorch || block == Blocks.AIR)
             return;
 
         if(block.getTickRandomly()) {
-            for(int i = 0; i < this.speed(this.speed); i++)
+            for(int i = 0; i < this.speed; i++)
             {
                 if(getWorld().getBlockState(pos) != blockState) break;
                 block.updateTick(this.world, pos, blockState, this.rand);
@@ -91,7 +88,7 @@ public class TileEntityTimeTorch extends TileEntity implements ITickable {
 
             if(tile == null || tile.isInvalid()) return;
 
-            for(int i = 0; i < this.speed(this.speed); i++)
+            for(int i = 0; i < this.speed; i++)
             {
                 if(tile.isInvalid())
                 {
@@ -109,7 +106,6 @@ public class TileEntityTimeTorch extends TileEntity implements ITickable {
     public NBTTagCompound writeToNBT(NBTTagCompound nbt) {
         super.writeToNBT(nbt);
         nbt.setByte("Speed", this.speed);
-        nbt.setByte("Mode", this.mode);
         return nbt;
     }
 
@@ -117,7 +113,6 @@ public class TileEntityTimeTorch extends TileEntity implements ITickable {
     public void readFromNBT(NBTTagCompound nbt) {
         super.readFromNBT(nbt);
         this.speed = nbt.getByte("Speed");
-        this.mode = nbt.getByte("Mode");
     }
 
     @Nullable

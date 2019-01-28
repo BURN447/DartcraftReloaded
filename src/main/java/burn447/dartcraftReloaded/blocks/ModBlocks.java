@@ -45,10 +45,10 @@ public class ModBlocks {
     public static BlockForceBrick forceBrickPurple = new BlockForceBrick("forceBrickPurple");
     public static BlockForceBrick forceBrickGray = new BlockForceBrick("forceBrickGray");
     public static BlockForceBrick forceBrick = new BlockForceBrick("forceBrick");
-    public static BlockTimetorch timetorch = new BlockTimetorch("timeTorch");
 
     //Torches
     public static BlockForceTorch forceTorch = new BlockForceTorch("forceTorch");
+    public static BlockTimetorch timetorch = new BlockTimetorch("timeTorch");
 
     public static void register(IForgeRegistry<Block> registry) {
         registry.registerAll(
@@ -174,7 +174,5 @@ public class ModBlocks {
         forceBrickRed.initOreDict();
         forceBrickWhite.initOreDict();
         forceBrickYellow.initOreDict();
-
-
     }
 }
