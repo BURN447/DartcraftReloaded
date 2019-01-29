@@ -24,6 +24,9 @@ import burn447.dartcraftReloaded.capablilities.Shearable.ShearableStorage;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.IToolModifier;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolFactory;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModStorage;
+import burn447.dartcraftReloaded.capablilities.UpgradeCore.IUpgradeCore;
+import burn447.dartcraftReloaded.capablilities.UpgradeCore.UpgradeCoreFactory;
+import burn447.dartcraftReloaded.capablilities.UpgradeCore.UpgradeCoreStorage;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
@@ -61,6 +64,9 @@ public class DCRCapabilityHandler {
     @CapabilityInject(IMagnet.class)
     public static Capability<IMagnet> CAPABILITY_MAGNET = null;
 
+    @CapabilityInject(IUpgradeCore.class)
+    public static Capability<IUpgradeCore> CAPABILITY_UPGRADE = null;
+
     public static void register(){
         CapabilityManager.INSTANCE.register(IToolModifier.class, new ToolModStorage(), new ToolFactory());
         CapabilityManager.INSTANCE.register(IForceRodModifier.class, new ForceRodStorage(), new ForceRodFactory());
@@ -70,6 +76,7 @@ public class DCRCapabilityHandler {
         CapabilityManager.INSTANCE.register(IForceWrench.class, new ForceWrenchStorage(), new ForceWrenchFactory());
         CapabilityManager.INSTANCE.register(IPlayerModifier.class, new PlayerModifierStorage(), new PlayerModifierFactory());
         CapabilityManager.INSTANCE.register(IMagnet.class, new MagnetStorage(), new MagnetFactory());
+        CapabilityManager.INSTANCE.register(IUpgradeCore.class, new UpgradeCoreStorage(), new UpgradeCoreFactory());
 
         MinecraftForge.EVENT_BUS.register(new DCRCapabilityHandler());
     }
