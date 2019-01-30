@@ -46,6 +46,7 @@ public class ItemForceMitt extends ItemTool {
         this.name = name;
         this.setRegistryName(name);
         this.setTranslationKey(name);
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
     }
 
     @Override
