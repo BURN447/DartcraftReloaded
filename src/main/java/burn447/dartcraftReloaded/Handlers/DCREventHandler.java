@@ -18,6 +18,7 @@ public class DCREventHandler {
         MinecraftForge.EVENT_BUS.register(new PlayerUtils());
         MinecraftForge.EVENT_BUS.register(new livingDeathEvent());
         MinecraftForge.EVENT_BUS.register(new livingDropsEvent());
+        MinecraftForge.EVENT_BUS.register(new lootTableLoadEvent());
     }
 
 
