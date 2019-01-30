@@ -1,0 +1,42 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "BSF",
+    " L "  ],
+  "key": {
+    "G": [
+      {
+        "item": "minecraft:gunpowder",
+        "data": 0
+      }
+    ],
+    "S": [
+      {
+        "item": "dartcraftreloaded:cookie_snow",
+        "data": 0
+      }
+    ],
+    "B": [
+      {
+        "item": "minecraft:bone",
+        "data": 0
+      }
+    ],
+    "F": [
+      {
+        "item": "minecraft:rotten_flesh"
+      }
+    ],
+    "L": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "dyeLightBlue"
+      }
+    ]
+  },
+  "result": {
+    "item": "dartcraftreloaded:soul_wafer",
+    "data": 0
+  }
+}
