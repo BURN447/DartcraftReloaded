@@ -147,4 +147,14 @@ public class ItemForceShears extends ItemShears {
     public void registerItemModel() {
         dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
     }
+
+    @Override
+    public int getItemEnchantability() {
+        return 0;
+    }
+
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
 }

@@ -28,6 +28,7 @@ item.force_wrench.name=Force Wrench
 item.force_rod.name=Force Rod
 item.forceShears.name=Force Shears
 item.magnetGlove.name=Magnet Glove
+item.forceMitt.name=Force Mitts
 
 #Blocks
 tile.orePower.name=Power Ore

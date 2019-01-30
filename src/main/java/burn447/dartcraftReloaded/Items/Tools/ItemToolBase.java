@@ -44,6 +44,11 @@ public class ItemToolBase extends Item {
         this.setMaxDamage(dartcraftReloaded.forceToolMaterial.getMaxUses());
     }
 
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
+
     @SideOnly(Side.CLIENT)
     protected void showDurabilityBar() {
         this.showDurabilityBar(this.getDefaultInstance());

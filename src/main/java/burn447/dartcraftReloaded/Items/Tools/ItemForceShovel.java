@@ -116,4 +116,15 @@ public class ItemForceShovel extends ItemSpade {
         ItemForceAxe.attatchInformation(stack, lores);
         super.addInformation(stack, worldIn, lores, flagIn);
     }
+
+    @Override
+    public int getItemEnchantability() {
+        return 0;
+    }
+
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
+
 }

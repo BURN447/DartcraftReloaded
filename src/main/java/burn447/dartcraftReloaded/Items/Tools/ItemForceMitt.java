@@ -49,6 +49,16 @@ public class ItemForceMitt extends ItemTool {
     }
 
     @Override
+    public int getItemEnchantability() {
+        return 0;
+    }
+
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
+
+    @Override
     @SuppressWarnings("incomplete-switch")
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {

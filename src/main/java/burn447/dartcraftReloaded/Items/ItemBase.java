@@ -3,6 +3,7 @@ package burn447.dartcraftReloaded.Items;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
@@ -41,5 +42,15 @@ public class ItemBase extends Item {
 
     public void initOreDict() {
         OreDictionary.registerOre(oreName, this);
+    }
+
+    @Override
+    public int getItemEnchantability() {
+        return 0;
+    }
+
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
     }
 }

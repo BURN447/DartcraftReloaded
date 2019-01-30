@@ -59,4 +59,9 @@ public class ItemArmor extends net.minecraft.item.ItemArmor {
         if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasWing())
             tooltip.add("Wing");
     }
+
+    @Override
+    public boolean isBookEnchantable(ItemStack stack, ItemStack book) {
+        return false;
+    }
 }

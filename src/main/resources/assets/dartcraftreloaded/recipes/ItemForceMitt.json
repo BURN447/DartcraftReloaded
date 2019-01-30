@@ -1,0 +1,38 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CI ",
+    "CFI",
+    "CLL"  ],
+  "key": {
+    "F": [
+      {
+        "item": "dartcraftreloaded:ingot_force",
+        "data": 0
+      }
+    ],
+    "L": [
+      {
+        "item": "minecraft:leather",
+        "data": 0
+      }
+    ],
+    "C": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "cobblestone"
+      }
+    ],
+    "I": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "ingotIron"
+      }
+    ]
+  },
+  "result": {
+    "item": "dartcraftreloaded:forceMitt",
+    "data": 0
+  }
+}
+
