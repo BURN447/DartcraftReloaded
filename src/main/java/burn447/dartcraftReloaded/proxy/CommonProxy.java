@@ -3,17 +3,24 @@ package burn447.dartcraftReloaded.proxy;
 import burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler;
 import burn447.dartcraftReloaded.Handlers.DCROreDictionaryHandler;
 import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.advancements.ModTriggers;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.tileEntity.TileEntityForceFurnace;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.tileEntity.TileEntityTimeTorch;
 import burn447.dartcraftReloaded.util.References;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Created by BURN447 on 2/4/2018.
@@ -42,6 +49,24 @@ public class CommonProxy {
     public void preInit(){
         DCRCapabilityHandler.register();
         DCROreDictionaryHandler.registerOreDictionary();
+    }
+
+    @Mod.EventHandler
+    public void init() {
+        Method method;
+
+        method = ReflectionHelper.findMethod(CriteriaTriggers.class, "register", "func_192118_a", ICriterionTrigger.class);
+
+        method.setAccessible(true);
+
+        for(int i = 0; i < ModTriggers.TRIGGER_ARRAY.length; i++) {
+            try {
+                method.invoke(null, ModTriggers.TRIGGER_ARRAY[i]);
+            }
+            catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void openGuideGUI(){}
