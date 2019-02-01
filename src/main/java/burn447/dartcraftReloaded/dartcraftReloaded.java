@@ -53,7 +53,7 @@ public class dartcraftReloaded {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent e){
-        System.out.println("Dartcraft Reloaded Pre-Init");
+        //System.out.println("Dartcraft Reloaded Pre-Init");
         GameRegistry.registerWorldGenerator(new DCRWorldGen(), 3);
         proxy.registerTileEntities();
         proxy.preInit();
@@ -64,7 +64,7 @@ public class dartcraftReloaded {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent e){
-        System.out.println("Dartcraft Reloaded Init");
+        //System.out.println("Dartcraft Reloaded Init");
         NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new DCRGUIHandler());
         GameRegistry.registerFuelHandler(new DCRFuelHandler());
         proxy.registerSmeltingRecipes();
@@ -74,7 +74,7 @@ public class dartcraftReloaded {
     }
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent e){
-        System.out.println("Dartcraft Reloaded Post-Init");
+        //System.out.println("Dartcraft Reloaded Post-Init");
     }
 
     @Mod.EventBusSubscriber

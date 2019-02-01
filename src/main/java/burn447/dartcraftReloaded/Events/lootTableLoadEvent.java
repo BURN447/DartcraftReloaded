@@ -18,6 +18,7 @@ public class lootTableLoadEvent {
             final LootPool pool = event.getTable().getPool("main");
 
             if(pool != null) {
+                System.out.println("Loaded Bat Loot Table");
                 pool.addEntry(new LootEntryItem(ModItems.claw, 1, 2, new LootFunction[0], new LootCondition[0], References.modId + ":batLoot"));
             }
         }
