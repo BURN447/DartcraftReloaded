@@ -87,7 +87,7 @@ public class GUIInfuser extends GuiContainer {
             this.drawHoveringText(text, actualMouseX, actualMouseY);
         }
 
-        if(isPointInRegion(10, 60, 15, 57, mouseX, mouseY)) {
+        if(isPointInRegion(10, 36, 15, 82, mouseX, mouseY)) {
             List<String> text = new ArrayList<>();
             if (te.tank.getFluid() == null) {
                 text.add(I18n.format("gui.blockInfuser.Empty.tooltip"));
@@ -135,7 +135,7 @@ public class GUIInfuser extends GuiContainer {
 
         TextureAtlasSprite fluidTexture = mc.getTextureMapBlocks().getTextureExtry(fluid.getStill().toString());
         mc.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        int fluidHeight = te.getFluidGuiHeight(58);
+        int fluidHeight = te.getFluidGuiHeight(82);
         drawTexturedModalRect(10, 60 + (58 - fluidHeight), fluidTexture, 16, fluidHeight);
     }
 

@@ -35,11 +35,8 @@ public class ContainerBlockInfuser extends Container {
         //Tools Slot
         this.addSlotToContainer(new SlotItemHandler(te.handler, 8, 80, 57));
 
-        //Force Book Slot
-        this.addSlotToContainer(new SlotForceBook(te.handler, 9, 10, 10));
-
         //Force Gem Slot
-        this.addSlotToContainer(new SlotForceGems(te.handler, 10, 10, 35));
+        this.addSlotToContainer(new SlotForceGems(te.handler, 9, 10, 10));
 
         int xPos = 8;
         int yPos = 127;

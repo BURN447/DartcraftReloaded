@@ -11,6 +11,8 @@ import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -78,7 +80,6 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     public DCREnergyStorage energyStorage = new DCREnergyStorage(MAX_POWER, 1000);
 
-
     public TileEntityInfuser() {
         populateToolList();
         populateModiferList();
@@ -135,15 +136,15 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     //Processes force Gems in the force infuser slot
     private void processForceGems() {
-        if (handler.getStackInSlot(10).getItem() == ModItems.gemForceGem) {
+        if (handler.getStackInSlot(9).getItem() == ModItems.gemForceGem) {
             FluidStack force = new FluidStack(FluidRegistry.getFluid("force"), 500);
 
             if (tank.getFluidAmount() < tank.getCapacity() - 100) {
                 fill(force, true);
-                if (handler.getStackInSlot(10).getCount() > 1) {
-                    handler.getStackInSlot(10).setCount(handler.getStackInSlot(10).getCount() - 1);
+                if (handler.getStackInSlot(9).getCount() > 1) {
+                    handler.getStackInSlot(9).setCount(handler.getStackInSlot(9).getCount() - 1);
                 } else
-                    handler.setStackInSlot(10, ItemStack.EMPTY);
+                    handler.setStackInSlot(9, ItemStack.EMPTY);
 
                 markDirty();
                 world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 2);
@@ -551,11 +552,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean addLumberjackModifier(ItemStack stack) {
-        if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()) {
-            stack.getCapability(CAPABILITY_TOOLMOD, null).setLumberJack(true);
-            return true;
-        } else
-            return false;
+        if (stack.getItem() instanceof ItemForceAxe) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLumberJack(true);
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean addHealingModifier(ItemStack stack) {
