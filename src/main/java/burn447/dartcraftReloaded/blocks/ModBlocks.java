@@ -155,8 +155,6 @@ public class ModBlocks {
     }
 
     public static void registerOreDict() {
-        forcePlanks.initOreDict();
-        forceLog.initOreDict();
         forceBrick.initOreDict();
         forceBrickBlack.initOreDict();
         forceBrickBlue.initOreDict();
