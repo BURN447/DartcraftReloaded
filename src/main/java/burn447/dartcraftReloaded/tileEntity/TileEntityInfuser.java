@@ -362,7 +362,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private boolean addSpeedModifier(ItemStack stack) {
         Item it = stack.getItem();
         if(it instanceof ItemForceAxe || it instanceof ItemForcePickaxe || it instanceof ItemForceShovel) {
-
+            if(stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+                if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed())
+                    return false;
+                else
+                    stack.getCapability(CAPABILITY_TOOLMOD, null).setSpeed(true);
+            }
         }
         return false;
     }
