@@ -4,6 +4,7 @@ package burn447.dartcraftReloaded.blocks;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.IBlockState;
@@ -32,6 +33,7 @@ public class BlockForceSapling extends BlockBush implements IGrowable, IPlantabl
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.setTranslationKey("force_sapling");
         this.setRegistryName("force_sapling");
+        this.setSoundType(SoundType.PLANT);
     }
 
     public void registerItemModel(Item itemBlock) {

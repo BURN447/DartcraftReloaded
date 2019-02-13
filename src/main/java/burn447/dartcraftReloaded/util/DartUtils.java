@@ -106,7 +106,7 @@ public class DartUtils {
     }
 
     public static boolean isLog(World world, BlockPos pos){
-        if(world.getBlockState(pos).getBlock() instanceof BlockLog || world.getBlockState(pos) instanceof BlockForceLog)
+        if(world.getBlockState(pos).getBlock() instanceof BlockLog || world.getBlockState(pos).getBlock() instanceof BlockForceLog)
             return true;
         else
             return false;
