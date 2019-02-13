@@ -364,6 +364,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         if(it instanceof ItemForceAxe || it instanceof ItemForcePickaxe || it instanceof ItemForceShovel) {
 
         }
+        return false;
     }
 
     private boolean addHeatModifier(ItemStack stack) {

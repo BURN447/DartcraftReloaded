@@ -19,20 +19,14 @@ public class ToolModProvider implements ICapabilitySerializable<NBTBase>, ICapab
 
 
     public ToolModProvider(Capability<IToolModifier> capability, EnumFacing facing){
-        if(capability != null){
-            CAPABILITY_TOOLMOD = capability;
-            this.facing = facing;
-            this.instance = CAPABILITY_TOOLMOD.getDefaultInstance();
-        }
+        this.facing = facing;
+        this.instance = CAPABILITY_TOOLMOD.getDefaultInstance();
     }
 
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        if(capability == CAPABILITY_TOOLMOD)
-            return capability == getCapability();
-        else
-            return false;
+        return capability == CAPABILITY_TOOLMOD;
     }
 
     @Nullable

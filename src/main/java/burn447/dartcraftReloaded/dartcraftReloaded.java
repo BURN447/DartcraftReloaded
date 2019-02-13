@@ -3,11 +3,14 @@ package burn447.dartcraftReloaded;
 import burn447.dartcraftReloaded.Fluids.ModFluids;
 import burn447.dartcraftReloaded.Handlers.*;
 import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.advancements.ModTriggers;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.client.tabDartcraft;
 import burn447.dartcraftReloaded.proxy.CommonProxy;
 import burn447.dartcraftReloaded.util.References;
 import burn447.dartcraftReloaded.world.DCRWorldGen;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -26,8 +29,14 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static burn447.dartcraftReloaded.util.References.modId;
+import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 
 /**
  * Created by BURN447 on 2/4/2018.
@@ -56,10 +65,12 @@ public class dartcraftReloaded {
         //System.out.println("Dartcraft Reloaded Pre-Init");
         GameRegistry.registerWorldGenerator(new DCRWorldGen(), 3);
         proxy.registerTileEntities();
-        proxy.preInit();
+        DCRCapabilityHandler.register();
+        DCROreDictionaryHandler.registerOreDictionary();
         DCRPotionHandler.preInit(e);
         ModFluids.registerFluids();
         ModFluids.setUpFluids();
+
     }
 
     @Mod.EventHandler
@@ -67,6 +78,20 @@ public class dartcraftReloaded {
         //System.out.println("Dartcraft Reloaded Init");
         NetworkRegistry.INSTANCE.registerGuiHandler(dartcraftReloaded.instance, new DCRGUIHandler());
         GameRegistry.registerFuelHandler(new DCRFuelHandler());
+        Method method;
+
+        method = ReflectionHelper.findMethod(CriteriaTriggers.class, "register", "func_192118_a", ICriterionTrigger.class);
+
+        method.setAccessible(true);
+
+        for(int i = 0; i < ModTriggers.TRIGGER_ARRAY.length; i++) {
+            try {
+                method.invoke(null, ModTriggers.TRIGGER_ARRAY[i]);
+            }
+            catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+                ex.printStackTrace();
+            }
+        }
         proxy.registerSmeltingRecipes();
         DCREventHandler.init();
         DCRPacketHandler.init();
@@ -88,6 +113,12 @@ public class dartcraftReloaded {
         public static void registerBlocks(RegistryEvent.Register<Block> event) {
             ModBlocks.registerNames();
             ModBlocks.register(event.getRegistry());
+            ModBlocks.registerModels();
+        }
+
+        @SideOnly(CLIENT)
+        @SubscribeEvent
+        public static void registerModels(RegistryEvent.Register<Block> event) {
             ModBlocks.registerModels();
         }
 

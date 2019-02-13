@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * Created by BURN447 on 5/15/2018.
  */
-public interface IToolModifier extends INBTSerializable<NBTTagCompound> {
+public interface IToolModifier {
 
     float getDestroySpeed(ItemStack stack, IBlockState state);
 

@@ -27,10 +27,4 @@ public class ClientProxy extends CommonProxy {
     public String localize(String unlocalized, Object... args) {
         return I18n.format(unlocalized, args);
     }
-
-    @Override
-    public void openGuideGUI()
-    {
-        Minecraft.getMinecraft().displayGuiScreen(new GUIGuideScreen());
-    }
 }

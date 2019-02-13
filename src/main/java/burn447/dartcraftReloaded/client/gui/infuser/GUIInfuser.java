@@ -124,10 +124,6 @@ public class GUIInfuser extends GuiContainer {
             DCRPacketHandler.sendToServer(new InfuserMessage(true));
             te.canWork = true;
         }
-        //Open Guide
-        if(button.id == 1) {
-            dartcraftReloaded.proxy.openGuideGUI();
-        }
     }
 
     private void drawFluidBar(){
