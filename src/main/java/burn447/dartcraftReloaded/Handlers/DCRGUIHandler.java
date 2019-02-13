@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.Handlers;
 
+import burn447.dartcraftReloaded.Items.ItemForcePack;
 import burn447.dartcraftReloaded.client.gui.furnace.GUIFurnace;
 import burn447.dartcraftReloaded.client.gui.infuser.GUIInfuser;
 import burn447.dartcraftReloaded.client.gui.pack.GUIForcePack;
@@ -7,7 +8,7 @@ import burn447.dartcraftReloaded.container.ContainerBlockFurnace;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
 import burn447.dartcraftReloaded.container.ContainerItemForcePack;
 import burn447.dartcraftReloaded.tileEntity.TileEntityForceFurnace;
-import burn447.dartcraftReloaded.tileEntity.Infuser.TileEntityInfuser;
+import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

@@ -360,31 +360,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean addSpeedModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemTool) {
-            if (stack.getItem() instanceof ItemForcePickaxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForceAxe) {
-                if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                    if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 8.0) {
-                        stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(12.0F);
-                        return true;
-                    } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 12.0) {
-                        stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(16.0F);
-                        return true;
-                    }
-                }
-            }
-            return false;
+        Item it = stack.getItem();
+        if(it instanceof ItemForceAxe || it instanceof ItemForcePickaxe || it instanceof ItemForceShovel) {
+
         }
-        if (stack.getItem() instanceof ItemArmor) {
-            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed())
-                    return false;
-                else {
-                    stack.getCapability(CAPABILITY_TOOLMOD, null).setSpeed(true);
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     private boolean addHeatModifier(ItemStack stack) {
