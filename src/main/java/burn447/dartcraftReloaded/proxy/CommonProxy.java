@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.proxy;
 
 import burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler;
+import burn447.dartcraftReloaded.Handlers.DCRCompatHandler;
 import burn447.dartcraftReloaded.Handlers.DCROreDictionaryHandler;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.advancements.ModTriggers;
@@ -48,6 +49,7 @@ public class CommonProxy {
     public void preInit(){
         DCRCapabilityHandler.register();
         DCROreDictionaryHandler.registerOreDictionary();
+        DCRCompatHandler.registerTOP();
     }
 
     @Mod.EventHandler

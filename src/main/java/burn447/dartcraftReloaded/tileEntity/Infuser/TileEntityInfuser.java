@@ -7,10 +7,16 @@ import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.blocks.torch.BlockForceTorch;
+import burn447.dartcraftReloaded.compat.TOPCompat;
 import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -53,7 +59,7 @@ import static net.minecraftforge.fluids.capability.CapabilityFluidHandler.FLUID_
 /**
  * Created by BURN447 on 3/30/2018.
  */
-public class TileEntityInfuser extends TileEntity implements ITickable, ICapabilityProvider, ITileEntityProvider, IFluidHandler {
+public class TileEntityInfuser extends TileEntity implements ITickable, ICapabilityProvider, ITileEntityProvider, IFluidHandler, TOPCompat.TOPInfoProvider {
 
 
     public final ItemStackHandler handler;
@@ -712,4 +718,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return tank.getFluid().equals(fluid);
     }
 
+    @Override
+    public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+        TileEntity te = world.getTileEntity(data.getPos());
+        if(te instanceof TileEntityInfuser) {
+            TileEntityInfuser tileEntityInfuser = (TileEntityInfuser) te;
+
+            probeInfo.horizontal(probeInfo.defaultLayoutStyle().borderColor(0xffff0000)).progress(tileEntityInfuser.fluidContained % 100, 100, probeInfo.defaultProgressStyle().suffix("%"));
+        }
+    }
 }
