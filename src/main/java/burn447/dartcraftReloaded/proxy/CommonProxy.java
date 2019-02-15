@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.proxy;
 
 import burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler;
+import burn447.dartcraftReloaded.Handlers.DCRCompatHandler;
 import burn447.dartcraftReloaded.Handlers.DCROreDictionaryHandler;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.advancements.ModTriggers;
@@ -44,4 +45,31 @@ public class CommonProxy {
         GameRegistry.addSmelting(ModBlocks.orePower, new ItemStack(ModItems.gemForceGem, 2), 2.0F);
         GameRegistry.addSmelting(ModBlocks.forceLog, new ItemStack(ModItems.goldenPowerSource), 2.0F);
     }
+
+    @Mod.EventHandler
+    public void preInit(){
+        DCRCapabilityHandler.register();
+        DCROreDictionaryHandler.registerOreDictionary();
+        DCRCompatHandler.registerTOP();
+    }
+
+    @Mod.EventHandler
+    public void init() {
+        Method method;
+
+        method = ReflectionHelper.findMethod(CriteriaTriggers.class, "register", "func_192118_a", ICriterionTrigger.class);
+
+        method.setAccessible(true);
+
+        for(int i = 0; i < ModTriggers.TRIGGER_ARRAY.length; i++) {
+            try {
+                method.invoke(null, ModTriggers.TRIGGER_ARRAY[i]);
+            }
+            catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void openGuideGUI(){}
 }
