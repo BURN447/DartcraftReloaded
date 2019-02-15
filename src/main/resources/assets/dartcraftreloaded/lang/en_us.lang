@@ -92,3 +92,8 @@ text.dartcraftReloaded.fortune17=PlaceHolder
 text.dartcraftReloaded.fortune18=PlaceHolder
 text.dartcraftReloaded.fortune19=PlaceHolder
 text.dartcraftReloaded.fortune20=PlaceHolder
+
+#Infuser GUI
+gui.blockInfuser.Empty.tooltip=Empty
+gui.blockInfuserHelp.tooltip=Help
+gui.blockInfuser.Start.tooltip=Start Infusion

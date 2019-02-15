@@ -5,7 +5,7 @@ import burn447.dartcraftReloaded.Handlers.DCRPacketHandler;
 import burn447.dartcraftReloaded.Networking.InfuserMessage;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
 import burn447.dartcraftReloaded.dartcraftReloaded;
-import burn447.dartcraftReloaded.tileEntity.Infuser.TileEntityInfuser;
+import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -123,10 +123,6 @@ public class GUIInfuser extends GuiContainer {
         if(button.id == 0){
             DCRPacketHandler.sendToServer(new InfuserMessage(true));
             te.canWork = true;
-        }
-        //Open Guide
-        if(button.id == 1) {
-            dartcraftReloaded.proxy.openGuideGUI();
         }
     }
 

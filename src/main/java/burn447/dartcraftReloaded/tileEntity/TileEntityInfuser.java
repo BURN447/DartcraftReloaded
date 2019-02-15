@@ -1,4 +1,4 @@
-package burn447.dartcraftReloaded.tileEntity.Infuser;
+package burn447.dartcraftReloaded.tileEntity;
 
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Fluids.FluidForce;
@@ -11,6 +11,8 @@ import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.client.Minecraft;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
@@ -41,6 +43,7 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -357,28 +360,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     }
 
     private boolean addSpeedModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemTool) {
-            if (stack.getItem() instanceof ItemForcePickaxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForceAxe) {
-                if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                    if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 8.0) {
-                        stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(12.0F);
-                        return true;
-                    } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() == 12.0) {
-                        stack.getCapability(CAPABILITY_TOOLMOD, null).setEfficiency(16.0F);
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        if (stack.getItem() instanceof ItemArmor) {
-            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed())
+        Item it = stack.getItem();
+        if(it instanceof ItemForceAxe || it instanceof ItemForcePickaxe || it instanceof ItemForceShovel) {
+            if(stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+                if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed())
                     return false;
-                else {
+                else
                     stack.getCapability(CAPABILITY_TOOLMOD, null).setSpeed(true);
-                    return true;
-                }
             }
         }
         return false;

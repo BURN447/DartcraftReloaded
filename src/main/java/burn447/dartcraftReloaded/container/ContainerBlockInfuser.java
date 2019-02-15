@@ -1,7 +1,8 @@
 package burn447.dartcraftReloaded.container;
 
+import burn447.dartcraftReloaded.container.Slot.SlotForceBook;
 import burn447.dartcraftReloaded.container.Slot.SlotForceGems;
-import burn447.dartcraftReloaded.tileEntity.Infuser.TileEntityInfuser;
+import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
@@ -35,7 +36,7 @@ public class ContainerBlockInfuser extends Container {
         this.addSlotToContainer(new SlotItemHandler(te.handler, 8, 80, 57));
 
         //Force Gem Slot
-        this.addSlotToContainer(new SlotForceGems(te.handler, 9, 10, 11));
+        this.addSlotToContainer(new SlotForceGems(te.handler, 9, 9, 11));
 
         int xPos = 8;
         int yPos = 127;

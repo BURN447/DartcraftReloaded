@@ -456,16 +456,6 @@ public class ToolFactory implements Callable<IToolModifier> {
             public void setEfficiency(float newEfficiency) {
                 efficiency = newEfficiency;
             }
-
-            @Override
-            public NBTTagCompound serializeNBT() {
-                return null;
-            }
-
-            @Override
-            public void deserializeNBT(NBTTagCompound nbt) {
-
-            }
         };
     }
 }

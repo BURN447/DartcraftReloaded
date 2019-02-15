@@ -6,13 +6,14 @@ import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.advancements.ModTriggers;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.tileEntity.TileEntityForceFurnace;
-import burn447.dartcraftReloaded.tileEntity.Infuser.TileEntityInfuser;
+import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
 import burn447.dartcraftReloaded.tileEntity.TileEntityTimeTorch;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.translation.I18n;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -43,30 +44,4 @@ public class CommonProxy {
         GameRegistry.addSmelting(ModBlocks.orePower, new ItemStack(ModItems.gemForceGem, 2), 2.0F);
         GameRegistry.addSmelting(ModBlocks.forceLog, new ItemStack(ModItems.goldenPowerSource), 2.0F);
     }
-
-    @Mod.EventHandler
-    public void preInit(){
-        DCRCapabilityHandler.register();
-        DCROreDictionaryHandler.registerOreDictionary();
-    }
-
-    @Mod.EventHandler
-    public void init() {
-        Method method;
-
-        method = ReflectionHelper.findMethod(CriteriaTriggers.class, "register", "func_192118_a", ICriterionTrigger.class);
-
-        method.setAccessible(true);
-
-        for(int i = 0; i < ModTriggers.TRIGGER_ARRAY.length; i++) {
-            try {
-                method.invoke(null, ModTriggers.TRIGGER_ARRAY[i]);
-            }
-            catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void openGuideGUI(){}
 }
