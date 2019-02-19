@@ -41,7 +41,7 @@ public class ItemForceWrench extends ItemBase {
             if (world.getTileEntity(pos) instanceof TileEntity && !heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).canStoreBlock()) {
                 return serializeNBT(world, pos, player, hand);
             } else if(heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).canStoreBlock())
-                placeBlockFromWrench(world, pos, player, hand);
+                placeBlockFromWrench(world, pos, player, hand, side);
         }
         return super.onItemUseFirst(player, world, pos, side, hitX, hitY, hitZ, hand);
     }
@@ -78,15 +78,15 @@ public class ItemForceWrench extends ItemBase {
         return EnumActionResult.FAIL;
     }
 
-    private EnumActionResult placeBlockFromWrench(World world, BlockPos pos, EntityPlayer player, EnumHand hand) {
+    private EnumActionResult placeBlockFromWrench(World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side) {
         ItemStack heldWrench = player.getHeldItem(hand);
         if(heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).getStoredBlockState() != null) {
             NBTTagCompound tileCmp = heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).getStoredBlockNBT();
             IBlockState state = heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).getStoredBlockState();
             TileEntity te = TileEntity.create(world, tileCmp);
-            te.setPos(pos.offset(EnumFacing.UP));
-            world.setBlockState(pos.offset(EnumFacing.UP), state);
-            world.setTileEntity(pos.offset(EnumFacing.UP), te);
+            te.setPos(pos.offset(side));
+            world.setBlockState(pos.offset(side), state);
+            world.setTileEntity(pos.offset(side), te);
             heldWrench.getCapability(CAPABILITY_FORCEWRENCH, null).clearBlockStorage();
         }
         return EnumActionResult.SUCCESS;
