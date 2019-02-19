@@ -13,14 +13,12 @@ public class PlayerUtils {
     @SubscribeEvent
     //@SideOnly(Side.CLIENT)
     public void onLoginEvent(PlayerEvent.PlayerLoggedInEvent event) {
+
+        event.player.sendMessage(new TextComponentString("Thank you for playing a BETA of Dartcraft Reloaded. However, since this is BETA, there could be many bugs that have not yet been found. " +
+                "If you find one of these, please report it to the Bug Tracker, where I can fix it withing the near future. The bug tracker can be found on the DCR Github.\n Thanks! \nBURN"));
+
         if(event.player.getName().equals("BURN447")) {
             event.player.sendMessage(new TextComponentString("Welcome BURN."));
-        }
-        else if(event.player.getName().equals("Darkosto")){
-            event.player.sendMessage(new TextComponentString(TextFormatting.YELLOW + "Happy Birthday Darkosto!"));
-        }
-        else if(event.player.getName().equals("Bacon_Donut")){
-            event.player.sendMessage(new TextComponentString(TextFormatting.RED + "May Bacon rain from the sky!"));
         }
     }
 }
