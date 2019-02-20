@@ -89,10 +89,7 @@ public class ItemToolBase extends Item {
 
     @Override
     public int getItemEnchantability(ItemStack stack) {
-        if(CAPABILITY_TOOLMOD != null)
-            return stack.getCapability(CAPABILITY_TOOLMOD, null).getItemEnchantibility();
-        else
-            return 0;
+        return 0;
     }
 
     @Override
