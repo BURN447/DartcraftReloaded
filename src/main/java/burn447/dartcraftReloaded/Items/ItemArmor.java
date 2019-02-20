@@ -46,18 +46,7 @@ public class ItemArmor extends net.minecraft.item.ItemArmor {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBane())
-            tooltip.add("Bane");
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasCamo())
-            tooltip.add("Camo");
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasHeat())
-            tooltip.add("Heat");
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed())
-            tooltip.add("Speed");
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasDamage())
-            tooltip.add("Damage");
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasWing())
-            tooltip.add("Wing");
+
     }
 
     @Override

@@ -58,15 +58,6 @@ public class ItemToolBase extends Item {
         dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
     }
 
-    public float getDestroySpeed(ItemStack stack, IBlockState state) {
-        for (String type : getToolClasses(stack))
-        {
-            if (state.getBlock().isToolEffective(type, state))
-                return efficiency;
-        }
-        return this.effectiveBlocks.contains(state.getBlock()) ? stack.getCapability(CAPABILITY_TOOLMOD, null).getEfficiency() : 1.0F;
-    }
-
     @Override
     public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
         stack.damageItem(2, attacker);

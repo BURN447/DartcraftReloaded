@@ -31,20 +31,7 @@ public class attackEntityEvent {
                 for (ItemStack slot : armor) {
                     //Only need one Level of Bane
                     if (slot.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                        if (slot.getCapability(CAPABILITY_TOOLMOD, null).hasBane()) {
-                            if (event.getTarget() instanceof EntityCreeper) {
-                                MobUtil.removeCreeperExplodeAI(((EntityCreeper) event.getTarget()));
-                            } else if (event.getTarget() instanceof EntityEnderman) {
-                                event.getTarget().getCapability(CAPABILITY_BANE, null).setTeleportAbility(false);
-                            }
-                        }
 
-                        if (slot.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1))
-                            bleedLevel++;
-                        if (slot.getCapability(CAPABILITY_TOOLMOD, null).hasHeat())
-                            heatLevel++;
-                        if (slot.getCapability(CAPABILITY_TOOLMOD, null).hasDamage())
-                            damageLevel++;
                     }
                 }
 

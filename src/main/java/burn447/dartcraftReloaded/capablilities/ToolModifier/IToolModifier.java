@@ -15,125 +15,14 @@ import java.util.Set;
  * Created by BURN447 on 5/15/2018.
  */
 public interface IToolModifier {
-
-    float getDestroySpeed(ItemStack stack, IBlockState state);
-
-    int getItemEnchantibility();
-
-    default boolean canApplyModifier(ItemStack stack, References.MODIFIERS mod){
-        return false;
-    }
-
-    Set<Block> getEffectiveBlocks();
-
-    Item.ToolMaterial getToolMaterial();
-
-    //Speed Modifer
-    float getEfficiency();
-
-    void setEfficiency(float newEfficiency);
-
-    //Damage Modifier
-    float getAttackDamage();
-    void setAttackDamage(float newVal);
-
-    //Freezing Modifier
-    boolean hasFreezing();
-    void setFreezing(boolean newVal);
-
-    //Heat Modifier
-    boolean hasHeat();
-    void setHeat(boolean newVal);
-
-    //Luck Modifier
-    boolean hasLuckLevel(int level);
-    boolean hasAnyLuck();
-    void setLuckOne(boolean newVal);
-    void setLuckTwo(boolean newVal);
-    void setLuckThree(boolean newVal);
-    void setLuckFour(boolean newVal);
-    void setLuck(int level);
-    int luckLevel();
-
-    //Wing Modifier
-    boolean hasWing();
-    void setWing(boolean newVal);
-
-    //Bane
-    boolean hasBane();
-    void setBane(boolean newVal);
-
-    //Light
-    boolean hasLightLevel(int level);
-    boolean hasAnyLight();
-    void setLightOne(boolean newVal);
-    void setLightTwo(boolean newVal);
-    void setLightThree(boolean newVal);
-    void setLightFour(boolean newVal);
-    void setLightFive(boolean newVal);
-    void setLight(int level);
-
-    //Repair
-    boolean hasRepair();
-    void setRepair(boolean newVal);
-
-    //Soul
-    boolean hasSoul();
-    void setSoul(boolean newVal);
-
-    //Treasure
-    boolean hasTreasure();
-    void setTreasure(boolean newVal);
-
-    //Unbreakable
-    boolean isUnbreakable();
-    void setUnbreaking(boolean newVal);
-
-    //Grinding
-    boolean hasGrinding();
-    void setGrinding(boolean newVal);
-
-    //Silk touch
-    boolean hasTouch();
-    void setTouch(boolean newVal);
-
-    //Sturdy
-    boolean hasSturdyLevel(int level);
-    boolean hasAnySturdy();
-    void setSturdy(int level, boolean newVal);
-    void setSturdy(int level);
-
-    //Grafting
-    //TODO: Needs Foresty Integration First
-
-    //Rainbow
-    boolean hasRainbow();
-    void setRainbow(boolean newVal);
-
-    //Force
-    float getKnockback();
-    void setKnockback(float newVal);
-
-    boolean hasLumberJack();
-    void setLumberJack(boolean newVal);
-
-    boolean hasEnder();
-    void setEnder(boolean newVal);
-
-    boolean hasBleeding(int level);
-    boolean hasAnyBleeding();
-    void setBleeding(int level);
-    void setBleeding(int level, boolean newVal);
-
-    boolean hasCamo();
-    void setCamo(boolean newVal);
-
+    /**
+     * Modifier: Speed
+     * Item: Sugar
+     * Levels: 5
+     * Effect: Gives Player Haste [Level] when holding the tool
+     */
+    int getSpeedLevel();
     boolean hasSpeed();
-    void setSpeed(boolean newVal);
-
-    boolean hasDamage();
-    void setDamage(boolean newVal);
-
-    boolean hasUpgrades(ItemStack stack);
-
+    void incrementSpeed();
+    void setSpeed(int newSpeed);
 }

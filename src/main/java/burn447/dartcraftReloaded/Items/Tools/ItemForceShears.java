@@ -40,7 +40,7 @@ public class ItemForceShears extends ItemShears {
         this.name = name;
     }
 
-    @Override
+    /*@Override
     public boolean itemInteractionForEntity(ItemStack itemstack, EntityPlayer player, EntityLivingBase entity, EnumHand hand) {
 
         if(itemstack.getCapability(CAPABILITY_TOOLMOD, null).hasRainbow()) {
@@ -116,7 +116,7 @@ public class ItemForceShears extends ItemShears {
             }
         }
         return super.itemInteractionForEntity(itemstack, player, entity, hand);
-    }
+    }*/
 
     private void dropItems(EntityLivingBase entity, List<ItemStack> drops, Random rand) {
         for (ItemStack stack : drops) {
@@ -138,9 +138,6 @@ public class ItemForceShears extends ItemShears {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasRainbow()){
-            tooltip.add("Rainbow");
-        }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

@@ -90,33 +90,6 @@ public class ItemForceSword extends ItemSword {
         return blockIn.getBlock() == Blocks.WEB;
     }
 
-    public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-
-        Vec3d look = attacker.getLookVec().normalize();
-
-        double knockback = stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback();
-
-        MobUtil.addBleedingEffect(stack, target);
-
-        target.addVelocity(look.x * knockback, look.y * knockback, look.z * knockback);
-
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBane()){
-            if(target instanceof EntityCreeper){
-                MobUtil.removeCreeperExplodeAI((EntityCreeper) target);
-            }
-            if(target instanceof EntityEnderman){
-                if(target.hasCapability(CAPABILITY_BANE, null))
-                    target.getCapability(CAPABILITY_BANE, null).setTeleportAbility(false);
-
-            }
-        }
-
-
-
-        stack.damageItem(1, attacker);
-        return true;
-    }
-
     public float getAttackDamage() {
         return dartcraftReloaded.forceToolMaterial.getAttackDamage();
     }
@@ -135,14 +108,6 @@ public class ItemForceSword extends ItemSword {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-        if(playerIn.getHeldItemMainhand().getCapability(CAPABILITY_TOOLMOD, null).hasEnder()){
-            if (!worldIn.isRemote)
-            {
-                EntityEnderPearl entityenderpearl = new EntityEnderPearl(worldIn, playerIn);
-                entityenderpearl.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-                worldIn.spawnEntity(entityenderpearl);
-            }
-        }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

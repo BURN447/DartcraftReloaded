@@ -309,339 +309,62 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         Item modifier = mod.getItem();
         if (modifier == Items.SUGAR)
             return addSpeedModifier(stack);
-        if (modifier == Items.COAL)
-            return addHeatModifier(stack);
-        if (modifier == Items.FLINT)
-            return addGrindingModifier(stack);
-        if (modifier == ModItems.nuggetForce)
-            return addForceModifier(stack);
-        if (modifier == Item.getItemFromBlock(Blocks.WEB))
-            return addSilkTouchModifier(stack);
-        if (modifier == ModItems.claw)
-            return addDamageModifier(stack);
-        if (modifier == ModItems.fortune)
-            return addLuckModifier(stack);
-        if (modifier == Items.GLOWSTONE_DUST)
-            return addLightModifier(stack);
-        if (modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
-            return addSturdyModifier(stack);
-        if (modifier == Item.getItemFromBlock(ModBlocks.forceLog))
-            return addLumberjackModifier(stack);
-        if (modifier == Items.GHAST_TEAR)
-            return addHealingModifier(stack);
-        if (modifier == Items.ENDER_PEARL)
-            return addEnderModifier(stack);
-        if (modifier == Items.ARROW)
-            return addBleedingModifier(stack);
-        if (modifier == Items.SPIDER_EYE)
-            return addBaneModifier(stack);
-        if (modifier == Items.FEATHER)
-            return addWingModifier(stack);
-        if (modifier == Items.POTIONITEM) {
-            List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
-            for (PotionEffect e : effects) {
-                if (e.getPotion() == MobEffects.NIGHT_VISION) {
-                    return addSightModifier(stack);
-                }
-                if (e.getPotion() == MobEffects.INVISIBILITY) {
-                    return addCamoModifier(stack);
-                }
-            }
-        }
-        if (modifier == Items.DYE) {
-            if (mod.getMetadata() == 4) {
-                return addRainbowModifier(stack);
-            }
-        }
-        if(modifier == Items.CLOCK)
-            return addTimeModifier(stack);
+//        if (modifier == Items.COAL)
+//            return addHeatModifier(stack);
+//        if (modifier == Items.FLINT)
+//            return addGrindingModifier(stack);
+//        if (modifier == ModItems.nuggetForce)
+//            return addForceModifier(stack);
+//        if (modifier == Item.getItemFromBlock(Blocks.WEB))
+//            return addSilkTouchModifier(stack);
+//        if (modifier == ModItems.claw)
+//            return addDamageModifier(stack);
+//        if (modifier == ModItems.fortune)
+//            return addLuckModifier(stack);
+//        if (modifier == Items.GLOWSTONE_DUST)
+//            return addLightModifier(stack);
+//        if (modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
+//            return addSturdyModifier(stack);
+//        if (modifier == Item.getItemFromBlock(ModBlocks.forceLog))
+//            return addLumberjackModifier(stack);
+//        if (modifier == Items.GHAST_TEAR)
+//            return addHealingModifier(stack);
+//        if (modifier == Items.ENDER_PEARL)
+//            return addEnderModifier(stack);
+//        if (modifier == Items.ARROW)
+//            return addBleedingModifier(stack);
+//        if (modifier == Items.SPIDER_EYE)
+//            return addBaneModifier(stack);
+//        if (modifier == Items.FEATHER)
+//            return addWingModifier(stack);
+//        if (modifier == Items.POTIONITEM) {
+//            List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
+//            for (PotionEffect e : effects) {
+//                if (e.getPotion() == MobEffects.NIGHT_VISION) {
+//                    return addSightModifier(stack);
+//                }
+//                if (e.getPotion() == MobEffects.INVISIBILITY) {
+//                    return addCamoModifier(stack);
+//                }
+//            }
+//        }
+//        if (modifier == Items.DYE) {
+//            if (mod.getMetadata() == 4) {
+//                return addRainbowModifier(stack);
+//            }
+//        }
+//        if(modifier == Items.CLOCK)
+//            return addTimeModifier(stack);
 
         return false;
     }
 
     private boolean addSpeedModifier(ItemStack stack) {
-        Item it = stack.getItem();
-        if(it instanceof ItemForceAxe || it instanceof ItemForcePickaxe || it instanceof ItemForceShovel) {
-            if(stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed())
-                    return false;
-                else
-                    stack.getCapability(CAPABILITY_TOOLMOD, null).setSpeed(true);
-            }
-        }
-        return false;
-    }
-
-    private boolean addHeatModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor) {
-            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setHeat(true);
+        if(stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForcePickaxe || stack.getItem() instanceof ItemForceAxe) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSpeedLevel() < 5) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSpeed();
                 return true;
             }
-        }
-        return false;
-    }
-
-    private boolean addForceModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceSword) {
-            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                if (stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 1.5F)
-                    stack.getCapability(CAPABILITY_TOOLMOD, null).setKnockback(1.5F);
-                else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getKnockback() == 1.5F)
-                    stack.getCapability(CAPABILITY_TOOLMOD, null).setKnockback(2.0F);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean addGrindingModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceAxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForcePickaxe) {
-            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setGrinding(true);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean addSilkTouchModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceAxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForcePickaxe) {
-            stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
-        }
-        return false;
-    }
-
-    private boolean addDamageModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceSword) {
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 8.0F) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setAttackDamage(12.0F);
-                return true;
-            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getAttackDamage() == 12.0F) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setAttackDamage(16.0F);
-                return true;
-            }
-        } else if (stack.getItem() instanceof ItemArmor) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasDamage()) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setDamage(true);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean addLuckModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForcePickaxe || stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForceAxe) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(4)) {
-                stack.addEnchantment(Enchantments.FORTUNE, 1);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(1);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(2)) {
-                DartUtils.removeEnchant(Enchantments.FORTUNE, stack);
-                stack.addEnchantment(Enchantments.FORTUNE, 2);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(2);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(3)) {
-                DartUtils.removeEnchant(Enchantments.FORTUNE, stack);
-                stack.addEnchantment(Enchantments.FORTUNE, 3);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(3);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(4)) {
-                DartUtils.removeEnchant(Enchantments.FORTUNE, stack);
-                stack.addEnchantment(Enchantments.FORTUNE, 4);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(4);
-                return true;
-            }
-        } else if (stack.getItem() instanceof ItemForceSword) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(4)) {
-                stack.addEnchantment(Enchantments.LOOTING, 1);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(1);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(2)) {
-                DartUtils.removeEnchant(Enchantments.LOOTING, stack);
-                stack.addEnchantment(Enchantments.LOOTING, 2);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(2);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(3)) {
-                DartUtils.removeEnchant(Enchantments.LOOTING, stack);
-                stack.addEnchantment(Enchantments.LOOTING, 3);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(3);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(4)) {
-                DartUtils.removeEnchant(Enchantments.LOOTING, stack);
-                stack.addEnchantment(Enchantments.LOOTING, 4);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(4);
-                return true;
-            }
-        } else if (stack.getItem() instanceof ItemArmor) {
-            if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1))
-                return false;
-            else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuckLevel(1)) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLuck(1);
-            }
-        }
-        return false;
-    }
-
-    private boolean addLightModifier(ItemStack stack) {
-        //Smite
-        if (stack.getItem() instanceof ItemForceSword) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(1)) {
-                stack.addEnchantment(Enchantments.SMITE, 1);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(1);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(2)) {
-                DartUtils.removeEnchant(Enchantments.SMITE, stack);
-                stack.addEnchantment(Enchantments.SMITE, 2);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(2);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(3)) {
-                DartUtils.removeEnchant(Enchantments.SMITE, stack);
-                stack.addEnchantment(Enchantments.SMITE, 3);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(3);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(4)) {
-                DartUtils.removeEnchant(Enchantments.SMITE, stack);
-                stack.addEnchantment(Enchantments.SMITE, 4);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(4);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLightLevel(5)) {
-                DartUtils.removeEnchant(Enchantments.SMITE, stack);
-                stack.addEnchantment(Enchantments.SMITE, 5);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(5);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean addSturdyModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemTool) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasSturdyLevel(1)) {
-                stack.addEnchantment(Enchantments.UNBREAKING, 1);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setSturdy(1);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasSturdyLevel(2)) {
-                DartUtils.removeEnchant(Enchantments.UNBREAKING, stack);
-                stack.addEnchantment(Enchantments.UNBREAKING, 2);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setSturdy(2);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasSturdyLevel(3)) {
-                DartUtils.removeEnchant(Enchantments.UNBREAKING, stack);
-                stack.addEnchantment(Enchantments.UNBREAKING, 3);
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setSturdy(3);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean addLumberjackModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceAxe) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLumberJack(true);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean addHealingModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceRod) {
-            if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
-                stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 1);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
-                stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 2);
-                return true;
-            } else if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(3) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
-                stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 3);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean addCamoModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceRod) {
-            stack.getCapability(CAPABILITY_FORCEROD, null).setCamoModifier(true);
-            return true;
-        } else if (stack.getItem() instanceof ItemArmor) {
-            stack.getCapability(CAPABILITY_TOOLMOD, null).setCamo(true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean addEnderModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceRod) {
-            stack.getCapability(CAPABILITY_FORCEROD, null).setEnderModifier(true);
-            return true;
-        } else if (stack.getItem() instanceof ItemForceSword) {
-            stack.getCapability(CAPABILITY_TOOLMOD, null).setEnder(true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean addSightModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceRod) {
-            stack.getCapability(CAPABILITY_FORCEROD, null).setSightModifier(true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean addRainbowModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceShears) {
-            stack.getCapability(CAPABILITY_TOOLMOD, null).setRainbow(true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean addBleedingModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemForceSword || stack.getItem() instanceof ItemArmor) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1)) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(1);
-                return true;
-            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2)) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(2);
-                return true;
-            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3)) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(3);
-                return true;
-            } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2) && stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1) && !stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4)) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setBleeding(4);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean addBaneModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemTool || stack.getItem() instanceof ItemArmor) {
-            if (stack.hasCapability(CAPABILITY_TOOLMOD, null)) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setBane(true);
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean addWingModifier(ItemStack stack) {
-        if (stack.getItem() instanceof ItemArmor) {
-            stack.getCapability(CAPABILITY_TOOLMOD, null).setWing(true);
-            return true;
-        }
-        return false;
-    }
-
-    private boolean addTimeModifier(ItemStack stack) {
-        if(Block.getBlockFromItem(stack.getItem()) instanceof BlockForceTorch) {
-            handler.setStackInSlot(8, new ItemStack(ModBlocks.timetorch, 1));
-            return true;
         }
         return false;
     }

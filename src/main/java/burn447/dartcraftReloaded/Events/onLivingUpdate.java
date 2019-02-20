@@ -36,19 +36,11 @@ public class onLivingUpdate {
             for (ItemStack slotSelected : armor) {
                 if (slotSelected.getItem() instanceof burn447.dartcraftReloaded.Items.ItemArmor && slotSelected.hasCapability(CAPABILITY_TOOLMOD, null)) {
                     //Camo
-                    if (slotSelected.getCapability(CAPABILITY_TOOLMOD, null).hasCamo()) {
-                        PotionEffect invisibility = new PotionEffect(MobEffects.INVISIBILITY, 20);
-                        player.addPotionEffect(invisibility);
-                    }
+
                     //Speed
-                    if (slotSelected.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed()) {
-                        PotionEffect speed = new PotionEffect(MobEffects.SPEED, 20);
-                        player.addPotionEffect(speed);
-                    }
+
                     //Wing
-                    if (slotSelected.getCapability(CAPABILITY_TOOLMOD, null).hasWing()) {
-                        wings++;
-                    }
+
                 }
             }
             //Checks Hotbar

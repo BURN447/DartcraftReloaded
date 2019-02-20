@@ -35,27 +35,7 @@ public class MobUtil {
     }
 
     public static void addBleedingEffect(ItemStack stack, EntityLivingBase target){
-        PotionEffect bleedingOne = new EffectBleeding(2);
-        PotionEffect bleedingTwo = new EffectBleeding(4);
-        PotionEffect bleedingThree = new EffectBleeding(5);
-        PotionEffect bleedingFour = new EffectBleeding(16);
 
-
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(4)){
-            target.addPotionEffect(bleedingFour);
-        }
-
-        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(3)){
-            target.addPotionEffect(bleedingThree);
-        }
-
-        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(2)){
-            target.addPotionEffect(bleedingTwo);
-        }
-
-        else if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleeding(1)){
-            target.addPotionEffect(bleedingOne);
-        }
     }
 
     public static void addBleedingEffect(int level, EntityLivingBase target){
