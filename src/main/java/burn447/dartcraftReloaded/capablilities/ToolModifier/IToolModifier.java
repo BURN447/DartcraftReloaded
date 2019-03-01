@@ -25,4 +25,24 @@ public interface IToolModifier {
     boolean hasSpeed();
     void incrementSpeed();
     void setSpeed(int newSpeed);
+
+    /**
+     * Modifier Heat
+     * Item: Golden Power Source
+     * Levels: 1
+     * Effect: Auto-Smelt Item drops
+     */
+    boolean hasHeat();
+    void setHeat(boolean val);
+
+    /**
+     * Modifier: Force
+     * Item: Force Nugget
+     * Levels: 3
+     * Effect: Gives the Sword Knockback
+     */
+    int getForceLevel();
+    boolean hasForce();
+    void incrementForce();
+    void setForce(int newForce);
 }

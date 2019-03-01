@@ -64,6 +64,8 @@ public class ItemForcePickaxe extends ItemPickaxe {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List toolTip, ITooltipFlag flagIn) {
         if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasSpeed())
             toolTip.add("Speed " + stack.getCapability(CAPABILITY_TOOLMOD, null).getSpeedLevel());
+        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasHeat())
+            toolTip.add("Heat");
         super.addInformation(stack, worldIn, toolTip, flagIn);
     }
 

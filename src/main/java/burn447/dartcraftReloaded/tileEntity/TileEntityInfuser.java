@@ -309,12 +309,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         Item modifier = mod.getItem();
         if (modifier == Items.SUGAR)
             return addSpeedModifier(stack);
-//        if (modifier == Items.COAL)
-//            return addHeatModifier(stack);
+        if (modifier == Items.COAL)
+            return addHeatModifier(stack);
 //        if (modifier == Items.FLINT)
 //            return addGrindingModifier(stack);
-//        if (modifier == ModItems.nuggetForce)
-//            return addForceModifier(stack);
+        if (modifier == ModItems.nuggetForce)
+            return addForceModifier(stack);
 //        if (modifier == Item.getItemFromBlock(Blocks.WEB))
 //            return addSilkTouchModifier(stack);
 //        if (modifier == ModItems.claw)
@@ -356,6 +356,29 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 //        if(modifier == Items.CLOCK)
 //            return addTimeModifier(stack);
 
+        return false;
+    }
+
+    private boolean addForceModifier(ItemStack stack) {
+        Item st = stack.getItem();
+        if(st instanceof ItemForceSword) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getForceLevel() < 5) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementForce();
+                stack.addEnchantment(Enchantments.KNOCKBACK, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addHeatModifier(ItemStack stack) {
+        Item st = stack.getItem();
+        if(st instanceof ItemForceAxe || st instanceof ItemForceShovel || st instanceof ItemForcePickaxe) {
+            if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasHeat()) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setHeat(true);
+                return true;
+            }
+        }
         return false;
     }
 

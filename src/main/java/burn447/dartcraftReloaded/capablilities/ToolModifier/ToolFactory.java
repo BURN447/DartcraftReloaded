@@ -47,6 +47,54 @@ public class ToolFactory implements Callable<IToolModifier> {
             public void setSpeed(int newSpeed) {
                 speed = newSpeed;
             }
+
+            /**
+             * Modifier Heat
+             * Item: Golden Power Source
+             * Levels: 1
+             * Effect: Auto-Smelt Item drops
+             */
+
+            private boolean heat;
+
+            @Override
+            public boolean hasHeat() {
+                return heat;
+            }
+
+            @Override
+            public void setHeat(boolean val) {
+                heat = val;
+            }
+
+            /**
+             * Modifier: Force
+             * Item: Force Nugget
+             * Levels: 3
+             * Effect: Gives the Sword Knockback
+             */
+
+            private int force;
+
+            @Override
+            public int getForceLevel() {
+                return force;
+            }
+
+            @Override
+            public boolean hasForce() {
+                return force != 0;
+            }
+
+            @Override
+            public void incrementForce() {
+                force++;
+            }
+
+            @Override
+            public void setForce(int newForce) {
+                force = newForce;
+            }
         };
     }
 }

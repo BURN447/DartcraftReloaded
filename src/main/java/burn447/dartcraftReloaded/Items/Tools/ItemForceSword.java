@@ -45,11 +45,8 @@ public class ItemForceSword extends ItemSword {
 
     private static String name;
 
-    public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
-
     public ItemForceSword(String name) {
         super(dartcraftReloaded.forceToolMaterial);
-        setApplicableModifers();
         this.setRegistryName(name);
         this.setTranslationKey(name);
         this.setCreativeTab(dartcraftReloaded.creativeTab);
@@ -60,28 +57,11 @@ public class ItemForceSword extends ItemSword {
         dartcraftReloaded.proxy.registerItemRenderer(this, 0, name);
     }
 
-    public void setApplicableModifers() {
-        applicableModifers.add(MOD_DAMAGE);
-        applicableModifers.add(MOD_FREEZING);
-        applicableModifers.add(MOD_HEAT);
-        applicableModifers.add(MOD_LUCK);
-        applicableModifers.add(MOD_WING);
-        applicableModifers.add(MOD_BANE);
-        applicableModifers.add(MOD_BLEED);
-        applicableModifers.add(MOD_LIGHT);
-        applicableModifers.add(MOD_REPAIR);
-        applicableModifers.add(MOD_SOUL);
-        applicableModifers.add(MOD_TREASURE);
-        applicableModifers.add(MOD_IMPERVIOUS);
-        applicableModifers.add(MOD_FORCE);
-    }
-
     public boolean onBlockDestroyed(ItemStack stack, World worldIn, IBlockState state, BlockPos pos, EntityLivingBase entityLiving) {
         if ((double)state.getBlockHardness(worldIn, pos) != 0.0D)
         {
             stack.damageItem(2, entityLiving);
         }
-
         return true;
     }
 
@@ -138,9 +118,9 @@ public class ItemForceSword extends ItemSword {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List lores, ITooltipFlag flagIn) {
-        ItemForceAxe.attatchInformation(stack, lores);
-        super.addInformation(stack, worldIn, lores, flagIn);
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List toolTip, ITooltipFlag flagIn) {
+        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasForce())
+            toolTip.add("Force " + stack.getCapability(CAPABILITY_TOOLMOD, null).getForceLevel());
     }
 
     @Override
