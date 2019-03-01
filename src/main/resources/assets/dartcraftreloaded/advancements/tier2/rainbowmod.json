@@ -1,0 +1,28 @@
+{
+  "display": {
+    "title": {
+      "text": "Rainbow"
+    },
+    "description": {
+      "text": "A Dark Blue Gem might just allow me to experience a rainbow of others when added to shears"
+    },
+    "icon": {
+      "item": "minecraft:dye",
+      "data": 4
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "parent": "dartcraftreloaded:tier2/root",
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}

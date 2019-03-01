@@ -1,0 +1,27 @@
+{
+  "display": {
+    "title": {
+      "text": "Crafting"
+    },
+    "description": {
+      "text": "I can craft in my inventory, but only with a belt"
+    },
+    "icon": {
+      "item": "minecraft:crafting_table"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "parent": "dartcraftreloaded:tier3/root",
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}

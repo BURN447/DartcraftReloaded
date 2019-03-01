@@ -1,0 +1,27 @@
+{
+  "display": {
+    "title": {
+      "text": "Healing"
+    },
+    "description": {
+      "text": "A Ghast Tear might make this rod into a great instrument of healing"
+    },
+    "icon": {
+      "item": "minecraft:ghast_tear"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "parent": "dartcraftreloaded:tier4/root",
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}

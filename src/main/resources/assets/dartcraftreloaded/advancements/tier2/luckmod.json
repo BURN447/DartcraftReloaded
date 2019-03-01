@@ -1,0 +1,27 @@
+{
+  "display": {
+    "title": {
+      "text": "Luck"
+    },
+    "description": {
+      "text": "I bet the inside of a fortune cookie might make me have a bit more luck"
+    },
+    "icon": {
+      "item": "dartcraftreloaded:cookie_fortune"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "parent": "dartcraftreloaded:tier2/root",
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "display": {
+    "title": {
+      "text": "Dartcraft Reloaded Tier 3",
+      "color": "gold",
+      "bold": false,
+      "italic": false,
+      "underlined": false,
+      "strikethrough": false,
+      "obfuscated": false
+    },
+    "description": {
+      "text": "I'm getting closer to enlightenment"
+    },
+    "icon": {
+      "item": "dartcraftreloaded:infuser"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}

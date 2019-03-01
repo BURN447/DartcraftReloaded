@@ -1,0 +1,27 @@
+{
+  "display": {
+    "title": {
+      "text": "Light"
+    },
+    "description": {
+      "text": "Leaving little pools of light all around"
+    },
+    "icon": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "parent": "dartcraftreloaded:tier4/root",
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "display": {
+    "title": {
+      "text": "Silk Touch"
+    },
+    "description": {
+      "text": "Silky webs could make my tool have a hint of silk to its touch"
+    },
+    "icon": {
+      "item": "minecraft:web"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "parent": "dartcraftreloaded:tier3/root",
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}

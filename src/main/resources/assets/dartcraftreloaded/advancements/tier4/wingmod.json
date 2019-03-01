@@ -1,0 +1,27 @@
+{
+  "display": {
+    "title": {
+      "text": "Wing"
+    },
+    "description": {
+      "text": "I'm Marry Poppins Y'all!"
+    },
+    "icon": {
+      "item": "minecraft:feather"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "parent": "dartcraftreloaded:tier4/root",
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}

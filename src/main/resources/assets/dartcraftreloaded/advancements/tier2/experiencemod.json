@@ -1,0 +1,27 @@
+{
+  "display": {
+    "title": {
+      "text": "Experience"
+    },
+    "description": {
+      "text": "A book might just be able to hold all of my extra experience"
+    },
+    "icon": {
+      "item": "minecraft:experience_bottle"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "parent": "dartcraftreloaded:tier2/root",
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}

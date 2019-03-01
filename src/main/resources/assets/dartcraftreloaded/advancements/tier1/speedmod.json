@@ -1,0 +1,27 @@
+{
+  "display": {
+    "title": {
+      "text": "Speed"
+    },
+    "description": {
+      "text": "Sugar seems to make people go fast, I wonder what it does to my tools and armor"
+    },
+    "icon": {
+      "item": "minecraft:sugar"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png"
+  },
+  "parent": "dartcraftreloaded:tier1/root",
+  "criteria": {
+    "PlacedInfuser": {
+      "trigger": "minecraft:placed_block",
+      "conditions": {
+        "block": "dartcraftreloaded:infuser"
+      }
+    }
+  }
+}
