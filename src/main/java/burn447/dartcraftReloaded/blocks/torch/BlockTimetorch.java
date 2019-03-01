@@ -25,6 +25,7 @@ public class BlockTimetorch extends BlockTorch implements ITileEntityProvider {
         this.setTranslationKey(name);
         this.setRegistryName(name);
         this.name = name;
+        this.setCreativeTab(dartcraftReloaded.creativeTab);
     }
 
     public void registerItemModel(Item itemBlock) {
