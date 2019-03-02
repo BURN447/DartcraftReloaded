@@ -45,4 +45,24 @@ public interface IToolModifier {
     boolean hasForce();
     void incrementForce();
     void setForce(int newForce);
+
+    /**
+     * Modifier Silk
+     * Item: Web
+     * Levels: 1
+     * Effect: Give Pick/Shovel/Axe Silk Touch
+     */
+    boolean hasSilk();
+    void setSilk(boolean val);
+
+    /**
+     * Modifier: Sharpness
+     * Item: Claw
+     * Levels: 10
+     * Effect: Adds Sharpness to Force Sword
+     */
+    int getSharpLevel();
+    boolean hasSharp();
+    void incrementSharp();
+    void setSharp(int newSharp);
 }

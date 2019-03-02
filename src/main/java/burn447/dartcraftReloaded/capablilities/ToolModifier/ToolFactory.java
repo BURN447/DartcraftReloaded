@@ -95,6 +95,55 @@ public class ToolFactory implements Callable<IToolModifier> {
             public void setForce(int newForce) {
                 force = newForce;
             }
+
+            /**
+             * Modifier Silk
+             * Item: Web
+             * Levels: 1
+             * Effect: Give Pick/Shovel/Axe Silk Touch
+             */
+
+            private boolean silk;
+
+            @Override
+            public boolean hasSilk() {
+                return silk;
+            }
+
+            @Override
+            public void setSilk(boolean val) {
+                silk = val;
+            }
+
+            /**
+             * Modifier: Sharpness
+             * Item: Claw
+             * Levels: 10
+             * Effect: Adds Sharpness to Force Sword
+             */
+
+            private int sharpness;
+
+            @Override
+            public int getSharpLevel() {
+                return sharpness;
+            }
+
+            @Override
+            public boolean hasSharp() {
+                return sharpness > 0;
+            }
+
+            @Override
+            public void incrementSharp() {
+                sharpness++;
+            }
+
+            @Override
+            public void setSharp(int newSharp) {
+                sharpness = newSharp;
+            }
+
         };
     }
 }

@@ -315,10 +315,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 //            return addGrindingModifier(stack);
         if (modifier == ModItems.nuggetForce)
             return addForceModifier(stack);
-//        if (modifier == Item.getItemFromBlock(Blocks.WEB))
-//            return addSilkTouchModifier(stack);
-//        if (modifier == ModItems.claw)
-//            return addDamageModifier(stack);
+        if (modifier == Item.getItemFromBlock(Blocks.WEB))
+            return addSilkTouchModifier(stack);
+        if (modifier == ModItems.claw)
+            return addDamageModifier(stack);
 //        if (modifier == ModItems.fortune)
 //            return addLuckModifier(stack);
 //        if (modifier == Items.GLOWSTONE_DUST)
@@ -356,6 +356,30 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 //        if(modifier == Items.CLOCK)
 //            return addTimeModifier(stack);
 
+        return false;
+    }
+
+    private boolean addDamageModifier(ItemStack stack) {
+        Item st = stack.getItem();
+        if(st instanceof ItemForceSword) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSharpLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSharp();
+                stack.addEnchantment(Enchantments.SHARPNESS, 1);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addSilkTouchModifier(ItemStack stack) {
+        Item st = stack.getItem();
+        if(st instanceof ItemForceAxe || st instanceof ItemForceShovel || st instanceof ItemForcePickaxe) {
+            if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasSilk()) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setSilk(true);
+                stack.addEnchantment(Enchantments.SILK_TOUCH, 1);
+                return true;
+            }
+        }
         return false;
     }
 
