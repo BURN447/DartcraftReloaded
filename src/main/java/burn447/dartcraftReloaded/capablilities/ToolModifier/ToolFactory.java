@@ -144,6 +144,35 @@ public class ToolFactory implements Callable<IToolModifier> {
                 sharpness = newSharp;
             }
 
+            /**
+             * Modifier: Luck
+             * Item: Fortune
+             * Levels: 5
+             * Effect: Adds Fortune to a tool or Looting to a sword
+             */
+
+            private int luck;
+
+            @Override
+            public int getLuckLevel() {
+                return luck;
+            }
+
+            @Override
+            public boolean hasLuck() {
+                return luck > 0;
+            }
+
+            @Override
+            public void incrementLuck() {
+                luck++;
+            }
+
+            @Override
+            public void setLuck(int newLuck) {
+                luck = newLuck;
+            }
+
         };
     }
 }

@@ -65,4 +65,15 @@ public interface IToolModifier {
     boolean hasSharp();
     void incrementSharp();
     void setSharp(int newSharp);
+
+    /**
+     * Modifier: Luck
+     * Item: Fortune
+     * Levels: 5
+     * Effect: Adds Fortune to a tool or Looting to a sword
+     */
+    int getLuckLevel();
+    boolean hasLuck();
+    void incrementLuck();
+    void setLuck(int newLuck);
 }

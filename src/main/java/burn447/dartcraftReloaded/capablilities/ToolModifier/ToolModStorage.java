@@ -32,6 +32,9 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
 
         //Sharpness
         nbt.setInteger("sharp", instance.getSpeedLevel());
+
+        //Luck
+        nbt.setInteger("luck", instance.getLuckLevel());
         return nbt;
     }
 
@@ -44,6 +47,7 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
             instance.setForce(nbt.getInteger("force"));
             instance.setSpeed(nbt.getInteger("silk"));
             instance.setSharp(nbt.getInteger("sharp"));
+            instance.setLuck(nbt.getInteger("luck"));
         }
     }
 

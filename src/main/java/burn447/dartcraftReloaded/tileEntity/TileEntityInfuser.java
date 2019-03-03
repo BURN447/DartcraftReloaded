@@ -12,11 +12,15 @@ import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.client.Minecraft;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentData;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
+import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -319,8 +323,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addSilkTouchModifier(stack);
         if (modifier == ModItems.claw)
             return addDamageModifier(stack);
-//        if (modifier == ModItems.fortune)
-//            return addLuckModifier(stack);
+        if (modifier == ModItems.fortune)
+            return addLuckModifier(stack);
 //        if (modifier == Items.GLOWSTONE_DUST)
 //            return addLightModifier(stack);
 //        if (modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
@@ -356,6 +360,18 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 //        if(modifier == Items.CLOCK)
 //            return addTimeModifier(stack);
 
+        return false;
+    }
+
+    private boolean addLuckModifier(ItemStack stack) {
+        Item st = stack.getItem();
+        if(st instanceof ItemForcePickaxe || st instanceof ItemForceShovel || st instanceof ItemForceAxe) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementLuck();
+                stack.addEnchantment(Enchantments.FORTUNE, stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel());
+                return true;
+            }
+        }
         return false;
     }
 
@@ -469,5 +485,4 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     protected boolean isFluidEqual(Fluid fluid) {
         return tank.getFluid().equals(fluid);
     }
-
 }
