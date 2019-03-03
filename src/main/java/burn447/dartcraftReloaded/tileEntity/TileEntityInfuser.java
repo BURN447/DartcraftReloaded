@@ -8,9 +8,12 @@ import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.blocks.torch.BlockForceTorch;
 import burn447.dartcraftReloaded.util.DartUtils;
+import burn447.dartcraftReloaded.util.EnchantUtils;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentData;
@@ -34,6 +37,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -84,6 +88,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     public DCREnergyStorage energyStorage = new DCREnergyStorage(MAX_POWER, 1000);
 
+    protected static final AxisAlignedBB AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D);
+
     public TileEntityInfuser() {
         populateToolList();
         populateModiferList();
@@ -120,6 +126,10 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         return super.writeToNBT(nbt);
     }
 
+    @Override
+    public AxisAlignedBB getRenderBoundingBox() {
+        return AABB;
+    }
 
     @Override
     public void update() {
@@ -367,8 +377,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         Item st = stack.getItem();
         if(st instanceof ItemForcePickaxe || st instanceof ItemForceShovel || st instanceof ItemForceAxe) {
             if(stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() < 10) {
+                if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuck()) {
+                    EnchantUtils.incLevel(stack, Enchantments.FORTUNE);
+                } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() == 0) {
+                    stack.addEnchantment(Enchantments.FORTUNE, 1);
+                }
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementLuck();
-                stack.addEnchantment(Enchantments.FORTUNE, stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel());
                 return true;
             }
         }
