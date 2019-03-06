@@ -44,6 +44,7 @@ public class ItemForceRod extends ItemBase {
         setApplicableModifers();
         this.setCreativeTab(dartcraftReloaded.creativeTab);
         this.setMaxDamage(100);
+        this.setMaxStackSize(1);
     }
 
     @Override
