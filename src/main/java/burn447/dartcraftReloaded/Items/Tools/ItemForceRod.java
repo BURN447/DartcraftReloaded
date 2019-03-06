@@ -35,8 +35,6 @@ public class ItemForceRod extends ItemBase {
 
     public List<References.MODIFIERS> applicableModifers = new ArrayList<>();
 
-    private Item.ToolMaterial toolMaterial = dartcraftReloaded.forceToolMaterial;
-
     public ItemForceRod(String name){
         super(name);
         setHasSubtypes(true);
@@ -53,6 +51,12 @@ public class ItemForceRod extends ItemBase {
             if (worldIn.getBlockState(pos.offset(facing)).getBlock().equals(Blocks.FIRE)) {
                 worldIn.setBlockToAir(pos.offset(facing));
             }
+        }
+
+        ItemStack stack = player.getHeldItem(hand);
+
+        if(stack.getCapability(CAPABILITY_FORCEROD, null).getHomeLocation() != null){
+            stack.getCapability(CAPABILITY_FORCEROD, null).teleportPlayerToLocation(player, stack.getCapability(CAPABILITY_FORCEROD, null).getHomeLocation());
         }
 
         return EnumActionResult.SUCCESS;
