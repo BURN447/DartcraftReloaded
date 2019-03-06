@@ -1,42 +1,36 @@
 package burn447.dartcraftReloaded.util;
 
+import javafx.beans.binding.IntegerBinding;
+import javafx.util.Pair;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 
-import java.util.Objects;
-import java.util.function.IntUnaryOperator;
+import java.util.Map;
+
+import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 
 public final class EnchantUtils {
-    public static final IntUnaryOperator INC = lvl -> Math.max(lvl + 1, Short.MAX_VALUE);
-    public static final IntUnaryOperator DEC = lvl -> Math.min(lvl - 1, 0);
-
-    private static final String ID = "id";
-    private static final String LVL = "lvl";
 
     private EnchantUtils() {}
 
-    public static boolean incLevel(ItemStack stack, Enchantment enchantment) {
-        return setLevel(stack, Objects.requireNonNull(enchantment.getRegistryName()).toString(), INC);
-    }
-
-    public static boolean decLevel(ItemStack stack, Enchantment enchantment) {
-        return setLevel(stack, Objects.requireNonNull(enchantment.getRegistryName()).toString(), DEC);
-    }
-
-    public static boolean setLevel(ItemStack stack, Enchantment enchantment, IntUnaryOperator op) {
-        return setLevel(stack, Objects.requireNonNull(enchantment.getRegistryName()).toString(), op);
-    }
-
-    private static boolean setLevel(ItemStack stack, String id, IntUnaryOperator op) {
-        for (NBTBase nbt : stack.getEnchantmentTagList()) {
-            NBTTagCompound c = (NBTTagCompound) nbt;
-            if (id.equals(c.getString(ID))) {
-                c.setInteger(LVL, op.applyAsInt(c.getInteger(LVL)));
-                return true;
-            }
-        }
+    public static boolean removeEnchant(ItemStack stack, Enchantment enchantment) {
+        Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
+        enchantments.remove(enchantment);
+        EnchantmentHelper.setEnchantments(enchantments, stack);
         return false;
+    }
+
+    public static void incrementLevel(ItemStack stack, Enchantment enchantment) {
+        for (NBTBase nbt : stack.getEnchantmentTagList()) {
+            Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
+            int oldLevel = enchantments.get(enchantment);
+            enchantments.remove(enchantment);
+            enchantments.put(enchantment, oldLevel + 1);
+            EnchantmentHelper.setEnchantments(enchantments, stack);
+        }
     }
 }

@@ -1,16 +1,5 @@
 package burn447.dartcraftReloaded.capablilities.ToolModifier;
 
-import burn447.dartcraftReloaded.Items.Tools.ItemForceSword;
-import burn447.dartcraftReloaded.dartcraftReloaded;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-
-import java.util.Set;
 import java.util.concurrent.Callable;
 
 public class ToolFactory implements Callable<IToolModifier> {
@@ -173,6 +162,72 @@ public class ToolFactory implements Callable<IToolModifier> {
                 luck = newLuck;
             }
 
+            /**
+             * Modifier: Sturdy
+             * Item: Bricks/Obsidian
+             * Levels: 10
+             * Effect: Adds 1 Level of Unbreaking to tool up to 10
+             */
+
+            private int sturdy;
+
+            @Override
+            public int getSturdyLevel() {
+                return sturdy;
+            }
+
+            @Override
+            public boolean hasSturdy() {
+                return sturdy > 0;
+            }
+
+            @Override
+            public void incrementSturdy() {
+                sturdy++;
+            }
+
+            @Override
+            public void setSturdy(int newSturdy) {
+                sturdy = newSturdy;
+            }
+
+            /**
+             * Modifier: Rainbow
+             * Items: Lapis Lazuli
+             * Levels: 1
+             * Effect: Makes sheep drop a random amount of colored wool
+             */
+
+            boolean rainbow;
+
+            @Override
+            public boolean hasRainbow() {
+                return rainbow;
+            }
+
+            @Override
+            public void setRainbow(boolean val) {
+                rainbow = val;
+            }
+
+            /**
+             * Modifier: Lumberjack
+             * Items: Force Log
+             * Levels: 1
+             * Effect: Allows an axe to chop an entire tree down
+             */
+
+            boolean lumberJack;
+
+            @Override
+            public boolean hasLumberjack() {
+                return lumberJack;
+            }
+
+            @Override
+            public void setLumberjack(boolean val) {
+                lumberJack = val;
+            }
         };
     }
 }

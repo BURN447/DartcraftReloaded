@@ -71,6 +71,11 @@ public class ForceRodFactory implements Callable<IForceRodModifier> {
             }
 
             @Override
+            public boolean isRodofEnder() {
+                return ender;
+            }
+
+            @Override
             public boolean hasSightModifier() {
                 return sight;
             }

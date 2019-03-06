@@ -21,6 +21,7 @@ public interface IForceRodModifier extends INBTSerializable<NBTTagCompound> {
     void teleportPlayerToLocation(EntityPlayer player, BlockPos pos);
     boolean hasEnderModifier();
     void setEnderModifier(boolean newVal);
+    boolean isRodofEnder();
 
     boolean hasSightModifier();
     void setSightModifier(boolean newVal);

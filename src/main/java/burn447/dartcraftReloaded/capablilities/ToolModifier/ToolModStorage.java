@@ -20,21 +20,22 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
         NBTTagCompound nbt = new NBTTagCompound();
         //Speed
         nbt.setInteger("speed", instance.getSpeedLevel());
-
         //Heat
         nbt.setBoolean("heat", instance.hasHeat());
-
         //Force
         nbt.setInteger("force", instance.getForceLevel());
-
         //Silk
         nbt.setBoolean("silk", instance.hasSilk());
-
         //Sharpness
         nbt.setInteger("sharp", instance.getSpeedLevel());
-
         //Luck
         nbt.setInteger("luck", instance.getLuckLevel());
+        //Sturdy
+        nbt.setInteger("sturdy", instance.getSturdyLevel());
+        //Rainbow
+        nbt.setBoolean("rainbow", instance.hasRainbow());
+        //Lumberjack
+        nbt.setBoolean("lumber", instance.hasLumberjack());
         return nbt;
     }
 
@@ -48,6 +49,9 @@ public class ToolModStorage implements Capability.IStorage<IToolModifier> {
             instance.setSpeed(nbt.getInteger("silk"));
             instance.setSharp(nbt.getInteger("sharp"));
             instance.setLuck(nbt.getInteger("luck"));
+            instance.setSturdy(nbt.getInteger("sturdy"));
+            instance.setRainbow(nbt.getBoolean("rainbow"));
+            instance.setLumberjack(nbt.getBoolean("lumber"));
         }
     }
 

@@ -76,4 +76,33 @@ public interface IToolModifier {
     boolean hasLuck();
     void incrementLuck();
     void setLuck(int newLuck);
+
+    /**
+     * Modifier: Sturdy
+     * Item: Bricks/Obsidian
+     * Levels: 10
+     * Effect: Adds 1 Level of Unbreaking to tool up to 10
+     */
+    int getSturdyLevel();
+    boolean hasSturdy();
+    void incrementSturdy();
+    void setSturdy(int newSturdy);
+
+    /**
+     * Modifier: Rainbow
+     * Items: Lapis Lazuli
+     * Levels: 1
+     * Effect: Makes sheep drop a random amount of colored wool
+     */
+    boolean hasRainbow();
+    void setRainbow(boolean val);
+
+    /**
+     * Modifier: Lumberjack
+     * Items: Force Log
+     * Levels: 1
+     * Effect: Allows an axe to chop an entire tree down
+     */
+    boolean hasLumberjack();
+    void setLumberjack(boolean val);
 }

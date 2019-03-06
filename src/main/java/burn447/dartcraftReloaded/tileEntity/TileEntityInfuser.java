@@ -337,14 +337,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addLuckModifier(stack);
 //        if (modifier == Items.GLOWSTONE_DUST)
 //            return addLightModifier(stack);
-//        if (modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
-//            return addSturdyModifier(stack);
-//        if (modifier == Item.getItemFromBlock(ModBlocks.forceLog))
-//            return addLumberjackModifier(stack);
-//        if (modifier == Items.GHAST_TEAR)
-//            return addHealingModifier(stack);
-//        if (modifier == Items.ENDER_PEARL)
-//            return addEnderModifier(stack);
+        if (modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
+            return addSturdyModifier(stack);
+        if (modifier == Item.getItemFromBlock(ModBlocks.forceLog))
+            return addLumberjackModifier(stack);
+        if (modifier == Items.GHAST_TEAR)
+            return addHealingModifier(stack);
+        if (modifier == Items.ENDER_PEARL)
+            return addEnderModifier(stack);
 //        if (modifier == Items.ARROW)
 //            return addBleedingModifier(stack);
 //        if (modifier == Items.SPIDER_EYE)
@@ -362,27 +362,109 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 //                }
 //            }
 //        }
-//        if (modifier == Items.DYE) {
-//            if (mod.getMetadata() == 4) {
-//                return addRainbowModifier(stack);
-//            }
-//        }
-//        if(modifier == Items.CLOCK)
-//            return addTimeModifier(stack);
+        if (modifier == Items.DYE) {
+            if (mod.getMetadata() == 4) {
+                return addRainbowModifier(stack);
+            }
+        }
+        if(modifier == Items.CLOCK)
+            return addTimeModifier(stack);
 
+        return false;
+    }
+
+    private boolean addEnderModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceRod) {
+            if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodofEnder()) {
+                stack.getCapability(CAPABILITY_FORCEROD, null).setEnderModifier(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addHealingModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceRod) {
+            if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
+                stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 1);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
+                stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 2);
+                return true;
+            } else if (!stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(3) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(2) && stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(1)) {
+                stack.getCapability(CAPABILITY_FORCEROD, null).setRodOfHealing(true, 3);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addLumberjackModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceAxe) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberjack()) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLumberjack(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addRainbowModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceShears) {
+            stack.getCapability(CAPABILITY_TOOLMOD, null).setRainbow(true);
+            return true;
+        }
+        return false;
+    }
+
+    private boolean addTimeModifier(ItemStack stack) {
+        if(Block.getBlockFromItem(stack.getItem()) instanceof BlockForceTorch) {
+            handler.setStackInSlot(8, new ItemStack(ModBlocks.timetorch, 1));
+            return true;
+        }
+        return false;
+    }
+
+    private boolean addSturdyModifier(ItemStack stack) {
+        Item st = stack.getItem();
+        if(st instanceof ItemForceSword || st instanceof ItemForceAxe || st instanceof ItemForceShovel || st instanceof ItemForcePickaxe || st instanceof ItemForceRod) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSturdyLevel() == 0) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSturdy();
+                stack.addEnchantment(Enchantments.UNBREAKING, 1);
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSturdyLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSturdy();
+                EnchantUtils.incrementLevel(stack, Enchantments.UNBREAKING);
+                return true;
+            }
+        }
         return false;
     }
 
     private boolean addLuckModifier(ItemStack stack) {
         Item st = stack.getItem();
         if(st instanceof ItemForcePickaxe || st instanceof ItemForceShovel || st instanceof ItemForceAxe) {
-            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() < 10) {
-                if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasLuck()) {
-                    EnchantUtils.incLevel(stack, Enchantments.FORTUNE);
-                } else if (stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() == 0) {
-                    stack.addEnchantment(Enchantments.FORTUNE, 1);
-                }
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() == 0) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementLuck();
+                stack.addEnchantment(Enchantments.FORTUNE, 1);
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementLuck();
+                EnchantUtils.incrementLevel(stack, Enchantments.FORTUNE);
+                return true;
+            }
+        }
+        else if(st instanceof ItemForceSword) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() == 0) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementLuck();
+                stack.addEnchantment(Enchantments.LOOTING, 1);
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementLuck();
+                EnchantUtils.incrementLevel(stack, Enchantments.LOOTING);
                 return true;
             }
         }
@@ -392,9 +474,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private boolean addDamageModifier(ItemStack stack) {
         Item st = stack.getItem();
         if(st instanceof ItemForceSword) {
-            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSharpLevel() < 10) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSharpLevel() == 0) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSharp();
                 stack.addEnchantment(Enchantments.SHARPNESS, 1);
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSharpLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSharp();
+                EnchantUtils.incrementLevel(stack, Enchantments.SHARPNESS);
                 return true;
             }
         }
@@ -416,9 +503,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private boolean addForceModifier(ItemStack stack) {
         Item st = stack.getItem();
         if(st instanceof ItemForceSword) {
-            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getForceLevel() < 5) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getForceLevel() == 0) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementForce();
-                stack.addEnchantment(Enchantments.KNOCKBACK, 1);
+                stack.addEnchantment(Enchantments.LOOTING, 1);
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getForceLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementForce();
+                EnchantUtils.incrementLevel(stack, Enchantments.LOOTING);
                 return true;
             }
         }
