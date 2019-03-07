@@ -228,6 +228,83 @@ public class ToolFactory implements Callable<IToolModifier> {
             public void setLumberjack(boolean val) {
                 lumberJack = val;
             }
+
+            /**
+             * Modifier: Bleeding
+             * Items: Arrow
+             * Levels: 2
+             * Effect: Applies Bleeding Potion Effect
+             */
+
+            int bleed;
+
+            @Override
+            public int getBleedLevel() {
+                return bleed;
+            }
+
+            @Override
+            public boolean hasBleed() {
+                return bleed > 0;
+            }
+
+            @Override
+            public void incrementBleed() {
+                bleed++;
+            }
+
+            @Override
+            public void setBleed(int newBleed) {
+                bleed = newBleed;
+            }
+
+            /**
+             * Modifier: Bane
+             * Items: Spider Eye
+             * Levels: 4
+             * Effect: Applies Bane Potion Effect
+             */
+
+            int bane;
+
+            @Override
+            public int getBaneLevel() {
+                return bane;
+            }
+
+            @Override
+            public boolean hasBane() {
+                return bane > 0;
+            }
+
+            @Override
+            public void incrementBane() {
+                bane++;
+            }
+
+            @Override
+            public void setBane(int newBane) {
+                bane = newBane;
+            }
+
+            /**
+             * Modifier: Wing
+             * Items: Feathers
+             * Levels: 1
+             * Effect: If full armor set is equipped, player can fly
+             */
+
+            boolean wing;
+
+            @Override
+            public boolean hasWing() {
+                return wing;
+            }
+
+            @Override
+            public void setWing(boolean val) {
+                wing = val;
+            }
         };
     }
 }

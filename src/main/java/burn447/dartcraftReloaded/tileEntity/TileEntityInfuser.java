@@ -345,12 +345,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addHealingModifier(stack);
         if (modifier == Items.ENDER_PEARL)
             return addEnderModifier(stack);
-//        if (modifier == Items.ARROW)
-//            return addBleedingModifier(stack);
-//        if (modifier == Items.SPIDER_EYE)
-//            return addBaneModifier(stack);
-//        if (modifier == Items.FEATHER)
-//            return addWingModifier(stack);
+        if (modifier == Items.ARROW)
+            return addBleedingModifier(stack);
+        if (modifier == Items.SPIDER_EYE)
+            return addBaneModifier(stack);
+        if (modifier == Items.FEATHER)
+            return addWingModifier(stack);
 //        if (modifier == Items.POTIONITEM) {
 //            List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
 //            for (PotionEffect e : effects) {
@@ -370,6 +370,38 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         if(modifier == Items.CLOCK)
             return addTimeModifier(stack);
 
+        return false;
+    }
+
+    private boolean addWingModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceSword) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasWing()) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setWing(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addBaneModifier(ItemStack stack) {
+        Item st = stack.getItem();
+        if(st instanceof ItemForceSword) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getBaneLevel() < 4) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementBane();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addBleedingModifier(ItemStack stack) {
+        Item st = stack.getItem();
+        if(st instanceof ItemForceSword) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getBleedLevel() < 2) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementBleed();
+                return true;
+            }
+        }
         return false;
     }
 

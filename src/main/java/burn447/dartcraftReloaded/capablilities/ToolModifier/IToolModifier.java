@@ -105,4 +105,38 @@ public interface IToolModifier {
      */
     boolean hasLumberjack();
     void setLumberjack(boolean val);
+
+    /**
+     * Modifier: Bleeding
+     * Items: Arrow
+     * Levels: 2
+     * Effect: Applies Bleeding Potion Effect
+     */
+
+    int getBleedLevel();
+    boolean hasBleed();
+    void incrementBleed();
+    void setBleed(int newBleed);
+
+    /**
+     * Modifier: Bane
+     * Items: Spider Eye
+     * Levels: 4
+     * Effect: Applies Bane Potion Effect
+     */
+
+    int getBaneLevel();
+    boolean hasBane();
+    void incrementBane();
+    void setBane(int newBane);
+
+    /**
+     * Modifier: Wing
+     * Items: Feathers
+     * Levels: 1
+     * Effect: If full armor set is equipped, player can fly
+     */
+
+    boolean hasWing();
+    void setWing(boolean val);
 }
