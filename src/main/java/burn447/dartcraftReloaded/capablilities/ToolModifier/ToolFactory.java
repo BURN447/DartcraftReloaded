@@ -305,6 +305,45 @@ public class ToolFactory implements Callable<IToolModifier> {
             public void setWing(boolean val) {
                 wing = val;
             }
+
+            /**
+             * Modifier: Camo
+             * Items: Invisibility Potion
+             * Levels: 1
+             * Effect: Gives Invisibility to wearer/user
+             */
+
+            boolean camo;
+
+            @Override
+            public boolean hasCamo() { return camo; }
+
+            @Override
+            public void setCamo(boolean val) { camo = val; }
+
+            /**
+             * Modifier: Sight
+             * Items: Night Vision Potion
+             * Levels: 1
+             * Effect: Gives Night Vision
+             */
+
+            boolean sight;
+
+            @Override
+            public boolean hasSight() { return sight; }
+
+            @Override
+            public void setSight(boolean val) { sight = val; }
+
+            /**
+             * Modifier: Light
+             * Items: Glowstone Dust
+             * Levels: 1
+             * Effect: Shows mobs through walls
+             */
+
+            boolean light;
         };
     }
 }

@@ -335,8 +335,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addDamageModifier(stack);
         if (modifier == ModItems.fortune)
             return addLuckModifier(stack);
-//        if (modifier == Items.GLOWSTONE_DUST)
-//            return addLightModifier(stack);
+        if (modifier == Items.GLOWSTONE_DUST)
+            return addLightModifier(stack);
         if (modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
             return addSturdyModifier(stack);
         if (modifier == Item.getItemFromBlock(ModBlocks.forceLog))
@@ -351,17 +351,17 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             return addBaneModifier(stack);
         if (modifier == Items.FEATHER)
             return addWingModifier(stack);
-//        if (modifier == Items.POTIONITEM) {
-//            List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
-//            for (PotionEffect e : effects) {
-//                if (e.getPotion() == MobEffects.NIGHT_VISION) {
-//                    return addSightModifier(stack);
-//                }
-//                if (e.getPotion() == MobEffects.INVISIBILITY) {
-//                    return addCamoModifier(stack);
-//                }
-//            }
-//        }
+        if (modifier == Items.POTIONITEM) {
+            List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
+            for (PotionEffect e : effects) {
+                if (e.getPotion() == MobEffects.NIGHT_VISION) {
+                    return addSightModifier(stack);
+                }
+                if (e.getPotion() == MobEffects.INVISIBILITY) {
+                    return addCamoModifier(stack);
+                }
+            }
+        }
         if (modifier == Items.DYE) {
             if (mod.getMetadata() == 4) {
                 return addRainbowModifier(stack);
@@ -370,6 +370,36 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         if(modifier == Items.CLOCK)
             return addTimeModifier(stack);
 
+        return false;
+    }
+
+    private boolean addLightModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceRod) {
+            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLight()) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addCamoModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceRod) {
+            if (!stack.getCapability(CAPABILITY_FORCEROD, null).hasCamoModifier()) {
+                stack.getCapability(CAPABILITY_FORCEROD, null).setCamoModifier(true);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean addSightModifier(ItemStack stack) {
+        if (stack.getItem() instanceof ItemForceRod) {
+            if (!stack.getCapability(CAPABILITY_FORCEROD, null).hasSightModifier()) {
+                stack.getCapability(CAPABILITY_FORCEROD, null).setCamoModifier(true);
+                return true;
+            }
+        }
         return false;
     }
 

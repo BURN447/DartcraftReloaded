@@ -139,4 +139,34 @@ public interface IToolModifier {
 
     boolean hasWing();
     void setWing(boolean val);
+
+    /**
+     * Modifier: Camo
+     * Items: Invisibility Potion
+     * Levels: 1
+     * Effect: Gives Invisibility to wearer/user
+     */
+
+    boolean hasCamo();
+    void setCamo(boolean val);
+
+    /**
+     * Modifier: Sight
+     * Items: Night Vision Potion
+     * Levels: 1
+     * Effect: Gives Night Vision
+     */
+
+    boolean hasSight();
+    void setSight(boolean val);
+
+    /**
+     * Modifier: Light
+     * Items: Glowstone Dust
+     * Levels: 1
+     * Effect: Shows mobs through walls
+     */
+
+    boolean hasLight();
+    void setLight(boolean val);
 }
