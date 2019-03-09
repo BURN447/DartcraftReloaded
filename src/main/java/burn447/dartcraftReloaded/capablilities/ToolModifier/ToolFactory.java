@@ -344,6 +344,16 @@ public class ToolFactory implements Callable<IToolModifier> {
              */
 
             boolean light;
+
+            @Override
+            public boolean hasLight() {
+                return light;
+            }
+
+            @Override
+            public void setLight(boolean val) {
+                light = val;
+            }
         };
     }
 }
