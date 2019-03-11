@@ -26,6 +26,8 @@ public class ForceRodStorage implements Capability.IStorage<IForceRodModifier> {
 
         nbt.setBoolean("sight", instance.hasSightModifier());
 
+        nbt.setBoolean("light", instance.hasLight());
+
         return nbt;
     }
 
@@ -42,6 +44,7 @@ public class ForceRodStorage implements Capability.IStorage<IForceRodModifier> {
             instance.setEnderModifier(nbt.getBoolean("ender"));
 
             instance.setSightModifier(nbt.getBoolean("sight"));
+            instance.setLight(nbt.getBoolean("light"));
         }
     }
 }

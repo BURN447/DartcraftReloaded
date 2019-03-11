@@ -26,4 +26,6 @@ public interface IForceRodModifier extends INBTSerializable<NBTTagCompound> {
     boolean hasSightModifier();
     void setSightModifier(boolean newVal);
 
+    boolean hasLight();
+    void setLight(boolean val);
 }

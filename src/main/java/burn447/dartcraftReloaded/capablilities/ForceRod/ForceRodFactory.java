@@ -85,6 +85,25 @@ public class ForceRodFactory implements Callable<IForceRodModifier> {
                 sight = newVal;
             }
 
+            /**
+             * Modifier: Light
+             * Items: Glowstone Dust
+             * Levels: 1
+             * Effect: Shows mobs through walls
+             */
+
+            boolean light;
+
+            @Override
+            public boolean hasLight() {
+                return light;
+            }
+
+            @Override
+            public void setLight(boolean val) {
+                light = val;
+            }
+
             @Override
             public NBTTagCompound serializeNBT() {
                 return null;
