@@ -1,17 +1,13 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
-import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModProvider;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.References;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import gnu.trove.set.hash.THashSet;
-import net.minecraft.block.Block;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -31,10 +27,8 @@ import java.util.List;
 import java.util.Queue;
 import java.util.Set;
 
-import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_MAGNET;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
 import static burn447.dartcraftReloaded.util.DartUtils.isLog;
-import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 
 /**
  * Created by BURN447 on 5/13/2018.
@@ -68,9 +62,9 @@ public class ItemForceAxe extends ItemAxe {
             return null;
     }
 
-    /*@Override
+    @Override
     public boolean onBlockStartBreak(ItemStack stack, BlockPos pos, EntityPlayer player) {
-        if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberJack()) {
+        if (stack.getCapability(CAPABILITY_TOOLMOD, null).hasLumberjack()) {
             if (player != null) {
                 if (DartUtils.isTree(player.getEntityWorld(), pos)) {
                     return fellTree(stack, pos, player);
@@ -78,7 +72,7 @@ public class ItemForceAxe extends ItemAxe {
             }
         }
         return false;
-    }*/
+    }
 
     public static boolean fellTree(ItemStack stack, BlockPos pos, EntityPlayer player){
         if(player.getEntityWorld().isRemote)

@@ -2,32 +2,21 @@ package burn447.dartcraftReloaded.tileEntity;
 
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Fluids.FluidForce;
-import burn447.dartcraftReloaded.Items.ItemArmor;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
 import burn447.dartcraftReloaded.blocks.torch.BlockForceTorch;
-import burn447.dartcraftReloaded.util.DartUtils;
 import burn447.dartcraftReloaded.util.EnchantUtils;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.ITileEntityProvider;
-import net.minecraft.block.properties.PropertyDirection;
-import net.minecraft.client.Minecraft;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentData;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Enchantments;
 import net.minecraft.init.Items;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.ContainerEnchantment;
 import net.minecraft.inventory.ItemStackHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemTool;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
@@ -51,7 +40,6 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -375,8 +363,8 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     private boolean addLightModifier(ItemStack stack) {
         if (stack.getItem() instanceof ItemForceRod) {
-            if (!stack.getCapability(CAPABILITY_TOOLMOD, null).hasLight()) {
-                stack.getCapability(CAPABILITY_TOOLMOD, null).setLight(true);
+            if (!stack.getCapability(CAPABILITY_FORCEROD, null).hasLight()) {
+                stack.getCapability(CAPABILITY_FORCEROD, null).setLight(true);
                 return true;
             }
         }
@@ -567,12 +555,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         if(st instanceof ItemForceSword) {
             if(stack.getCapability(CAPABILITY_TOOLMOD, null).getForceLevel() == 0) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementForce();
-                stack.addEnchantment(Enchantments.LOOTING, 1);
+                stack.addEnchantment(Enchantments.KNOCKBACK, 1);
                 return true;
             }
             else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getForceLevel() < 10) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementForce();
-                EnchantUtils.incrementLevel(stack, Enchantments.LOOTING);
+                EnchantUtils.incrementLevel(stack, Enchantments.KNOCKBACK);
                 return true;
             }
         }
@@ -592,8 +580,14 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     private boolean addSpeedModifier(ItemStack stack) {
         if(stack.getItem() instanceof ItemForceShovel || stack.getItem() instanceof ItemForcePickaxe || stack.getItem() instanceof ItemForceAxe) {
-            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSpeedLevel() < 5) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSpeedLevel() == 0) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSpeed();
+                stack.addEnchantment(Enchantments.EFFICIENCY, 1);
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSpeedLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSpeed();
+                EnchantUtils.incrementLevel(stack, Enchantments.EFFICIENCY);
                 return true;
             }
         }

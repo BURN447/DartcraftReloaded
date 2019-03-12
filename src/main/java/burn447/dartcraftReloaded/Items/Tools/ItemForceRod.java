@@ -8,7 +8,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionEffect;
@@ -74,6 +73,8 @@ public class ItemForceRod extends ItemBase {
 
         PotionEffect nightVision = new PotionEffect(MobEffects.NIGHT_VISION, 1000, 0);
 
+        PotionEffect sight = new PotionEffect(MobEffects.GLOWING, 1000, 0);
+
         if(stack.getCapability(CAPABILITY_FORCEROD, null).isRodOfHealing(3)){
             playerIn.addPotionEffect(regenThree);
         }
@@ -98,6 +99,10 @@ public class ItemForceRod extends ItemBase {
 
         if(stack.getCapability(CAPABILITY_FORCEROD, null).hasSightModifier()){
             playerIn.addPotionEffect(nightVision);
+        }
+
+        if(stack.getCapability(CAPABILITY_FORCEROD, null).hasLight()) {
+            playerIn.addPotionEffect(sight);
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
