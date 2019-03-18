@@ -2,8 +2,6 @@ package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.capablilities.ToolModifier.ToolModProvider;
 import burn447.dartcraftReloaded.dartcraftReloaded;
-import burn447.dartcraftReloaded.util.MobUtil;
-import burn447.dartcraftReloaded.util.References;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -12,17 +10,16 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.item.EntityEnderPearl;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemSword;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -31,12 +28,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
 import java.util.List;
 
-import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_BANE;
 import static burn447.dartcraftReloaded.Handlers.DCRCapabilityHandler.CAPABILITY_TOOLMOD;
-import static burn447.dartcraftReloaded.util.References.MODIFIERS.*;
 
 /**
  * Created by BURN447 on 5/13/2018.
@@ -88,7 +82,18 @@ public class ItemForceSword extends ItemSword {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-
+        //Wing Modifier
+        ItemStack heldStack = playerIn.getHeldItem(handIn);
+        if(heldStack.hasCapability(CAPABILITY_TOOLMOD, null)) {
+            if(heldStack.getCapability(CAPABILITY_TOOLMOD, null).hasWing()) {
+                Vec3d vec = playerIn.getLookVec();
+                double wantedVelocity = 1.7;
+                playerIn.motionX = vec.x * wantedVelocity;
+                playerIn.motionY = vec.y * wantedVelocity;
+                playerIn.motionZ = vec.z * wantedVelocity;
+                worldIn.playSound(null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.5F, 2.6F + (worldIn.rand.nextFloat() - worldIn.rand.nextFloat()) * 0.8F);
+            }
+        }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
@@ -119,8 +124,10 @@ public class ItemForceSword extends ItemSword {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List toolTip, ITooltipFlag flagIn) {
-        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasForce())
-            toolTip.add("Force " + stack.getCapability(CAPABILITY_TOOLMOD, null).getForceLevel());
+        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasWing())
+            toolTip.add("Wing");
+        if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasBleed())
+            toolTip.add("Bleeding " + stack.getCapability(CAPABILITY_TOOLMOD, null).getBleedLevel());
     }
 
     @Override

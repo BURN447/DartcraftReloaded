@@ -384,7 +384,7 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
     private boolean addSightModifier(ItemStack stack) {
         if (stack.getItem() instanceof ItemForceRod) {
             if (!stack.getCapability(CAPABILITY_FORCEROD, null).hasSightModifier()) {
-                stack.getCapability(CAPABILITY_FORCEROD, null).setCamoModifier(true);
+                stack.getCapability(CAPABILITY_FORCEROD, null).setSightModifier(true);
                 return true;
             }
         }

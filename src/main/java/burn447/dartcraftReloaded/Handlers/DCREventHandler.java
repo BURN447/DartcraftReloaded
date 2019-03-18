@@ -2,7 +2,6 @@ package burn447.dartcraftReloaded.Handlers;
 
 import burn447.dartcraftReloaded.Events.*;
 import burn447.dartcraftReloaded.util.PlayerUtils;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.common.MinecraftForge;
 
 /**
@@ -20,7 +19,6 @@ public class DCREventHandler {
         MinecraftForge.EVENT_BUS.register(new livingDeathEvent());
         MinecraftForge.EVENT_BUS.register(new livingDropsEvent());
         MinecraftForge.EVENT_BUS.register(new lootTableLoadEvent());
-        MinecraftForge.EVENT_BUS.register(new itemTooltipEvent());
     }
 
 
