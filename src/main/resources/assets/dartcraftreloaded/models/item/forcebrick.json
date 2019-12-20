@@ -1,6 +1,20 @@
 {
   "variants": {
+    "color=black": {"model": "dartcraftreloaded:brick_black"},
+    "color=blue": {"model": "dartcraftreloaded:brick_blue"},
+    "color=brown": {"model": "dartcraftreloaded:brick_brown"},
     "color=cyan": {"model": "dartcraftreloaded:brick_cyan"},
-    "color=white": {"model": "dartcraftreloaded:brick_white"}
+    "color=gray": {"model": "dartcraftreloaded:brick_gray"},
+    "color=green": {"model": "dartcraftreloaded:brick_green"},
+    "color=lightblue": {"model": "dartcraftreloaded:brick_lightblue"},
+    "color=lightgray": {"model": "dartcraftreloaded:brick_lightgray"},
+    "color=lime": {"model": "dartcraftreloaded:brick_lime"},
+    "color=magenta": {"model": "dartcraftreloaded:brick_magenta"},
+    "color=orange": {"model": "dartcraftreloaded:brick_orange"},
+    "color=pink": {"model": "dartcraftreloaded:brick_pink"},
+    "color=purple": {"model": "dartcraftreloaded:brick_purple"},
+    "color=red": {"model": "dartcraftreloaded:brick_red"},
+    "color=white": {"model": "dartcraftreloaded:brick_white"},
+    "color=yellow": {"model": "dartcraftreloaded:brick_yellow"}
   }
 }

@@ -50,7 +50,6 @@ public class CommonProxy {
     public void preInit(){
         DCRCapabilityHandler.register();
         DCROreDictionaryHandler.registerOreDictionary();
-        DCRCompatHandler.registerTOP();
     }
 
     @Mod.EventHandler

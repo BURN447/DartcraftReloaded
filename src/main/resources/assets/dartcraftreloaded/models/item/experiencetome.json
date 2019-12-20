@@ -1,6 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "dartcraftreloaded:items/experiencetome"
+    "layer0": "dartcraftreloaded:items/experiencetome",
+    "inventory": "dartcraftreloaded:items/experiencetome"
   }
 }

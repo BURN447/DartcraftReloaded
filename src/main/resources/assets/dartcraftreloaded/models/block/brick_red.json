@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "dartcraftreloaded:block/brick_red"
+  }
+}

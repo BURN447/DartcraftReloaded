@@ -1,7 +1,5 @@
 package burn447.dartcraftReloaded.util;
 
-import javafx.beans.binding.IntegerBinding;
-import javafx.util.Pair;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.init.Enchantments;
