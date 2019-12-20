@@ -1,7 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "all": "dartcraftreloaded:items/soulwafer",
-    "inventory": "dartcraftreloaded:items/soulwafer"
+    "layer0": "dartcraftreloaded:items/soulwafer"
   }
 }

@@ -17,6 +17,9 @@ public class ConfigHandler {
     @Config.Comment("Print in Log when Time Torch is placed and by who. Default: false")
     public static boolean timeTorchLogging = false;
 
+    @Config.Comment("Enable Beta Message. Default = True")
+    public static boolean betaMessage = true;
+
 
     @Mod.EventBusSubscriber(modid = References.modId)
     private static class EventHandler {

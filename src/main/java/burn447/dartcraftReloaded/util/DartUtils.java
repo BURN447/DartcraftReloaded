@@ -54,7 +54,7 @@ public class DartUtils {
         EnchantmentHelper.setEnchantments(enchantMap, stack);
     }
 
-    //Credit to Slimknights for this code until I can logic through it on my own
+    //Credit to Slimeknights for this code until I can logic through it on my own
     public static boolean isTree(World world, BlockPos origin){
         BlockPos pos = null;
         Stack<BlockPos> candidates = new Stack<>();
