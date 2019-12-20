@@ -90,7 +90,7 @@ public class BlockForceSapling extends BlockBush implements IGrowable, IPlantabl
 
     @Override
     public boolean canUseBonemeal(World world, Random rand, BlockPos pos, IBlockState state) {
-        return world.rand.nextFloat() < 0.45D;
+        return (double)world.rand.nextFloat() < 0.45D;
     }
 
     @Override
