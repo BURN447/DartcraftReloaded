@@ -1,6 +1,7 @@
 package burn447.dartcraftReloaded.Handlers;
 
 import burn447.dartcraftReloaded.Items.ItemForcePack;
+import burn447.dartcraftReloaded.client.gui.belt.GUIForceBelt;
 import burn447.dartcraftReloaded.client.gui.furnace.GUIFurnace;
 import burn447.dartcraftReloaded.client.gui.infuser.GUIInfuser;
 import burn447.dartcraftReloaded.client.gui.pack.GUIForcePack;
@@ -22,6 +23,7 @@ public class DCRGUIHandler implements IGuiHandler {
     public static final int INFUSER = 0;
     public static final int FURNACE = 1;
     public static final int PACK = 2;
+    public static final int BELT = 3;
 
 
     @Override
@@ -34,6 +36,9 @@ public class DCRGUIHandler implements IGuiHandler {
         }
         else if (ID == PACK) {
             return new GUIForcePack(player.inventory, player.getHeldItemMainhand());
+        }
+        else if(ID == BELT) {
+            return new GUIForceBelt(player.inventory, player.getHeldItemMainhand());
         }
         return null;
     }
