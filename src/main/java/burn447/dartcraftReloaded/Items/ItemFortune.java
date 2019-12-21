@@ -20,7 +20,7 @@ public class ItemFortune extends ItemBase {
 
     private String name;
     private String message;
-    private String[] fortunes = new String[21];
+    private String[] fortunes = new String[186];
 
     public ItemFortune(String name) {
         super(name);
@@ -29,7 +29,7 @@ public class ItemFortune extends ItemBase {
 
         Arrays.fill(fortunes, "0");
 
-        for(int i = 0; i < 21; i++) {
+        for(int i = 0; i <= 185; i++) {
             fortunes[i] = "text.dartcraftReloaded.fortune" + i;
         }
     }
