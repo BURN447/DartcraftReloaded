@@ -12,6 +12,7 @@ item.forceClaw.name=Claw
 item.gear_force.name=Force Gear
 item.cookie_snow.name=Snow Wafer
 item.forcePack.name=Force Pack
+item.forceBelt.name=Force Belt
 
 #Armor
 item.force_helmet.name=Force Cap
