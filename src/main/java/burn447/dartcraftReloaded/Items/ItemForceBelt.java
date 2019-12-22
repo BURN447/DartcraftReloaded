@@ -45,7 +45,7 @@ public class ItemForceBelt extends ItemBase {
     public EnumActionResult onItemUse(EntityPlayer player, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if(player.getHeldItem(hand).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)){
             //x,y,z coordinates are not important afaik
-            player.openGui(dartcraftReloaded.instance, DCRGUIHandler.PACK, worldIn, 0, 0, 0);
+            player.openGui(dartcraftReloaded.instance, DCRGUIHandler.BELT, worldIn, 0, 0, 0);
             return EnumActionResult.PASS;
         }
         //If it doesn't nothing bad happens
@@ -60,7 +60,7 @@ public class ItemForceBelt extends ItemBase {
 
     private static class InventoryProvider implements ICapabilitySerializable<NBTBase> {
 
-        private final IItemHandler inventory = new ItemStackHandler(40) {
+        private final IItemHandler inventory = new ItemStackHandler(8) {
             @Nonnull
             @Override
             public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {

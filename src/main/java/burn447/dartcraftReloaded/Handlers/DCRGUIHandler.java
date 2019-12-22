@@ -7,6 +7,7 @@ import burn447.dartcraftReloaded.client.gui.infuser.GUIInfuser;
 import burn447.dartcraftReloaded.client.gui.pack.GUIForcePack;
 import burn447.dartcraftReloaded.container.ContainerBlockFurnace;
 import burn447.dartcraftReloaded.container.ContainerBlockInfuser;
+import burn447.dartcraftReloaded.container.ContainerItemForceBelt;
 import burn447.dartcraftReloaded.container.ContainerItemForcePack;
 import burn447.dartcraftReloaded.tileEntity.TileEntityForceFurnace;
 import burn447.dartcraftReloaded.tileEntity.TileEntityInfuser;
@@ -51,6 +52,8 @@ public class DCRGUIHandler implements IGuiHandler {
             return new ContainerBlockFurnace(player.inventory, (TileEntityForceFurnace) world.getTileEntity(new BlockPos(x, y, z)));
         } else if (ID == PACK) {
             return new ContainerItemForcePack(player.inventory, player.getHeldItemMainhand());
+        } else if (ID == BELT) {
+            return new ContainerItemForceBelt(player.inventory, player.getHeldItemMainhand());
         }
         return null;
     }

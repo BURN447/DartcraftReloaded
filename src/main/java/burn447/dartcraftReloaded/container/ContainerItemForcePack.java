@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.container;
 
+import burn447.dartcraftReloaded.Items.ItemForceBelt;
 import burn447.dartcraftReloaded.Items.ItemForcePack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -34,7 +35,7 @@ public class ContainerItemForcePack extends Container {
                 this.addSlotToContainer(new SlotItemHandler(fp.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), counter, xPosC + k * 18, yPosC + j * 18) {
                     @Override
                     public boolean isItemValid(@Nonnull ItemStack stack) {
-                        return !(stack.getItem() instanceof ItemForcePack);
+                        return !(stack.getItem() instanceof ItemForcePack || stack.getItem() instanceof ItemForceBelt);
                     }
                 });
                 counter++;

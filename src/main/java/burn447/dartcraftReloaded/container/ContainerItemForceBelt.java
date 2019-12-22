@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.container;
 
+import burn447.dartcraftReloaded.Items.ItemForceBelt;
 import burn447.dartcraftReloaded.Items.ItemForcePack;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -23,7 +24,7 @@ public class ContainerItemForceBelt extends Container {
     public ContainerItemForceBelt(IInventory playerInv, ItemStack fp) {
 
         int xPosC = 17;
-        int yPosC = 20;
+        int yPosC = 19;
         //Maxes at 40
         int counter = 0;
 
@@ -34,7 +35,7 @@ public class ContainerItemForceBelt extends Container {
                 this.addSlotToContainer(new SlotItemHandler(fp.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), counter, xPosC + k * 18, yPosC + j * 18) {
                     @Override
                     public boolean isItemValid(@Nonnull ItemStack stack) {
-                        return !(stack.getItem() instanceof ItemForcePack);
+                        return !(stack.getItem() instanceof ItemForcePack || stack.getItem() instanceof ItemForceBelt);
                     }
                 });
                 counter++;
@@ -43,7 +44,7 @@ public class ContainerItemForceBelt extends Container {
 
         //Player Inventory
         int xPos = 8;
-        int yPos = 126;
+        int yPos = 53;
 
         //Slots 9-99
         for (int y = 0; y < 3; ++y) {
@@ -68,7 +69,7 @@ public class ContainerItemForceBelt extends Container {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
 
-            if(itemstack.getItem() instanceof ItemForcePack)
+            if(itemstack.getItem() instanceof ItemForceBelt)
                 return ItemStack.EMPTY;
 
             int containerSlots = inventorySlots.size() - player.inventory.mainInventory.size();
