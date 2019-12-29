@@ -15,7 +15,7 @@ repositories {
 }
 
 
-version = "1.12.2-4.0.1-TESTING"
+version = "1.12.2-5.0.0-BETA"
 group = "com.BURN447.dartcraftReloaded" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "dartcraftreloaded"
 
@@ -25,7 +25,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
+    version = "1.12.2-14.23.5.2847"
     runDir = "run"
     
     // the mappings can be changed at any time, and must be in the following format.

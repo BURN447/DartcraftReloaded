@@ -25,7 +25,7 @@ public class BlockFluidForce extends BlockFluidClassic {
 
     @Override
     public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
-        if(entityIn instanceof EntityLivingBase) {
+        if (entityIn instanceof EntityLivingBase) {
             ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.REGENERATION, 10, 10));
         }
     }
