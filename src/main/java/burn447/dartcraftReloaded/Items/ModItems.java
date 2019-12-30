@@ -1,5 +1,6 @@
 package burn447.dartcraftReloaded.Items;
 
+import burn447.dartcraftReloaded.Items.NonBurnable.ItemInertCore;
 import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -31,6 +32,7 @@ public class ModItems {
     public static ItemForcePack forcePack = new ItemForcePack("forcePack");
     public static ItemForceBelt forceBelt = new ItemForceBelt("forceBelt");
     public static ItemBottledWither bottledWither = new ItemBottledWither("bottledWither");
+    public static ItemInertCore inertCore = new ItemInertCore("inertCore");
 
     //Tools
     public static ItemForcePickaxe forcePickaxe = new ItemForcePickaxe("forcePickaxe");
@@ -73,7 +75,8 @@ public class ModItems {
                 magnetGlove,
                 forcePack,
                 forceBelt,
-                bottledWither
+                bottledWither,
+                inertCore
         );
     }
 
@@ -106,5 +109,6 @@ public class ModItems {
         forcePack.registerItemModel();
         forceBelt.registerItemModel();
         bottledWither.registerItemModel();
+        inertCore.registerItemModel();
     }
 }
