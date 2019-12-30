@@ -30,6 +30,7 @@ public class ModItems {
     public static ItemBase snowCookie = new ItemBase("cookie_snow").setCreativeTab(dartcraftReloaded.creativeTab);
     public static ItemForcePack forcePack = new ItemForcePack("forcePack");
     public static ItemForceBelt forceBelt = new ItemForceBelt("forceBelt");
+    public static ItemBottledWither bottledWither = new ItemBottledWither("bottledWither");
 
     //Tools
     public static ItemForcePickaxe forcePickaxe = new ItemForcePickaxe("forcePickaxe");
@@ -71,7 +72,8 @@ public class ModItems {
                 forceMitt,
                 magnetGlove,
                 forcePack,
-                forceBelt
+                forceBelt,
+                bottledWither
         );
     }
 
@@ -103,5 +105,6 @@ public class ModItems {
         magnetGlove.registerItemModel();
         forcePack.registerItemModel();
         forceBelt.registerItemModel();
+        bottledWither.registerItemModel();
     }
 }
