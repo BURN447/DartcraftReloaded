@@ -16,7 +16,6 @@ public class ItemBottledWither extends ItemBase {
 
     public ItemBottledWither(String name) {
         super(name);
-        this.setMaxStackSize(1);
     }
 
     @Override

@@ -1,10 +1,16 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.Items.ItemBase;
+import burn447.dartcraftReloaded.Items.ItemBottledWither;
+import burn447.dartcraftReloaded.Items.ModItems;
+import burn447.dartcraftReloaded.Items.NonBurnable.EntityNonBurnableItem;
+import burn447.dartcraftReloaded.Items.NonBurnable.ItemInertCore;
 import burn447.dartcraftReloaded.capablilities.ForceRod.ForceRodProvider;
 import burn447.dartcraftReloaded.dartcraftReloaded;
 import burn447.dartcraftReloaded.util.References;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
@@ -15,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -49,6 +56,31 @@ public class ItemForceRod extends ItemBase {
         if (!worldIn.isRemote) {
             if (worldIn.getBlockState(pos.offset(facing)).getBlock().equals(Blocks.FIRE)) {
                 worldIn.setBlockToAir(pos.offset(facing));
+                List<Entity> list = worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())));
+                boolean bw = false;
+                for (Entity i: list) {
+                    if(i instanceof EntityItem) {
+                        if(((EntityItem) i).getItem().getItem() instanceof ItemInertCore) {
+                            EntityItem bottledWither = new EntityNonBurnableItem(worldIn, pos.getX(), pos.getY()  + 1, pos.getZ(), new ItemStack(ModItems.bottledWither, ((EntityItem) i).getItem().getCount()));
+                            worldIn.spawnEntity(bottledWither);
+                            player.getHeldItem(hand).damageItem(1, player);
+                            bw = true;
+                        }
+                    }
+                }
+                if(bw) {
+                    for(Entity i: list) {
+                        if(i instanceof EntityItem) {
+                            if (((EntityItem) i).getItem().getItem() instanceof ItemInertCore) {
+                                worldIn.removeEntity(i);
+                            }
+                        }
+                    }
+                }
+            }
+            else {
+                List<Entity> list = worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ())));
+                //If it is a subset of items, it will drop swap an item
             }
         }
 
