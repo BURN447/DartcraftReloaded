@@ -1,7 +1,6 @@
 package burn447.dartcraftReloaded.Items.Tools;
 
 import burn447.dartcraftReloaded.Items.ItemBase;
-import burn447.dartcraftReloaded.Items.ItemBottledWither;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.NonBurnable.EntityNonBurnableItem;
 import burn447.dartcraftReloaded.Items.NonBurnable.ItemInertCore;
@@ -99,6 +98,11 @@ public class ItemForceRod extends ItemBase {
                                     worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), new ItemStack(Items.GOLD_INGOT, 6)));
                                     player.getHeldItem(hand).damageItem(1, player);
                                 }
+                                else if (((ItemArmor) ((EntityItem) i).getItem().getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER) {
+                                    worldIn.removeEntity(i);
+                                    worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), new ItemStack(ModItems.forceChest, 1)));
+                                    player.getHeldItem(hand).damageItem(1, player);
+                                }
                             }
                             if (((ItemArmor) ((EntityItem) i).getItem().getItem()).armorType == EntityEquipmentSlot.LEGS) {
                                 if (((ItemArmor) ((EntityItem) i).getItem().getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.IRON) {
@@ -109,6 +113,11 @@ public class ItemForceRod extends ItemBase {
                                 else if (((ItemArmor) ((EntityItem) i).getItem().getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.GOLD) {
                                     worldIn.removeEntity(i);
                                     worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), new ItemStack(Items.GOLD_INGOT, 5)));
+                                    player.getHeldItem(hand).damageItem(1, player);
+                                }
+                                else if (((ItemArmor) ((EntityItem) i).getItem().getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER) {
+                                    worldIn.removeEntity(i);
+                                    worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), new ItemStack(ModItems.forceLegs, 1)));
                                     player.getHeldItem(hand).damageItem(1, player);
                                 }
                             }
@@ -123,6 +132,11 @@ public class ItemForceRod extends ItemBase {
                                     worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), new ItemStack(Items.GOLD_INGOT, 3)));
                                     player.getHeldItem(hand).damageItem(1, player);
                                 }
+                                else if (((ItemArmor) ((EntityItem) i).getItem().getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER) {
+                                    worldIn.removeEntity(i);
+                                    worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), new ItemStack(ModItems.forceBoots, 1)));
+                                    player.getHeldItem(hand).damageItem(1, player);
+                                }
                             }
                             if (((ItemArmor) ((EntityItem) i).getItem().getItem()).armorType == EntityEquipmentSlot.HEAD) {
                                 if (((ItemArmor) ((EntityItem) i).getItem().getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.IRON) {
@@ -133,6 +147,11 @@ public class ItemForceRod extends ItemBase {
                                 else if (((ItemArmor) ((EntityItem) i).getItem().getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.GOLD) {
                                     worldIn.removeEntity(i);
                                     worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), new ItemStack(Items.GOLD_INGOT, 4)));
+                                    player.getHeldItem(hand).damageItem(1, player);
+                                }
+                                else if (((ItemArmor) ((EntityItem) i).getItem().getItem()).getArmorMaterial() == ItemArmor.ArmorMaterial.LEATHER) {
+                                    worldIn.removeEntity(i);
+                                    worldIn.spawnEntity(new EntityItem(worldIn, pos.getX(), pos.getY() + 1, pos.getZ(), new ItemStack(ModItems.forceHelmet, 1)));
                                     player.getHeldItem(hand).damageItem(1, player);
                                 }
                             }
