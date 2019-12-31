@@ -2,6 +2,7 @@ package burn447.dartcraftReloaded.tileEntity;
 
 import burn447.dartcraftReloaded.Energy.DCREnergyStorage;
 import burn447.dartcraftReloaded.Fluids.FluidForce;
+import burn447.dartcraftReloaded.Items.ItemArmor;
 import burn447.dartcraftReloaded.Items.ModItems;
 import burn447.dartcraftReloaded.Items.Tools.*;
 import burn447.dartcraftReloaded.blocks.ModBlocks;
@@ -309,36 +310,52 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
 
     private boolean applyModifier(ItemStack stack, ItemStack mod) {
         Item modifier = mod.getItem();
+        //Speed
         if (modifier == Items.SUGAR)
             return addSpeedModifier(stack);
+        //Heat
         if (modifier == Items.COAL)
             return addHeatModifier(stack);
+        //Grinding
 //        if (modifier == Items.FLINT)
 //            return addGrindingModifier(stack);
+        //Knockback
         if (modifier == ModItems.nuggetForce)
             return addForceModifier(stack);
+        //Touch
         if (modifier == Item.getItemFromBlock(Blocks.WEB))
             return addSilkTouchModifier(stack);
+        //Damage
         if (modifier == ModItems.claw)
             return addDamageModifier(stack);
+        //Luck
         if (modifier == ModItems.fortune)
             return addLuckModifier(stack);
+        //Light
         if (modifier == Items.GLOWSTONE_DUST)
             return addLightModifier(stack);
+        //Sturdy
         if (modifier == Item.getItemFromBlock(Blocks.BRICK_BLOCK) || modifier == Item.getItemFromBlock(Blocks.OBSIDIAN))
             return addSturdyModifier(stack);
+        //Lumberjack
         if (modifier == Item.getItemFromBlock(ModBlocks.forceLog))
             return addLumberjackModifier(stack);
+        //Healing
         if (modifier == Items.GHAST_TEAR)
             return addHealingModifier(stack);
+        //Ender
         if (modifier == Items.ENDER_PEARL)
             return addEnderModifier(stack);
+        //Bleeding
         if (modifier == Items.ARROW)
             return addBleedingModifier(stack);
+        //Bane
         if (modifier == Items.SPIDER_EYE)
             return addBaneModifier(stack);
+        //Wing
         if (modifier == Items.FEATHER)
             return addWingModifier(stack);
+        //Sight/Camo
         if (modifier == Items.POTIONITEM) {
             List<PotionEffect> effects = PotionUtils.getEffectsFromStack(mod);
             for (PotionEffect e : effects) {
@@ -350,11 +367,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 }
             }
         }
+        //Rainbow
         if (modifier == Items.DYE) {
             if (mod.getMetadata() == 4) {
                 return addRainbowModifier(stack);
             }
         }
+        //Time
         if(modifier == Items.CLOCK)
             return addTimeModifier(stack);
 
@@ -398,6 +417,13 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return true;
             }
         }
+        else if (stack.getItem() instanceof ItemArmor) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).hasWing()) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setWing(true);
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -409,6 +435,16 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return true;
             }
         }
+        else if (st instanceof ItemArmor) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getBaneLevel() == 0) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementBane();
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getBaneLevel() < 4) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementBane();
+                return true;
+            }
+        }
         return false;
     }
 
@@ -416,6 +452,16 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
         Item st = stack.getItem();
         if(st instanceof ItemForceSword) {
             if(stack.getCapability(CAPABILITY_TOOLMOD, null).getBleedLevel() < 2) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementBleed();
+                return true;
+            }
+        }
+        else if (st instanceof ItemArmor) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getBleedLevel() == 0) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementBleed();
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getBleedLevel() < 2) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementBleed();
                 return true;
             }
@@ -489,6 +535,16 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return true;
             }
         }
+        else if (stack.getItem() instanceof ItemArmor) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSturdyLevel() == 0) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSturdy();
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSturdyLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSturdy();
+                return true;
+            }
+        }
         return false;
     }
 
@@ -518,6 +574,16 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return true;
             }
         }
+        else if (st instanceof ItemArmor) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() == 0) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementLuck();
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getLuckLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementLuck();
+                return true;
+            }
+        }
         return false;
     }
 
@@ -532,6 +598,16 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSharpLevel() < 10) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSharp();
                 EnchantUtils.incrementLevel(stack, Enchantments.SHARPNESS);
+                return true;
+            }
+        }
+        else if (st instanceof ItemArmor) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSharpLevel() == 0) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSharp();
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSharpLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSharp();
                 return true;
             }
         }
@@ -575,6 +651,12 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
                 return true;
             }
         }
+        else if (stack.getItem() instanceof ItemArmor) {
+            if(!stack.getCapability(CAPABILITY_TOOLMOD, null).hasHeat()) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).setHeat(true);
+                return true;
+            }
+        }
         return false;
     }
 
@@ -588,6 +670,16 @@ public class TileEntityInfuser extends TileEntity implements ITickable, ICapabil
             else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSpeedLevel() < 10) {
                 stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSpeed();
                 EnchantUtils.incrementLevel(stack, Enchantments.EFFICIENCY);
+                return true;
+            }
+        }
+        else if (stack.getItem() instanceof ItemArmor) {
+            if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSpeedLevel() == 0) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSpeed();
+                return true;
+            }
+            else if(stack.getCapability(CAPABILITY_TOOLMOD, null).getSpeedLevel() < 10) {
+                stack.getCapability(CAPABILITY_TOOLMOD, null).incrementSpeed();
                 return true;
             }
         }
