@@ -15,6 +15,10 @@ public class PlayerModifierFactory implements Callable<IPlayerModifier> {
             private float attackDamage = ((float) SharedMonsterAttributes.ATTACK_DAMAGE.getDefaultValue());
             private float wingPower = 0.0f;
             private float flightCounter = wingPower;
+            private float heatDamage = 0.0f;
+            private float damage = attackDamage + heatDamage;
+            private int luck;
+
 
             @Override
             public float getAttackDamage() {
@@ -24,6 +28,11 @@ public class PlayerModifierFactory implements Callable<IPlayerModifier> {
             @Override
             public void setAttackDamage(float newDamage) {
                 attackDamage = newDamage;
+            }
+
+            @Override
+            public void addAttackDamage(float newDamage) {
+                attackDamage += newDamage;
             }
 
             @Override
@@ -50,6 +59,47 @@ public class PlayerModifierFactory implements Callable<IPlayerModifier> {
             public void setFlightTimer(float newFlightCounter) {
                 flightCounter = newFlightCounter;
             }
+
+            @Override
+            public float getHeatDamage() {
+                return heatDamage;
+            }
+
+            @Override
+            public void setHeatDamage(float newDamage) {
+                heatDamage = newDamage;
+            }
+
+            @Override
+            public void addHeatDamage(float newDamage) {
+                heatDamage += newDamage;
+            }
+
+            @Override
+            public float getDamage() {
+                return damage;
+            }
+
+            @Override
+            public void setDamage(float newDamage) {
+                damage = newDamage;
+            }
+
+            @Override
+            public int getLuckLevel() {
+                return luck;
+            }
+
+            @Override
+            public void setLuckLevel(int newLuck) {
+                luck = newLuck;
+            }
+
+            @Override
+            public void incrementLuckLevel(int newLuck) {
+                luck += newLuck;
+            }
+
         };
     }
 }

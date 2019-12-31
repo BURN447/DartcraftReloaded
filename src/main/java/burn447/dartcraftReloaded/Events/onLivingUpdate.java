@@ -33,14 +33,31 @@ public class onLivingUpdate {
             EntityPlayer player = ((EntityPlayer) event.getEntityLiving());
             Iterable<ItemStack> armor = player.getArmorInventoryList();
             int wings = 0;
+            boolean camo = false;
+            int speed = 0;
+            int damage = 0;
+            int heat = 0;
+            int luck = 0;
+            int bane = 0;
+            int bleed = 0;
             for (ItemStack slotSelected : armor) {
                 if (slotSelected.getItem() instanceof burn447.dartcraftReloaded.Items.ItemArmor && slotSelected.hasCapability(CAPABILITY_TOOLMOD, null)) {
                     //Camo
-
+                    if(slotSelected.getCapability(CAPABILITY_TOOLMOD, null).hasCamo()) {
+                        camo = true;
+                    }
                     //Speed
-
+                    speed += slotSelected.getCapability(CAPABILITY_TOOLMOD, null).getSpeedLevel();
                     //Wing
-
+                    if(slotSelected.getCapability(CAPABILITY_TOOLMOD, null).hasWing()) {
+                        wings++;
+                    }
+                    //Damage
+                    damage += slotSelected.getCapability(CAPABILITY_TOOLMOD, null).getSharpLevel();
+                    //Heat
+                    if(slotSelected.getCapability(CAPABILITY_TOOLMOD, null).hasHeat()) {
+                        heat++;
+                    }
                 }
             }
             //Checks Hotbar
@@ -68,6 +85,19 @@ public class onLivingUpdate {
                             player.sendPlayerAbilities();
                             flightList.remove(player);
                         }
+                    }
+                    if (camo) {
+                        PotionEffect camoEffect = new PotionEffect(MobEffects.INVISIBILITY, 200, 1);
+                        player.addPotionEffect(camoEffect);
+                    }
+                    if (speed != 0) {
+                        PotionEffect speedEffect = new PotionEffect(MobEffects.SPEED, 200, speed);
+                    }
+                    if (damage != 0) {
+                        player.getCapability(CAPABILITY_PLAYERMOD, null).addAttackDamage((float)(.5 * damage));
+                    }
+                    if (heat != 0) {
+                        player.getCapability(CAPABILITY_PLAYERMOD, null).addHeatDamage((float)(.5 * heat));
                     }
                 }
             }

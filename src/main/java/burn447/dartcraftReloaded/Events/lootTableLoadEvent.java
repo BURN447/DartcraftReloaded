@@ -20,7 +20,6 @@ public class lootTableLoadEvent {
 
             LootCondition[] noCondition = new LootCondition[0];
 
-            System.out.println("Added Bat Loot Table");
             LootPool pool = event.getTable().getPool("main");
 
             if(pool == null) {
