@@ -2,7 +2,6 @@ package burn447.dartcraftReloaded.tileEntity;
 
 import burn447.dartcraftReloaded.blocks.torch.BlockTimetorch;
 import net.minecraft.block.Block;
-import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;

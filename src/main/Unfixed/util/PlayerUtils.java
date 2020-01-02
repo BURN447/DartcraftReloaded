@@ -2,7 +2,6 @@ package burn447.dartcraftReloaded.util;
 
 import burn447.dartcraftReloaded.config.ConfigHandler;
 import net.minecraft.util.text.TextComponentString;
-import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
