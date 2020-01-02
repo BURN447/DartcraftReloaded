@@ -13,9 +13,9 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'maven-publish'
 
-version = '1.0'
-group = 'com.yourname.modid' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'modid'
+version = '1.15.1-1.0.0-ALPHA'
+group = 'com.burn447.dartcraftreloaded' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'dartcraftreloaded'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
@@ -89,7 +89,7 @@ dependencies {
     // Specify the version of Minecraft to use, If this is any group other then 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency. And it's patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.111'
+    minecraft 'net.minecraftforge:forge:1.15.1-30.0.20'
 
     // You may put jars on which you depend on in ./libs or you may define them like so..
     // compile "some.group:artifact:version:classifier"
@@ -116,11 +116,11 @@ jar {
     manifest {
         attributes([
             "Specification-Title": "dartcraftreloaded",
-            "Specification-Vendor": "burn447",
-            "Specification-Version": "1.14.41.0.0-ALPHA",
+            "Specification-Vendor": "Burn447",
+            "Specification-Version": "1.15.1-1.0.0-ALPHA", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"burn447",
+            "Implementation-Vendor" :"BURN447",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
