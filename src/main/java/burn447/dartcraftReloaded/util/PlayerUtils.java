@@ -15,8 +15,7 @@ public class PlayerUtils {
     //@SideOnly(Side.CLIENT)
     public void onLoginEvent(PlayerEvent.PlayerLoggedInEvent event) {
         if(ConfigHandler.betaMessage) {
-            event.player.sendMessage(new TextComponentString("Thank you for playing a BETA of Dartcraft Reloaded. However, since this is BETA, there could be many bugs that have not yet been found. " +
-                    "If you find one of these, please report it to the Bug Tracker, where I can fix it withing the near future. The bug tracker can be found on the DCR Github.\n Thanks! \nBURN"));
+            event.player.sendMessage(new TextComponentString("This version is officially EOL for 1.12.2. The mod is in no way complete, and is not recommended to be used in survival worlds. However, there will no longer be updates released for 1.12.2, which will allow a certain measure of stability. Please move to the 1.15 port when it becomes available on Curseforge"));
 
         }
         if(event.player.getName().equals("BURN447")) {

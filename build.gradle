@@ -15,7 +15,7 @@ repositories {
 }
 
 
-version = "1.12.2-5.0.0-BETA"
+version = "1.12.2-6.0.0-EOL"
 group = "com.BURN447.dartcraftReloaded" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "dartcraftreloaded"
 
